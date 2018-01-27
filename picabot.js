@@ -1,5 +1,3 @@
-import { User } from "discord.js";
-
 require("dotenv").config();
 const Discord = require("discord.js");
 const ytdl = require("ytdl-core");
@@ -88,7 +86,7 @@ bot.on("message", function(message) {
         //let out = ''; bot.users.forEach(function(user){if(user.bot){out+=user.username;}});
         var args2 = message.content.split(/[ ]+/);
         message.delete();
-        bot.users.forEach(User).send(args2.join("").substring(4));
+        bot.users.forEach(user).send(args2.join("").substring(4));
     }
 
     if (command === "discrim") {
