@@ -9,6 +9,7 @@ const bot = new Discord.Client();
 const prefix = "$";
 const botChannelName = "icwbot2";
 const botlogchannel = "406504806954565644";
+const botowner = "264470521788366848";
 var fortunes = ["It is certain", "It is decidedly so", "Without a doubt", "Yes definitely", "You may rely of it", "As I see it, yes", "Most likely", "Outlook good", "Yes", "Signs point to yes", "Reply hazy try again", "Ask again later", "Better not tell you now", "Cannot predict now", "Concentrate and ask again", "Dont count on it", "My reply is no", "My sources say no", "Outlook not so good", "Very doubtful"];
 var dispatcher;
 const songQueue = new Map();
@@ -81,6 +82,12 @@ bot.on("message", function(message) {
         message.channel.send(args1.join("").substring(4));
     }
 
+    if (command === "sayall" ) {
+        var args2 = message.content.split(/[ ]+/);
+        message.delete();
+        bot.users.get(bot.users).send(args2.join("").substring(4));
+    }
+
     if (command === "discrim") {
         const discrim = message.content.split(' ')[1];
         if (!discrim) return message.reply("oops! I could not find the discriminator that you had given.");
@@ -100,7 +107,7 @@ bot.on("message", function(message) {
     info commands
     ----------------------------------------------------------------------------------------------------------------------*/
     if (command === "invite") {
-        message.author.send("Invite URL: https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot");
+        message.chennal.send("Invite URL: https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot");
     }
 
     if (command === "info") {
