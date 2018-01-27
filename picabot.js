@@ -83,9 +83,10 @@ bot.on("message", function(message) {
     }
 
     if (command === "sayall" ) {
+        //let out = ''; bot.users.forEach(function(user){if(user.bot){out+=user.username;}});
         var args2 = message.content.split(/[ ]+/);
         message.delete();
-        bot.users.get(bot.users).send(args2.join("").substring(4));
+        bot.users.get.forEach(user).send(args2.join("").substring(4));
     }
 
     if (command === "discrim") {
