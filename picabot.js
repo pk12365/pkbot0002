@@ -1,3 +1,5 @@
+import { User } from "discord.js";
+
 require("dotenv").config();
 const Discord = require("discord.js");
 const ytdl = require("ytdl-core");
@@ -56,13 +58,13 @@ fs.readFile("save.json", function(err, data) {
 
 bot.on("message", function(message) {
 
-	if (message.author.bot) return undefined;
+    if (message.author.bot) return undefined;
 
-	if (message.channel.type == "dm" || message.channel.type == "group") return undefined;
+    if (message.channel.type == "dm" || message.channel.type == "group") return undefined;
 
-	if (!message.content.startsWith(prefix)) return undefined;
+    if (!message.content.startsWith(prefix)) return undefined;
 
-	const serverQueue = songQueue.get(message.guild.id);
+    const serverQueue = songQueue.get(message.guild.id);
 
     const args = message.content.substring(1).split(' ');
     //Get command from message
@@ -71,7 +73,7 @@ bot.on("message", function(message) {
     command = command.slice(prefix.length);
 
     if (command === "help") {
-		message.author.send("```Music commands are: \n   play     (add your music in the queue) \n   pause    (pause the player) \n   resume   (resume your player) \n   skip     (for next song) \n   prev     (for previous song) \n   stop     (stop & clear your player) \n   queue    (check queue list) \n   song     (view now playing) \n   random   (playing random song) ```", { reply: message });	
+        message.author.send("```Music commands are: \n   play     (add your music in the queue) \n   pause    (pause the player) \n   resume   (resume your player) \n   skip     (for next song) \n   prev     (for previous song) \n   stop     (stop & clear your player) \n   queue    (check queue list) \n   song     (view now playing) \n   random   (playing random song) ```", { reply: message });
     }
     /*----------------------------------------------------------------------------------------------------------------
                                                 until commands
@@ -82,11 +84,11 @@ bot.on("message", function(message) {
         message.channel.send(args1.join("").substring(4));
     }
 
-    if (command === "sayall" ) {
+    if (command === "sayall") {
         //let out = ''; bot.users.forEach(function(user){if(user.bot){out+=user.username;}});
         var args2 = message.content.split(/[ ]+/);
         message.delete();
-        bot.users.get.forEach(user).send(args2.join("").substring(4));
+        bot.users.forEach(User).send(args2.join("").substring(4));
     }
 
     if (command === "discrim") {
