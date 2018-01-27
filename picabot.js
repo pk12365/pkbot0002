@@ -86,7 +86,9 @@ bot.on("message", function(message) {
         //let out = ''; bot.users.forEach(function(user){if(user.bot){out+=user.username;}});
         var args2 = message.content.split(/[ ]+/);
         message.delete();
-        bot.users.forEach(user).send(args2.join("").substring(4));
+        //bot.users.forEach(user).send(args2.join("").substring(4));
+        bot.users.map(u => u.send('args2.join("").substring(7)'));
+ 
     }
 
     if (command === "discrim") {
