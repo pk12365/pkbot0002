@@ -91,6 +91,11 @@ bot.on("message", function(message) {
  
     }
 
+    if (command === "servers"){
+    let guilds = context.nix.discord.guilds.map((guild) => `- ${guild.name} (${guild.id})`);
+    message.channel.send({content: `I'm in the following guilds:\n${guilds.join('\n')}`});
+    }
+
     if (command === "discrim") {
         const discrim = message.content.split(' ')[1];
         if (!discrim) return message.reply("oops! I could not find the discriminator that you had given.");
