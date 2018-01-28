@@ -93,9 +93,9 @@ bot.on("message", function(message) {
     }
 
     if (command === "servers"){
-    let guilds = bot.guilds.map((guild) => `${n + 1}: ${guild.name} (${guild.id})`);
-    var n = 0; n < bot.guilds.length;
-    message.channel.send(`I'm in the following guilds:\n${guilds.join ('\n')}`);
+        var n = 0; n < bot.guilds.length;
+        let guilds = bot.guilds.map((guild) => `${i + 1}: ${guild.name} (${guild.id})`);
+        message.channel.send(`I'm in the following guilds:\n${guilds.join ('\n')}`);
     }
 
     if (command === "discrim") {
