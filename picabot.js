@@ -120,6 +120,8 @@ bot.on("message", function(message) {
     }
 
     if (command === "info") {
+        let TextChannels = bot.channels.filter(e => e.type !== 'voice').size;
+        let VoiceChannels = bot.channels.filter(e => e.type === 'voice').size;
         var infoembed = new Discord.RichEmbed()
             .setAuthor("Hi " + message.author.username.toString(), message.author.avatarURL)
             .setTitle("info")
@@ -128,9 +130,11 @@ bot.on("message", function(message) {
             Devloped by PK#1650 \n
             Try with ${prefix}help \n
             SERVING- \n
-            Guilds     : ${bot.guilds.size} \n
-            Channels   : ${bot.channels.size} \n
-            Users      : ${bot.users.size} \n
+            Totel Guilds         ${bot.guilds.size} \n
+            Totel Channels       ${bot.channels.size} \n
+            Totel Text Channels  ${TextChannels} \n
+            Totel Voice Channels ${VoiceChannels} \n
+            Totel Users          ${bot.users.size} \n
             support server:\n
             [link](https://discord.gg/zFDvBay) \n
             bot invite link:\n
