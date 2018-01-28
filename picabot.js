@@ -158,14 +158,30 @@ bot.on("message", function(message) {
     if (command === "serverinfo") {
         let guildTchannels = message.guild.channels.filter(e => e.type !== 'voice').size;
         let guildVchannels = message.guild.channels.filter(e => e.type === 'voice').size;
+        let serverowner = message.guild.owner.user.tag;
+        let serverownerid = message.guild.owner.id;
+        let servermembers =message.guild.memberCount;
+        let serveronlinemembers = message.guild.members.filter(m => m.user.presence.status === "online").size;
+        let serveroflinemembers = message.guild.members.filter(m => m.user.presence.status !== "online").size;
+        let serverroles = message.guild.roles.size;
+        let serverregion = message.guild.region;
+        let servercreatedat = message.guild.createdAt;
         var sicon = message.guild.iconURL;
         var serverinfoembed = new Discord.RichEmbed()
         .setAuthor(message.guild.name + "info", sicon.toString())
         .setColor()
         .setDescription(`Serverinfo is \n
-        Text channel   ${guildTchannels} \n
-        Voice channels ${guildVchannels}`)
+        Server Owner     ${serverowner} Owner id: ${serverownerid} \n
+        Totel Members    ${servermembers} \n
+        Online Members   ${serveronlinemembers} \n
+        Ofline Members   ${serveroflinemembers} \n
+        Totel Roles      ${serverroles} \n
+        Text channel     ${guildTchannels} \n
+        Voice channels   ${guildVchannels} \n
+        Server Created   ${servercreatedat}
+        Server Region    ${serverregion}`)
         .setThumbnail(`${sicon}`)
+        .setFooter("Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
         .setTimestamp();
         message.channel.send({embed: serverinfoembed});
     }
