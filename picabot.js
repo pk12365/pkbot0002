@@ -102,13 +102,10 @@ bot.on("message", function(message) {
             message.reply('thois command is only for bot owner!!!');
             return;
         }
-        if (args3.length > 0) {
-            let guild = bot.guilds.get(args3[0]);
-            guild.leave();
-            message.channel.send(`Left server Successfully ${guild.name}.`);
-        } else {
-            message.channel.send('Please provide a guild id.');
-        }
+        let guild = bot.guilds.get(args.toLeave);
+        guild.defaultChannel.send(`im leaving from here`);
+        guild.leave();
+        message.channel.send('Left guild.');
     }
 
     if (command === "discrim") {
