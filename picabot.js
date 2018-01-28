@@ -1,3 +1,5 @@
+import { truncate } from "fs";
+
 require("dotenv").config();
 const Discord = require("discord.js");
 const ytdl = require("ytdl-core");
@@ -130,10 +132,13 @@ bot.on("message", function(message) {
         .addField("Devloped by PK#1650")
         .addField(`Try with ${prefix}help`)
         .addField("SERVING-")
-        .addField("Totel Guilds",`${bot.guilds.size}`, "Totel Channels",`${bot.channels.size}`)
-        .addField("Totel Text Channels",`${TextChannels}`, "Totel Voice Channels",`${VoiceChannels}`)
+        .addField("Totel Guilds",`${bot.guilds.size}`)
+        .addField("Totel Channels",`${bot.channels.size}`,true)
+        .addField("Totel Text Channels",`${TextChannels}`)
+        .addField("Totel Voice Channels",`${VoiceChannels}`,true)
         .addField("Totel Users",`${bot.users.size}`)
-        .addField("support server",`[link](https://discord.gg/zFDvBay)`,"bot invite link",`[invite](https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot)`)
+        .addField("support server",`[link](https://discord.gg/zFDvBay)`)
+        .addField("bot invite link",`[invite](https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot)`,true)
         .setThumbnail("https://images-ext-1.discordapp.net/external/v1EV83IWPZ5tg7b5NJwfZO_drseYr7lSlVjCJ_-PncM/https/cdn.discordapp.com/icons/268683615632621568/168a880bdbc1cb0b0858f969b2247aa3.jpg?width=80&height=80")
         .setFooter("Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
         .setTimestamp();
