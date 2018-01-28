@@ -77,7 +77,7 @@ bot.on("message", function(message) {
                                                 UNTIL COMMANDS
     ------------------------------------------------------------------------------------------------------------------*/
     if (command === "say") {
-        var args1 = message.content.split(/[ ]+/);
+        var args1 = message.content.split();
         message.delete();
         message.channel.send(args1.join("").substring(4));
     }
