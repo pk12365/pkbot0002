@@ -102,7 +102,7 @@ bot.on("message", function(message) {
             message.reply('thois command is only for bot owner!!!');
             return;
         }
-        let guild = bot.guilds.get(args3);
+        let guild = bot.guilds.get(args3.join("").substring(12));
         var args3 = message.content.split();
         message.channel.send(args3.join("").substring(12));
         message.channel.send(`guild${guild}`);
