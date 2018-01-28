@@ -158,13 +158,14 @@ bot.on("message", function(message) {
     if (command === "serverinfo") {
         let guildTchannels = message.guild.channels.filter(e => e.type !== 'voice').size;
         let guildVchannels = message.guild.channels.filter(e => e.type === 'voice').size;
-        var icon = message.guild.iconURL;
+        var sicon = message.guild.iconURL;
         var serverinfoembed = new Discord.RichEmbed()
-        .setAuthor(message.guild.name + "info", icon.toString())
+        .setAuthor(message.guild.name + "info", sicon.toString())
         .setColor()
-        .setDescription(`Text channels ${guildVchannels} \n
-        Voice channels ${guildTchannels}`);
-        message.channel.send({embed: serverinfoembed})
+        .setDescription(
+        `Text channels ${guildTchannels} \n
+        Voice channels ${guildVchannels}`);
+        message.channel.send({embed: serverinfoembed});
     }
     /*------------------------------------------------------------------------------------------
                                             MUSIC COMMANDS
