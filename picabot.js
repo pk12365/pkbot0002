@@ -126,19 +126,14 @@ bot.on("message", function(message) {
         .setAuthor("Hi " + message.author.username.toString(), message.author.avatarURL)
         .setTitle("info")
         .setColor()
-        .setDescription(`this bot for music with volume control and fun \n
-        Devloped by PK#1650 \n
-        Try with ${prefix}help \n
-        SERVING- \n
-        Totel Guilds         ${bot.guilds.size} \n
-        Totel Channels       ${bot.channels.size} \n
-        Totel Text Channels  ${TextChannels} \n
-        Totel Voice Channels ${VoiceChannels} \n
-        Totel Users          ${bot.users.size} \n
-        support server:\n
-        [link](https://discord.gg/zFDvBay) \n
-        bot invite link:\n
-        [invite](https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot)`)
+        .setDescription(`this bot for music with volume control and fun`)
+        .addField("Devloped by PK#1650")
+        .addField(`Try with ${prefix}help`)
+        .addField("SERVING-")
+        .addField("Totel Guilds",`${bot.guilds.size}` + "Totel Channels",`${bot.channels.size}`)
+        .addField("Totel Text Channels",`${TextChannels}` + "Totel Voice Channels",`${VoiceChannels}`)
+        .addField("Totel Users",`${bot.users.size}`)
+        .addField("support server",`[link](https://discord.gg/zFDvBay)` + "bot invite link",`[invite](https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot)`)
         .setThumbnail("https://images-ext-1.discordapp.net/external/v1EV83IWPZ5tg7b5NJwfZO_drseYr7lSlVjCJ_-PncM/https/cdn.discordapp.com/icons/268683615632621568/168a880bdbc1cb0b0858f969b2247aa3.jpg?width=80&height=80")
         .setFooter("Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
         .setTimestamp();
