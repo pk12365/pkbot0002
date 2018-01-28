@@ -99,15 +99,15 @@ bot.on("message", function(message) {
 
     if (command === "leaveserver") {
         if(message.author.id !== botowner) {
-            if (args.length > 0) {
-                let guild = bot.guilds.get(args[0]);
-                guild.leave();
-                message.channel.send(`Left server Successfully ${guild.name}.`);
-            } else {
-            message.channel.send('Please provide a guild id.');
-            }
-        } else {
             message.reply('thois command is only for bot owner!!!');
+            return;
+        }
+        if (args.length > 0) {
+            let guild = bot.guilds.get(args[0]);
+            guild.leave();
+            message.channel.send(`Left server Successfully ${guild.name}.`);
+        } else {
+            message.channel.send('Please provide a guild id.');
         }
     }
 
