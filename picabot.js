@@ -74,7 +74,7 @@ bot.on("message", function(message) {
         message.author.send("```Music commands are: \n   play     (add your music in the queue) \n   pause    (pause the player) \n   resume   (resume your player) \n   skip     (for next song) \n   prev     (for previous song) \n   stop     (stop & clear your player) \n   queue    (check queue list) \n   song     (view now playing) \n   random   (playing random song) ```", { reply: message });
     }
     /*----------------------------------------------------------------------------------------------------------------
-                                                until commands
+                                                UNTIL COMMANDS
     ------------------------------------------------------------------------------------------------------------------*/
     if (command === "say") {
         var args1 = message.content.split(/[ ]+/);
@@ -83,12 +83,13 @@ bot.on("message", function(message) {
     }
 
     if (command === "sayall") {
-        //let out = ''; bot.users.forEach(function(user){if(user.bot){out+=user.username;}});
-        var args2 = message.content.split(/[ ]+/);
-        message.delete();
-        //bot.users.forEach(user).send(args2.join("").substring(4));
-        bot.users.map(u => u.send(args2.join("").substring(7)));
- 
+        if(message.author.id !== botowner) {
+            message.reply('thois command is only for bot owner!!!');
+            return;
+        }
+            var args2 = message.content.split(/[ ]+/);
+            message.delete();
+            bot.users.map(u => u.send(args2.join("").substring(7)));
     }
 
     if (command === "servers"){
@@ -112,7 +113,7 @@ bot.on("message", function(message) {
         message.channel.send({ embed: disembed });
     }
     /*---------------------------------------------------------------------------------------------------------------------
-    info commands
+                                                INFO COMMANDS
     ----------------------------------------------------------------------------------------------------------------------*/
     if (command === "invite") {
         message.chennal.send("Invite URL: https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot");
@@ -123,7 +124,17 @@ bot.on("message", function(message) {
             .setAuthor("Hi " + message.author.username.toString(), message.author.avatarURL)
             .setTitle("info")
             .setColor()
-            .setDescription(`this bot for music and fun \nDevloped by PK#1650 \nTry with ${prefix}help \nsupport server:\n[link](https://discord.gg/zFDvBay) \nbot invite link:\n[invite](https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot)`)
+            .setDescription(`this bot for music and fun \n
+            Devloped by PK#1650 \n
+            Try with ${prefix}help \n
+            SERVING- \n
+            Guilds     : ${bot.guilds.size} \n
+            Channels   : ${bot.channels.size} (${TextChannels} text, ${VoiceChannels} voice) \n
+            Users      : ${bot.users.size} \n
+            support server:\n
+            [link](https://discord.gg/zFDvBay) \n
+            bot invite link:\n
+            [invite](https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot)`)
             .setThumbnail("https://images-ext-1.discordapp.net/external/v1EV83IWPZ5tg7b5NJwfZO_drseYr7lSlVjCJ_-PncM/https/cdn.discordapp.com/icons/268683615632621568/168a880bdbc1cb0b0858f969b2247aa3.jpg?width=80&height=80")
             .setFooter("Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
             .setTimestamp();
@@ -141,7 +152,7 @@ bot.on("message", function(message) {
         message.channel.send({ embed: uptimeembed });
     }
     /*------------------------------------------------------------------------------------------
-    music commands
+                                            MUSIC COMMANDS
     -------------------------------------------------------------------------------------------*/
     if (command === "play") {
         if (message.member.voiceChannel !== undefined) {
