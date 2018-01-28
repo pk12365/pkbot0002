@@ -126,7 +126,7 @@ bot.on("message", function(message) {
         .setAuthor("Hi " + message.author.username.toString(), message.author.avatarURL)
         .setTitle("info")
         .setColor()
-        .setDescription(`this bot for music and fun \n
+        .setDescription(`this bot for music with volume control and fun \n
         Devloped by PK#1650 \n
         Try with ${prefix}help \n
         SERVING- \n
@@ -166,17 +166,18 @@ bot.on("message", function(message) {
         let serverroles = message.guild.roles.size;
         let serverregion = message.guild.region;
         let servercreatedat = message.guild.createdAt;
-        var sicon = message.guild.iconURL;
+        let sicon = message.guild.iconURL;
         var serverinfoembed = new Discord.RichEmbed()
         .setAuthor(message.guild.name + "info", sicon.toString())
         .setColor()
-        .setDescription(`Since ${servercreatedat} \n
-        Server Owner ${serverowner} Owner id: ${serverownerid} \n
-        Members ${serveronlinemembers}/${servermembers} \n
-        Totel Roles ${serverroles} \n
-        Text channel ${guildTchannels} \n
-        Voice channels ${guildVchannels} \n
-        Server Region  ${serverregion}`)
+        .setDescription(`Since: ${servercreatedat} \n
+        Server Owner: ${serverowner} \n
+        Owner id: ${serverownerid} \n
+        Members: ${serveronlinemembers}/${servermembers} \n
+        Totel Roles: ${serverroles} \n
+        Text channel: ${guildTchannels} \n
+        Voice channels: ${guildVchannels} \n
+        Server Region:  ${serverregion}`)
         .setThumbnail(`${sicon}`)
         .setFooter("Bot Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
         .setTimestamp();
