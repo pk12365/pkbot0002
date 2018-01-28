@@ -161,8 +161,8 @@ bot.on("message", function(message) {
         let serverowner = message.guild.owner.user.tag;
         let serverownerid = message.guild.owner.id;
         let servermembers =message.guild.memberCount;
-        let serveronlinemembers = message.guild.members.filter(m => m.user.presence.status === "online").size;
-        let serveroflinemembers = message.guild.members.filter(m => m.user.presence.status !== "online").size;
+        let serveronlinemembers = message.guild.members.filter(m => m.user.presence.status !== "offline").size;
+        let serveroflinemembers = message.guild.members.filter(m => m.user.presence.status === "offline").size;
         let serverroles = message.guild.roles.size;
         let serverregion = message.guild.region;
         let servercreatedat = message.guild.createdAt;
