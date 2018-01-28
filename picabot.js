@@ -93,9 +93,22 @@ bot.on("message", function(message) {
     }
 
     if (command === "servers"){
-        var n = 0; n < bot.guilds.length;
-        let guilds = bot.guilds.map((guild) => `${i + 1}: ${guild.name} (${guild.id})`);
+        let guilds = bot.guilds.map((guild) => `${guild.name} (${guild.id})`);
         message.channel.send(`I'm in the following guilds:\n${guilds.join ('\n')}`);
+    }
+
+    if (command === "leaveserver") {
+        if(message.author.id !== botowner) {
+            if (args.length > 0) {
+                let guild = bot.guilds.get(args[0]);
+                guild.leave();
+                message.channel.send(`Left server Successfully ${guild.name}.`);
+            } else {
+            message.channel.send('Please provide a guild id.');
+            }
+        } else {
+            message.reply('thois command is only for bot owner!!!');
+        }
     }
 
     if (command === "discrim") {
