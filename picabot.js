@@ -162,9 +162,11 @@ bot.on("message", function(message) {
         var serverinfoembed = new Discord.RichEmbed()
         .setAuthor(message.guild.name + "info", sicon.toString())
         .setColor()
-        .setDescription(
-        `Text channels ${guildTchannels} \n
-        Voice channels ${guildVchannels}`);
+        .setDescription(`Serverinfo is \n
+        Text channel   ${guildTchannels} \n
+        Voice channels ${guildVchannels}`)
+        .setThumbnail(`${sicon}`)
+        .setTimestamp();
         message.channel.send({embed: serverinfoembed});
     }
     /*------------------------------------------------------------------------------------------
