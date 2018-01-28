@@ -170,15 +170,7 @@ bot.on("message", function(message) {
         var serverinfoembed = new Discord.RichEmbed()
         .setAuthor(message.guild.name + "info", sicon.toString())
         .setColor()
-        .setDescription(`Since ${servercreatedat} \n
-        "Server Owner"     ${serverowner} Owner id: ${serverownerid} \n
-        "Totel Members"    ${servermembers} \n
-        "Online Members"   ${serveronlinemembers} \n
-        "Ofline Members"   ${serveroflinemembers} \n
-        "Totel Roles"      ${serverroles} \n
-        "Text channel"     ${guildTchannels} \n
-        "Voice channels"   ${guildVchannels} \n
-        "Server Region"    ${serverregion}`)
+        .setDescription(`Since ${servercreatedat} \n` + "Server Owner" `${serverowner} Owner id: ${serverownerid} \n` + "Totel Members" `${servermembers} \n` + "Online Members" `${serveronlinemembers} \n` + "Ofline Members" `${serveroflinemembers} \n` + "Totel Roles"`${serverroles} \n` + "Text channel"  `${guildTchannels} \n` + "Voice channels" `${guildVchannels} \n` + "Server Region"   + `${serverregion}`)
         .setThumbnail(`${sicon}`)
         .setFooter("Bot Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
         .setTimestamp();
