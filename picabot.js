@@ -127,7 +127,7 @@ bot.on("message", function(message) {
         .setTitle("info")
         .setColor()
         .setDescription(`this bot for music with volume control and fun`)
-        .addField("Devloped by" `PK#1650`)
+        .addField("Devloped by",`PK#1650`)
         .addField("Try with", `${prefix}help`)
         .addField("Totel Guilds",`${bot.guilds.size}`)
         .addField("Totel Channels",`${bot.channels.size}`,true)
