@@ -172,12 +172,12 @@ bot.on("message", function(message) {
         .setColor()
         .setDescription(`Since: ${servercreatedat}`)
         .addField ("Server Owner:", `${serverowner}`)
-        /*Owner id: ${serverownerid} \n
-        Members: ${serveronlinemembers}/${servermembers} \n
-        Totel Roles: ${serverroles} \n
-        Text channel: ${guildTchannels} \n
-        Voice channels: ${guildVchannels} \n
-        Server Region:  ${serverregion}`)*/
+        .addField("Owner id:", `${serverownerid}`)
+        .addField("Members:", `${serveronlinemembers}/${servermembers}`)
+        .addField("Totel Roles:", `${serverroles}`)
+        .addField("Text channel:", `${guildTchannels}`)
+        .addField("Voice channels:", `${guildVchannels}`)
+        .addField("Server Region:", `${serverregion}`)
         .setThumbnail(`${sicon}`)
         .setFooter("Bot Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
         .setTimestamp();
