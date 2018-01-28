@@ -129,7 +129,7 @@ bot.on("message", function(message) {
             Try with ${prefix}help \n
             SERVING- \n
             Guilds     : ${bot.guilds.size} \n
-            Channels   : ${bot.channels.size} (${TextChannels} text, ${VoiceChannels} voice) \n
+            Channels   : ${bot.channels.size} \n
             Users      : ${bot.users.size} \n
             support server:\n
             [link](https://discord.gg/zFDvBay) \n
