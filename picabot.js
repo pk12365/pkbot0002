@@ -141,7 +141,6 @@ bot.on("message", function(message) {
         [invite](https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot)`)
         .setThumbnail("https://images-ext-1.discordapp.net/external/v1EV83IWPZ5tg7b5NJwfZO_drseYr7lSlVjCJ_-PncM/https/cdn.discordapp.com/icons/268683615632621568/168a880bdbc1cb0b0858f969b2247aa3.jpg?width=80&height=80")
         .setFooter("Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
-        .addField("hi")
         .setTimestamp();
         message.channel.send({ embed: infoembed });
     }
@@ -171,14 +170,14 @@ bot.on("message", function(message) {
         var serverinfoembed = new Discord.RichEmbed()
         .setAuthor(message.guild.name + "info", sicon.toString())
         .setColor()
-        .setDescription(`Since: ${servercreatedat} \n
-        Server Owner: ${serverowner} \n
-        Owner id: ${serverownerid} \n
+        .setDescription(`Since: ${servercreatedat}`)
+        .addField ("Server Owner:", `${serverowner}`)
+        /*Owner id: ${serverownerid} \n
         Members: ${serveronlinemembers}/${servermembers} \n
         Totel Roles: ${serverroles} \n
         Text channel: ${guildTchannels} \n
         Voice channels: ${guildVchannels} \n
-        Server Region:  ${serverregion}`)
+        Server Region:  ${serverregion}`)*/
         .setThumbnail(`${sicon}`)
         .setFooter("Bot Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
         .setTimestamp();
