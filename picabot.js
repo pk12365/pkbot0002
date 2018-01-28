@@ -1,5 +1,3 @@
-import { truncate } from "fs";
-
 require("dotenv").config();
 const Discord = require("discord.js");
 const ytdl = require("ytdl-core");
