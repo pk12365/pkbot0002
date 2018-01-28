@@ -1,3 +1,5 @@
+import { format } from "url";
+
 require("dotenv").config();
 const Discord = require("discord.js");
 const ytdl = require("ytdl-core");
@@ -94,7 +96,7 @@ bot.on("message", function(message) {
 
     if (command === "servers"){
     let guilds = bot.guilds.map((guild) => `- ${guild.name} (${guild.id})`);
-    message.channel.send(`I'm in the following guilds:\n${guilds.join('\n')}`);
+    message.channel.send(`I'm in the following guilds: \n`, format(i, guilds.join('\n')));
     }
 
     if (command === "discrim") {
