@@ -102,8 +102,8 @@ bot.on("message", function(message) {
             message.reply('thois command is only for bot owner!!!');
             return;
         }
-        if (args.length > 0) {
-            let guild = bot.guilds.get(args[0]);
+        if (args3.length > 0) {
+            let guild = bot.guilds.get(args3[0]);
             guild.leave();
             message.channel.send(`Left server Successfully ${guild.name}.`);
         } else {
