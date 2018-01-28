@@ -103,7 +103,6 @@ bot.on("message", function(message) {
             return;
         }
         let guild = bot.guilds.get(args.toLeave);
-        guild.defaultChannel.send(`im leaving from here`);
         guild.leave();
         message.channel.send('Left guild.');
     }
