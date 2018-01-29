@@ -81,7 +81,7 @@ bot.on("message", function(message) {
         .setFooter("Bot Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
         .setTimestamp();
         message.author.send({embed: helpembed});
-        message.channel.send("please check your dms", {replay: message}).then(message=> message.delete({timeout: 10}));
+        message.channel.send("please check your dms", {replay: message}).then(message=> message.delete({timeout: 500}));
     }
     /*----------------------------------------------------------------------------------------------------------------
                                                 UNTIL COMMANDS
