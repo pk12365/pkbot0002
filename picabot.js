@@ -106,7 +106,7 @@ bot.on("message", function(message) {
         let guild = bot.guilds.get(args3);
         message.channel.send(args3);
         message.channel.send(`guild ${guild}`);
-        guild.leave();
+        //guild.leave();
         message.channel.send('Left guild.');
     }
 
