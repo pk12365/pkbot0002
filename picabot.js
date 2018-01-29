@@ -73,7 +73,7 @@ bot.on("message", function(message) {
     if (command === "help") {
         let helpembed = new Discord.RichEmbed()
         .setAuthor("Hi " + message.author.username.toString(), message.author.avatarURL)
-        .setDescription(`ICW help Section \n Prefix = ${prefix}`)
+        .setDescription(`ICW help Section \nPrefix = ${prefix} \nvolume command is for all users \nmore commands coming soon`)
         .addField("Bot info commands", `invite - (bot invite link)\nbotinfo - (info about the bot) \nuptime - (uptime of the bot)\nservers - (bots servers)`)
         .addField("until commands",`say - (bot saying your message) \ndiscrim - (found any discriminators) \nserverinfo - (info about server)`)
         .addField("Music commands",`play - (for serach and add your song in thre queue) \npause - (pause the player) \nresume - (resume the player) \nvolume - (set your player volume) \nskip - (for next song) \nprev - (for previos song) \nstop - (for stop the player) \nqueue - (for check playlist) \nsong - (view current song) \nrandom - (playing randomly)`)
