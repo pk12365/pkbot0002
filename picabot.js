@@ -72,6 +72,7 @@ bot.on("message", function(message) {
 
     if (command === "help") {
         let helpembed = new Discord.RichEmbed()
+        .setColor(0xDE3163)
         .setAuthor("Hi " + message.author.username.toString(), message.author.avatarURL)
         .setDescription(`ICW help Section \nPrefix = ${prefix} \nvolume command is for all users \nmore commands coming soon`)
         .addField("Bot info commands", `invite - (bot invite link)\nbotinfo - (info about the bot) \nuptime - (uptime of the bot)\nservers - (bots servers)`)
@@ -81,7 +82,7 @@ bot.on("message", function(message) {
         .setFooter("Bot Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
         .setTimestamp();
         message.author.send({embed: helpembed});
-        message.channel.send("please check your dms", {replay: message}).then(sent => sent.delete({timeout: 99999}));
+        message.channel.send("check your dms", {replay: message}).then(sent => sent.delete({timeout: 9}));
     }
     /*----------------------------------------------------------------------------------------------------------------
                                                 UNTIL COMMANDS
@@ -126,20 +127,16 @@ bot.on("message", function(message) {
         if (typeof discrim !== 'integer')
             if (discrim.size < 4) return message.reply("Don't you know that discrims are 4 numbers? -.-");
         if (discrim.size > 4) return message.reply("Don't you know that discrims are 4 numbers? -.-");
-        let members = bot.users.filter(c => c.discriminator === discrim).map(c => c.username).join('\n');
+        let members = bot.users.filter(c => c.discriminator === discrim).map(c => c.username,discrim).join('\n');
         if (!members) return message.reply("404 | No members have that discriminator!");
-        let disembed = new Discord.RichEmbed()
-            .setTitle("ICW Discrim Finder")
-            .setDescription("Here are the discriminators I found!")
-            .addField("Members:", `${members}#${discrim}`)
-            .setColor('#008000');
-        message.channel.send({ embed: disembed });
+        message.channel.send(`ICW Discrim Finder\nHere are the discriminators I found\n${members}#${discrim}`);
     }
     /*---------------------------------------------------------------------------------------------------------------------
                                                 INFO COMMANDS
     ----------------------------------------------------------------------------------------------------------------------*/
     if (command === "invite") {
         message.channel.send("Invite URL: https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot");
+        message.channel.send("please check your dms", {replay: message}).then(sent => sent.delete({timeout: 99999}));
     }
 
     if (command === "botinfo") {
@@ -148,7 +145,7 @@ bot.on("message", function(message) {
         var infoembed = new Discord.RichEmbed()
         .setAuthor("Hi " + message.author.username.toString(), message.author.avatarURL)
         .setTitle("info")
-        .setColor()
+        .setColor(0x03C03C)
         .setDescription(`this bot for music with volume control and fun`)
         .addField("Devloped by",`PK#1650`,inline = true)
         .addField("Try with", `${prefix}help`,inline = true)
@@ -189,7 +186,7 @@ bot.on("message", function(message) {
         let sicon = message.guild.iconURL;
         var serverinfoembed = new Discord.RichEmbed()
         .setAuthor(message.guild.name + "info", sicon.toString())
-        .setColor()
+        .setColor(0x08E8DE)
         .setDescription(`Since: ${servercreatedat}`)
         .addField ("Server Owner:", `${serverowner}`,inline = true)
         .addField("Owner id:", `${serverownerid}`,inline = true)
