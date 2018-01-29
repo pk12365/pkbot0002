@@ -103,7 +103,7 @@ bot.on("message", function(message) {
             return;
         }
         var args3 = message.content.substring(12);
-        let guild = bot.guilds.get(args3);
+        let guild = bot.guilds.get(args3[0]);
         message.channel.send(args3);
         message.channel.send(`guild ${guild}`);
         //guild.leave();
