@@ -140,7 +140,6 @@ bot.on("message", function(message) {
     ----------------------------------------------------------------------------------------------------------------------*/
     if (command === "invite") {
         message.channel.send("Invite URL: https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot");
-        message.channel.send("please check your dms", {replay: message}).then(sent => sent.delete({timeout: 99999}));
     }
 
     if (command === "botinfo") {
