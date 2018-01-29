@@ -71,7 +71,16 @@ bot.on("message", function(message) {
     command = command.slice(prefix.length);
 
     if (command === "help") {
-        message.author.send("```Music commands are: \n   play     (add your music in the queue) \n   pause    (pause the player) \n   resume   (resume your player) \n   skip     (for next song) \n   prev     (for previous song) \n   stop     (stop & clear your player) \n   queue    (check queue list) \n   song     (view now playing) \n   random   (playing random song) ```", { reply: message });
+        let helpembed = new Discord.RichEmbed()
+        .setAuthor("Hi " + message.author.username.toString(), message.author.avatarURL)
+        .setDescription(`ICW help Section \n Prefix = ${prefix}`)
+        .addfield("Bot info commands", `invite - (bot invite link)\nbotinfo - (info about the bot) \nuptime - (uptime of the bot)\nservers - (bots servers)`)
+        .addfield("until commands",`say - (bot saying your message) \ndiscrim - (found any discriminators) \nserverinfo - (info about server)`)
+        .addfield("Music commands",`play - (for serach and add your song in thre queue) \npause - (pause the player) \nresume - (resume the player) \nvolume - (set your player volume) \nskip - (for next song) \nprev - (for previos song) \nstop - (for stop the player) \nqueue - (for check playlist) \nsong - (view current song) \nrandom - (playing randomly)`)
+        .setThumbnail("https://images-ext-1.discordapp.net/external/v1EV83IWPZ5tg7b5NJwfZO_drseYr7lSlVjCJ_-PncM/https/cdn.discordapp.com/icons/268683615632621568/168a880bdbc1cb0b0858f969b2247aa3.jpg?width=80&height=80")
+        .setFooter("Bot Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
+        .setTimeout();
+        message.author.send({embed: helpembed});
     }
     /*----------------------------------------------------------------------------------------------------------------
                                                 UNTIL COMMANDS
@@ -97,7 +106,7 @@ bot.on("message", function(message) {
         message.channel.send(`I'm in the following guilds:\n${guilds.join ('\n')}`);
     }
 
-    if (command === "leaveserver") {
+/*    if (command === "leaveserver") {
         if(message.author.id !== botowner) {
             message.reply('this command is only for bot owner!!!');
             return;
@@ -108,7 +117,7 @@ bot.on("message", function(message) {
         message.channel.send(`guild ${guild}`);
         //guild.leave();
         message.channel.send('Left guild.');
-    }
+    }*/
 
     if (command === "discrim") {
         const discrim = message.content.split(' ')[1];
@@ -132,7 +141,7 @@ bot.on("message", function(message) {
         message.chennal.send("Invite URL: https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot");
     }
 
-    if (command === "info") {
+    if (command === "botinfo") {
         let TextChannels = bot.channels.filter(e => e.type !== 'voice').size;
         let VoiceChannels = bot.channels.filter(e => e.type === 'voice').size;
         var infoembed = new Discord.RichEmbed()
