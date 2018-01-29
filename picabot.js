@@ -84,7 +84,7 @@ bot.on("message", function(message) {
 
     if (command === "sayall") {
         if(message.author.id !== botowner) {
-            message.reply('thois command is only for bot owner!!!');
+            message.reply('this command is only for bot owner!!!');
             return;
         }
             var args2 = message.content.split();
@@ -99,11 +99,11 @@ bot.on("message", function(message) {
 
     if (command === "leaveserver") {
         if(message.author.id !== botowner) {
-            message.reply('thois command is only for bot owner!!!');
+            message.reply('this command is only for bot owner!!!');
             return;
         }
-        const guild = bot.guilds.get(args3);
         var args3 = message.content.substring(12);
+        let guild = bot.guilds.get(args3);
         message.channel.send(args3);
         message.channel.send(`guild ${guild}`);
         //guild.leave();
