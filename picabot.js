@@ -168,9 +168,9 @@ bot.on("message", function(message) {
                         //var city_id = data["city"].id;
                         //var today = data["list"][0].dt_txt.slice(5, 10).replace("-", "/");
                         for(var i=0;i<ts_array.length;i++) {
-                            ts_array[i] = data["list"][i].dt_txt.slice(11, 16);
-                            wthimg_array[i] = data["list"][i]["weather"][0].icon;
-                            wthtemp_array[i] = parseFloat(data["list"][i]["main"].temp) - 273.15;
+                            //ts_array[i] = data["list"][i].dt_txt.slice(11, 16);
+                            //wthimg_array[i] = data["list"][i]["weather"][0].icon;
+                            //wthtemp_array[i] = parseFloat(data["list"][i]["main"].temp) - 273.15;
                         }
                         for(var i=0;i<ts_array.length;i++) {
                             if(wthimg_array[i].startsWith("01")) {
