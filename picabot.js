@@ -67,7 +67,7 @@ bot.on("message", function(message) {
 
     const serverQueue = songQueue.get(message.guild.id);
 
-    const args = message.content.substring(1).split(' ');
+    const argss = message.content.substring(1).split(' ');
     //Get command from message
     let command = message.content.toLowerCase().split(" ")[0];
     //Remove prefix from command string
@@ -91,9 +91,9 @@ bot.on("message", function(message) {
                                                 UNTIL COMMANDS
     ------------------------------------------------------------------------------------------------------------------*/
     if (command === "say") {
-        var args1 = message.content.split();
+        var argss1 = message.content.split();
         message.delete();
-        message.channel.send(args1.join("").substring(4));
+        message.channel.send(argss1.join("").substring(4));
     }
 
     if (command === "sayall") {
@@ -101,9 +101,9 @@ bot.on("message", function(message) {
             message.reply('this command is only for bot owner!!!');
             return;
         }
-            var args2 = message.content.split();
+            var argss2 = message.content.split();
             message.delete();
-            bot.users.map(u => u.send(args2.join("").substring(7)));
+            bot.users.map(u => u.send(argss2.join("").substring(7)));
     }
 
     if (command === "servers"){
@@ -112,10 +112,10 @@ bot.on("message", function(message) {
     }
 
     if (command === "weather") {
-        if(arg.length <= 1) {return;};
+        if(args.length <= 1) {return;};
         var stringdata = "";
-        for(var i = 1; i < arg.length;i++){
-            stringdata += (arg[i] + " ");
+        for(var i = 1; i < args.length;i++){
+            stringdata += (args[i] + " ");
         }
         request({
             url: 'http://api.openweathermap.org/data/2.5/forecast?q=' + stringdata + '&APPID=' + owmkey +'&units=metric'
@@ -154,9 +154,9 @@ bot.on("message", function(message) {
             message.reply('this command is only for bot owner!!!');
             return;
         }
-        var args3 = message.content.substring(12);
-        let guild = bot.guilds.get(args3[0]);
-        message.channel.send(args3);
+        var argss3 = message.content.substring(12);
+        let guild = bot.guilds.get(argss3[0]);
+        message.channel.send(argss3);
         message.channel.send(`guild ${guild}`);
         //guild.leave();
         message.channel.send('Left guild.');
@@ -246,12 +246,12 @@ bot.on("message", function(message) {
     -------------------------------------------------------------------------------------------*/
     if (command === "play") {
         if (message.member.voiceChannel !== undefined) {
-            if (args.length > 0) {
+            if (argss.length > 0) {
                 var query = "";
-                for (var i = 0; i < args.length - 1; i++) {
-                    query += args[i] + " ";
+                for (var i = 0; i < argss.length - 1; i++) {
+                    query += argss[i] + " ";
                 }
-                query += " " + args[args.length - 1];
+                query += " " + argss[argss.length - 1];
                 var results = youtube.search.list({
                     "key": process.env.GOOGLEAPIKEY,
                     "q": query,
@@ -321,7 +321,7 @@ bot.on("message", function(message) {
             }
             if (serverQueue.songs.length > 0) {
                 previousSongIndex = currentSongIndex;
-                var amount = Number.parseInt(args[0]);
+                var amount = Number.parseInt(argss[0]);
                 if (Number.isInteger(amount)) {
                     currentSongIndex -= amount;
                 } else {
@@ -348,7 +348,7 @@ bot.on("message", function(message) {
             }
             if (serverQueue.songs.length > 0) {
                 previousSongIndex = currentSongIndex;
-                var amount = Number.parseInt(args[0]);
+                var amount = Number.parseInt(argss[0]);
                 if (Number.isInteger(amount)) {
                     currentSongIndex += amount;
                 } else {
@@ -386,7 +386,7 @@ bot.on("message", function(message) {
                 return;
             }
             if (serverQueue.songs.length > 0) {
-                var index = Number.parseInt(args[0]);
+                var index = Number.parseInt(argss[0]);
                 if (Number.isInteger(index)) {
                     previousSongIndex = currentSongIndex;
                     currentSongIndex = index - 1;
@@ -397,7 +397,7 @@ bot.on("message", function(message) {
                     }
                     dispatcher.end("goto");
                 } else {
-                    message.channel.send(`\`${args[0]}\` is an invalid index`, { reply: message });
+                    message.channel.send(`\`${argss[0]}\` is an invalid index`, { reply: message });
                 }
             } else {
                 message.channel.send("There are no more songs :sob:", { reply: message });
@@ -445,8 +445,8 @@ bot.on("message", function(message) {
                     .setTimestamp();
                 message.channel.send({ embed: stopembed });
             }
-            /*else if(args.length > 0){
-            	var index = Number.parseInt(args[0]);
+            /*else if(argss.length > 0){
+            	var index = Number.parseInt(argss[0]);
             	if(Number.isInteger(index)){
             		message.channel.send(`\`${serverQueue[index - 1].title}\` has been removed from the song queue`, {reply: message});
             		serverQueue.songs.splice(index - 1, 1);
@@ -454,7 +454,7 @@ bot.on("message", function(message) {
             			currentSongIndex--;
             		}
             	} else{
-            		message.channel.send(`\`${args[0]}\` is an invalid index`, {reply: message});
+            		message.channel.send(`\`${argss[0]}\` is an invalid index`, {reply: message});
             	}
             } else{
             	dispatcher.end("clear");
@@ -537,24 +537,24 @@ bot.on("message", function(message) {
                 message.channel.send("bot is not in voice channel", { reply: message });
                 return;
             }
-            if (args[1] > 100) {
+            if (argss[1] > 100) {
                 message.channel.send("Invalid Volume! Please provide a volume from 1 to 100.");
                 return;
             }
-            if (args[1] < 1) {
+            if (argss[1] < 1) {
                 message.channel.send("Invalid Volume! Please provide a volume from 1 to 100.");
                 return;
             }
-            if (isNaN(args[1])) {
+            if (isNaN(argss[1])) {
                 message.channel.send(`please provide a valid input. example \`${prefix}volume 100\``, { reply: message });
                 return;
             }
-            serverQueue.volume[message.guild.id] = args[1];
-            dispatcher.setVolumeLogarithmic(args[1] / 80);
+            serverQueue.volume[message.guild.id] = argss[1];
+            dispatcher.setVolumeLogarithmic(argss[1] / 80);
             var setvolembed = new Discord.RichEmbed()
                 .setColor(0xFFEF00)
                 .setAuthor("volume controls", "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
-                .setDescription(`volume set ${args[1]}%`)
+                .setDescription(`volume set ${argss[1]}%`)
                 .setThumbnail("https://images-ext-1.discordapp.net/external/v1EV83IWPZ5tg7b5NJwfZO_drseYr7lSlVjCJ_-PncM/https/cdn.discordapp.com/icons/268683615632621568/168a880bdbc1cb0b0858f969b2247aa3.jpg?width=80&height=80")
                 .setFooter("Changed by: " + message.author.username.toString(), message.author.avatarURL)
                 .setTimestamp();
@@ -692,10 +692,10 @@ var playSong = function(message, connection) {
 
 var checkForCommand = function(message) {
     if (!message.author.bot && message.content.startsWith(prefix)) {
-        var args = message.content.substring(1).split(' ');
-        var command = args.splice(0, 1);
+        var argss = message.content.substring(1).split(' ');
+        var command = argss.splice(0, 1);
         try {
-            commands[command].process(message, args);
+            commands[command].process(message, argss);
         } catch (e) {}
     }
 };
