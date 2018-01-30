@@ -165,8 +165,8 @@ bot.on("message", function(message) {
                         var ts_array = new Array(9);
                         var wthimg_array = new Array(9);
                         var wthtemp_array = new Array(9);
-                        var city_id = data["city"].id;
-                        var today = data["list"][0].dt_txt.slice(5, 10).replace("-", "/");
+                        //var city_id = data["city"].id;
+                        //var today = data["list"][0].dt_txt.slice(5, 10).replace("-", "/");
                         for(var i=0;i<ts_array.length;i++) {
                             ts_array[i] = data["list"][i].dt_txt.slice(11, 16);
                             wthimg_array[i] = data["list"][i]["weather"][0].icon;
@@ -191,19 +191,6 @@ bot.on("message", function(message) {
                                 wthimg_array[i] = ":question:";
                             }
                         }
-
-                        const embed = new Discord.RichEmbed()
-                        .setTitle(cityname.toUpperCase())
-                        .setAuthor(message.author.username, message.author.avatarURL)
-                        .setColor(0xCA0050)
-                        .setDescription(today)
-                        .setFooter("dev-bot")
-                        .setTimestamp()
-                        .setURL("https://openweathermap.org/city/" + city_id)
-                        .addField(ts_array[i], wthimg_array[i], true);
-                        for(var i=0;i<ts_array.length;i++)
-                        console.log({embed});
-                        message.channel.send({embed});
                     });
                 });
             //} else {
