@@ -112,7 +112,7 @@ bot.on("message", function(message) {
     }
 
     if (command === "weather") {
-        if (args.length != 2) {
+        if (args.length != 3) {
             message.channel.send('Please use command like "$weather [cityname]"');
         } else {
             var cityname = args[2];
