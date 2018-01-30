@@ -135,7 +135,7 @@ bot.on("message", function(message) {
                         var city_id = data["id"];
                         const embed = new Discord.RichEmbed()
                         .setTitle(cityname.toUpperCase())
-                        .setAuthor(msg.author.username, msg.author.avatarURL)
+                        .setAuthor(message.author.username, message.author.avatarURL)
                         .setColor(0x00AE86)
                         .setDescription("今のお天気と気温を表示します。URLをクリックすると詳細ページに飛びます。")
                         .setFooter("dev-bot")
@@ -194,7 +194,7 @@ bot.on("message", function(message) {
 
                         const embed = new Discord.RichEmbed()
                         .setTitle(cityname.toUpperCase())
-                        .setAuthor(msg.author.username, msg.author.avatarURL)
+                        .setAuthor(message.author.username, message.author.avatarURL)
                         .setColor(0xCA0050)
                         .setDescription(today)
                         .setFooter("dev-bot")
