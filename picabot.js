@@ -113,102 +113,41 @@ bot.on("message", function(message) {
 
     if (command === "weather") {
         if (args.length != 3) {
-            message.channel.send('Please use command like "$weather [now|today] [cityname]"');
+            message.channel.send('Please use command like "$weather [cityname]"');
         } else {
-            if(args[1] == "now") {
-                var cityname = args[2];
-                var http = require('http');
-                var url = owmurlnow + '?q=' + cityname + '&APPID=' + owmkey;
-                http.get(url, res => {
-                    var body = '';
-                    res.setEncoding('utf8');
-                    res.on('data', chunk => {
-                        body += chunk;
-                    });
-                    res.on('end', res => {
-                        data = JSON.parse(body);
-                        var weather_img = data["weather"][0].icon;
-                        var weather_main = data["weather"][0].main;
-                        var weather_desc = data["weather"][0].description;
-                        var temp_max = parseFloat(data["main"].temp_max) - 273.15;
-                        var temp_min = parseFloat(data["main"].temp_min) - 273.15;
-                        var city_id = data["id"];
-                        const embed = new Discord.RichEmbed()
-                        .setTitle(cityname.toUpperCase())
-                        .setAuthor(message.author.username, message.author.avatarURL)
-                        .setColor(0x00AE86)
-                        .setDescription("今のお天気と気温を表示します。URLをクリックすると詳細ページに飛びます。")
-                        .setFooter("dev-bot")
-                        .setThumbnail("http://openweathermap.org/img/w/" + weather_img + ".png")
-                        .setTimestamp()
-                        .setURL("https://openweathermap.org/city/" + city_id)
-                        .addField("天気", weather_main, true)
-                        .addField("詳細", weather_desc, true)
-                        .addField("最高気温", temp_max + "℃", true)
-                        .addField("最低気温", temp_min + "℃", true);
-
-                        message.channel.send({embed});
-                    });
+            var cityname = args[2];
+            var http = require('http');
+            var url = owmurlnow + '?q=' + cityname + '&APPID=' + owmkey;
+            http.get(url, res => {
+                var body = '';
+                res.setEncoding('utf8');
+                res.on('data', chunk => {
+                    body += chunk;
                 });
-            } else if(args[1] == "today") {
-                var cityname = args[2];
-                var http = require('http');
-                var url = owmurlweek + '?q=' + cityname + '&APPID=' + owmkey;
-                http.get(url, res => {
-                    var body = '';
-                    res.setEncoding('utf8');
-                    res.on('data', chunk => {
-                        body += chunk;
-                    });
-                    res.on('end', res => {
-                        data = JSON.parse(body);
-                        var ts_array = new Array(9);
-                        var wthimg_array = new Array(9);
-                        var wthtemp_array = new Array(9);
-                        var city_id = data["city"].id;
-                        var today = data["list"][0].dt_txt.slice(5, 10).replace("-", "/");
-                        for(var i=0;i<ts_array.length;i++) {
-                            ts_array[i] = data["list"][i].dt_txt.slice(11, 16);
-                            wthimg_array[i] = data["list"][i]["weather"][0].icon;
-                            wthtemp_array[i] = parseFloat(data["list"][i]["main"].temp) - 273.15;
-                        }
-                        for(var i=0;i<ts_array.length;i++) {
-                            if(wthimg_array[i].startsWith("01")) {
-                                wthimg_array[i] = ":sunny:";
-                            } else if(wthimg_array[i].startsWith("02")) {
-                                wthimg_array[i] = ":white_sun_cloud:";
-                            } else if(wthimg_array[i].startsWith("03")) {
-                                wthimg_array[i] = ":cloud:";
-                            } else if(wthimg_array[i].startsWith("04")) {
-                                wthimg_array[i] = ":cloud:";
-                            } else if(wthimg_array[i].startsWith("10")) {
-                                wthimg_array[i] = ":white_sun_rain_cloud:";
-                            } else if(wthimg_array[i].startsWith("11")) {
-                                wthimg_array[i] = ":cloud_lightning:";
-                            } else if(wthimg_array[i].startsWith("13")) {
-                                wthimg_array[i] = ":cloud_snow:";
-                            } else {
-                                wthimg_array[i] = ":question:";
-                            }
-                        }
-
-                        const embed = new Discord.RichEmbed()
-                        .setTitle(cityname.toUpperCase())
-                        .setAuthor(message.author.username, message.author.avatarURL)
-                        .setColor(0xCA0050)
-                        .setDescription(today)
-                        .setFooter("dev-bot")
-                        .setTimestamp()
-                        .setURL("https://openweathermap.org/city/" + city_id)
-                        .addField(ts_array[i], wthimg_array[i], true);
-                        for(var i=0;i<ts_array.length;i++)
-                        console.log({embed});
-                        message.channel.send({embed});
-                    });
+                res.on('end', res => {
+                    data = JSON.parse(body);
+                    var weather_img = data["weather"][0].icon;
+                    var weather_main = data["weather"][0].main;
+                    var weather_desc = data["weather"][0].description;
+                    var temp_max = parseFloat(data["main"].temp_max) - 273.15;
+                    var temp_min = parseFloat(data["main"].temp_min) - 273.15;
+                    var city_id = data["id"];
+                    const embed = new Discord.RichEmbed()
+                    .setTitle(cityname.toUpperCase())
+                    .setAuthor(message.author.username, message.author.avatarURL)
+                    .setColor(0x00AE86)
+                    .setDescription("Weather is")
+                    .setFooter("icw-bot")
+                    .setThumbnail("http://openweathermap.org/img/w/" + weather_img + ".png")
+                    .setTimestamp()
+                    .setURL("https://openweathermap.org/city/" + city_id)
+                    .addField("weather", weather_main, true)
+                    .addField("desc", weather_desc, true)
+                    .addField("max temo", temp_max + "℃", true)
+                    .addField("min temp", temp_min + "℃", true);
+                    message.channel.send({embed});
                 });
-            } else {
-                message.channel.send('Please use command like "$weather [now|today] [cityname]"');
-            }
+            });
         }
     }
 
