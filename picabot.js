@@ -1,5 +1,4 @@
 require("dotenv").config();
-const request = require('request');
 const Discord = require("discord.js");
 const ytdl = require("ytdl-core");
 const fs = require("fs");
@@ -130,17 +129,18 @@ bot.on("message", function(message) {
             }
             var stringdata = data.list[0].dt_txt.substring(0, 10);
             var embed = new Discord.RichEmbed()
-            .setFooter("Requested by " + message.author.username)
-            .setAuthor(data.city.name + " ," + data.city.country + " - " + stringdata + "\n")
+            .setAuthor("ICW weather info", "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
+            .setTitle(data.city.name + " ," + data.city.country + " - " + stringdata + "\n")
             .setColor()
             for(var i = 0; i < 6;i++){
             var stringore = data.list[i].dt_txt.substring(11, data.list[i].dt_txt.length - 3);
-            embed.addField(stringore + " - " + data.list[i].weather[0].description,"Temp: " + data.list[i].main.temp + " / " + "Wind: " + data.list[i].wind.speed,true);
+            embed.addField(stringore + " - " + data.list[i].weather[0].description,"Temp: " + data.list[i].main.temp + " / " + "Wind: " + data.list[i].wind.speed,true)
+            .setFooter("Requested by "  + message.author.username.toString(), message.author.avatarURL)
+            .setTimestamp()
         }
         for(var i = 0; i < 6;i++){
             var date = new Date().getHours();
             var stringore = parseInt(data.list[i].dt_txt.substring(11, 13));
-            console.log(date + " / " + stringore);
             if(date >= stringore){
                 embed.setImage('http://openweathermap.org/img/w/' + data.list[i].weather[0].icon + '.png');
                 break;
