@@ -112,10 +112,10 @@ bot.on("message", function(message) {
     }
 
     if (command === "weather") {
-        if (args.length != 2) {
+        if (args.length != 3) {
             message.channel.send('Please use command like "$weather [now|today] [cityname]"');
         } else {
-          //  if(args[1] == "now") {
+            if(args[1] == "now") {
                 var cityname = args[2];
                 var http = require('http');
                 var url = owmurlnow + '?q=' + cityname + '&APPID=' + owmkey;
@@ -127,9 +127,9 @@ bot.on("message", function(message) {
                     });
                     res.on('end', res => {
                         data = JSON.parse(body);
-                        var weather_img = data["weather"].icon;
-                        var weather_main = data["weather"].main;
-                        var weather_desc = data["weather"].description;
+                        var weather_img = data["weather"][0].icon;
+                        var weather_main = data["weather"][0].main;
+                        var weather_desc = data["weather"][0].description;
                         var temp_max = parseFloat(data["main"].temp_max) - 273.15;
                         var temp_min = parseFloat(data["main"].temp_min) - 273.15;
                         var city_id = data["id"];
@@ -137,23 +137,23 @@ bot.on("message", function(message) {
                         .setTitle(cityname.toUpperCase())
                         .setAuthor(message.author.username, message.author.avatarURL)
                         .setColor(0x00AE86)
-                        .setDescription("今のお天気と気温を表示します。URLをクリックすると詳細ページに飛びます。")
-                        .setFooter("dev-bot")
+                        .setDescription("weather is")
+                        .setFooter("icw-bot")
                         .setThumbnail("http://openweathermap.org/img/w/" + weather_img + ".png")
                         .setTimestamp()
                         .setURL("https://openweathermap.org/city/" + city_id)
-                        .addField("天気", weather_main, true)
-                        .addField("詳細", weather_desc, true)
-                        .addField("最高気温", temp_max + "℃", true)
-                        .addField("最低気温", temp_min + "℃", true);
+                        .addField("weather", weather_main, true)
+                        .addField("desc", weather_desc, true)
+                        .addField("max temp", temp_max + "℃", true)
+                        .addField("min temp", temp_min + "℃", true);
 
                         message.channel.send({embed});
                     });
                 });
-            //} else if(args[1] == "today") {
-                //var cityname = args[2];
-                //var http = require('http');
-                //var url = owmurlweek + '?q=' + cityname + '&APPID=' + owmkey;
+            } else if(args[1] == "today") {
+                var cityname = args[2];
+                var http = require('http');
+                var url = owmurlweek + '?q=' + cityname + '&APPID=' + owmkey;
                 http.get(url, res => {
                     var body = '';
                     res.setEncoding('utf8');
@@ -165,12 +165,12 @@ bot.on("message", function(message) {
                         var ts_array = new Array(9);
                         var wthimg_array = new Array(9);
                         var wthtemp_array = new Array(9);
-                        //var city_id = data["city"].id;
-                        //var today = data["list"][0].dt_txt.slice(5, 10).replace("-", "/");
+                        var city_id = data["city"].id;
+                        var today = data["list"][0].dt_txt.slice(5, 10).replace("-", "/");
                         for(var i=0;i<ts_array.length;i++) {
-                            //ts_array[i] = data["list"][i].dt_txt.slice(11, 16);
-                            //wthimg_array[i] = data["list"][i]["weather"][0].icon;
-                            //wthtemp_array[i] = parseFloat(data["list"][i]["main"].temp) - 273.15;
+                            ts_array[i] = data["list"][i].dt_txt.slice(11, 16);
+                            wthimg_array[i] = data["list"][i]["weather"][0].icon;
+                            wthtemp_array[i] = parseFloat(data["list"][i]["main"].temp) - 273.15;
                         }
                         for(var i=0;i<ts_array.length;i++) {
                             if(wthimg_array[i].startsWith("01")) {
@@ -193,10 +193,11 @@ bot.on("message", function(message) {
                         }
                     });
                 });
-            //} else {
-             //   message.channel.send('Please use command like "$weather [now|today] [cityname]"');
+            } else {
+                message.channel.send('Please use command like "$weather [now|today] [cityname]"');
             }
         }
+    }
 
 /*    if (command === "leaveserver") {
         if(message.author.id !== botowner) {
