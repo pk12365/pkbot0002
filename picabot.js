@@ -108,6 +108,48 @@ bot.on("message", function(message) {
         message.channel.send(`I'm in the following guilds:\n${guilds.join ('\n')}`);
     }
 
+    if (command === "weather") {
+        if (args[1]){
+            place = joinAllButFirst(args);
+            var KEY_WEATHER = process.env.KEY_WEATHER;
+            var uri = "http://api.openweathermap.org/data/2.5/weather?q=" + encodeURI(place) + ",au&APPID=" + KEY_WEATHER;
+            var data;
+            const WEATHER_ICON = {
+                "01d": ":sunny:",
+                "02d": ":white_sun_small_cloud:",
+                "03d": ":white_sun_cloud:",
+                "04d": ":cloud:",
+                "09d": ":shower:",
+                "10d": ":cloud_rain:",
+                "11d": ":cloud_lightning:",
+                "13d": ":snowflake:",
+                "50d": ":white_large_square:",
+                "01n": ":full_moon:"
+            };
+            request(uri, function (err, responce, body){
+                if (err != null) {
+                    p("> Error: " + err);
+                } else {
+                    data = JSON.parse(body);
+                    if(data.cod == "200"){
+                        var temperature = parseFloat(data.main.temp) - 273.15;
+                        var iconID = data.weather[0].icon;
+                        if (iconID != '01n'){
+                            iconID = iconID.replace('n', 'd');
+                        }
+                        var icon = WEATHER_ICON[iconID];
+                        temperature = Math.round(temperature * 10) / 10;
+                        message.channel.send("Weather in **" + data.name + "**: " + icon + " " + data.weather[0].main + " " + temperature + "°C");
+                        p("> Got weather");
+                    } else {
+                        message.channel.send("Error: " + data.cod + ", " + data.message + " encountered while fetching weather.");
+                    }
+                    p("> Weather finished with code: " + data.cod);
+                }
+            });
+        }
+    }
+
 /*    if (command === "leaveserver") {
         if(message.author.id !== botowner) {
             message.reply('this command is only for bot owner!!!');
