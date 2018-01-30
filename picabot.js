@@ -127,9 +127,9 @@ bot.on("message", function(message) {
                     });
                     res.on('end', res => {
                         data = JSON.parse(body);
-                        var weather_img = data["weather"][0].icon;
-                        var weather_main = data["weather"][0].main;
-                        var weather_desc = data["weather"][0].description;
+                        var weather_img = data["weather"].icon;
+                        var weather_main = data["weather"].main;
+                        var weather_desc = data["weather"].description;
                         var temp_max = parseFloat(data["main"].temp_max) - 273.15;
                         var temp_min = parseFloat(data["main"].temp_min) - 273.15;
                         var city_id = data["id"];
