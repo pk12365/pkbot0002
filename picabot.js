@@ -127,9 +127,9 @@ bot.on("message", function(message) {
         if (typeof discrim !== 'integer')
             if (discrim.size < 4) return message.reply("Don't you know that discrims are 4 numbers? -.-");
         if (discrim.size > 4) return message.reply("Don't you know that discrims are 4 numbers? -.-");
-        let members = bot.users.filter(c => c.discriminator === discrim).map(c => c.username).join(```\n```);
+        let members = bot.users.filter(c => c.discriminator === discrim).map(c => c.username).join(`\n`);
         if (!members) return message.reply("404 | No members have that discriminator!");
-        message.channel.send(`ICW Discrim Finder\nHere are the discriminators I found\n\n${members}`);
+        message.channel.send(```ICW Discrim Finder\nHere are the discriminators I found\n\n${members}```);
     }
     /*---------------------------------------------------------------------------------------------------------------------
                                                 INFO COMMANDS
