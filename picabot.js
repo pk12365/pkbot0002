@@ -132,7 +132,6 @@ bot.on("message", function(message) {
         var weather_main = parseFloat(data.main.temp) - 273.15;
         var wind = data.wind.speed;
         var pressure = data.main.pressure;
-		var weather_desc = data.weather.description;
 		var temp_max = parseFloat(data.main.temp_max) - 273.15;
 		var temp_min = parseFloat(data.main.temp_min) - 273.15;
         var city_id = data.name;
@@ -145,7 +144,7 @@ bot.on("message", function(message) {
         .setThumbnail("http://openweathermap.org/img/w/" + data.weather[0].icon + ".png")
         .setTimestamp()
 		.setURL("https://openweathermap.org/city/" + city_id)
-		.addField("main", weather_main + " c", true)
+		.addField("main", data.weather[0].description + " c", true)
 		.addField("pressure", pressure, true)
 		.addField("wind", wind + "mph", true)
         .addField("visibility", data.visibility, true);
