@@ -112,23 +112,38 @@ bot.on("message", function(message) {
 
     if (command === "weather") {
         var arg = message.content.substring(prefix.length).split(" ");
-        if(arg.length <= 1) {return;}
-        request({
-            url: 'http://api.openweathermap.org/data/2.5/forecast?q=' + '&APPID=' + owmkey +'&units=metric'
-        }, (error, response, body) => {
-            if(error) return;
-            var data = JSON.parse(body);
-            if(data.cod == "404"){
-                message.channel.send(data.message);
-                return;
-            }
-            var embed = new Discord.RichEmbed()
-            .setAuthor("ICW weather info", "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
-            .setColor()
-            .addField(" - " + weather.description,"Temp: " + " / " + "Wind: " + wind.speed,true)
-            .setFooter("Requested by "  + message.author.username.toString(), message.author.avatarURL)
-            .setTimestamp()
-            message.channel.send({embed});
+        var cityname = arg;
+        var http = require('http');
+        var url = owmurlnow + '?q=' + cityname + '&APPID=' + owmkey;
+        http.get(url, res => {
+            var body = '';
+            res.setEncoding('utf8');
+            res.on('data', chunk => {
+                body += chunk;
+            });
+            res.on('end', res => {
+                data = JSON.parse(body);
+                var weather_img = data["weather"][0].icon;
+				var weather_main = data["weather"][0].main;
+				var weather_desc = data["weather"][0].description;
+				var temp_max = parseFloat(data["main"].temp_max) - 273.15;
+				var temp_min = parseFloat(data["main"].temp_min) - 273.15;
+				var city_id = data["id"];
+                const embed = new Discord.RichEmbed()
+                .setTitle(cityname.toUpperCase())
+			    .setAuthor(message.author.username, message.author.avatarURL)
+			    .setColor(0x00AE86)
+			    .setDescription("weather is")
+				.setFooter("icw-bot")
+                .setThumbnail("http://openweathermap.org/img/w/" + weather_img + ".png")
+                .setTimestamp()
+				.setURL("https://openweathermap.org/city/" + city_id)
+				.addField("main", weather_main, true)
+				.addField("desc", weather_desc, true)
+				.addField("max temp", temp_max + "℃", true)
+                .addField("min temp", temp_min + "℃", true);
+                message.channel.send({embed});
+            });
         });
     }
 
