@@ -7,7 +7,7 @@ const google = require("googleapis");
 const youtube = google.youtube("v3");
 //var config = JSON.parse(fs.readFileSync('./config.json', 'utf-8'));
 const bot = new Discord.Client();
-const prefix = "$";
+const prefix = ".";
 const botChannelName = "icwbot2";
 const botlogchannel = "406504806954565644";
 const botowner = "264470521788366848";
@@ -125,7 +125,7 @@ bot.on("message", function(message) {
             var embed = new Discord.RichEmbed()
             .setAuthor("ICW weather info", "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
             .setColor()
-            .addField(stringore + " - " + data.list.weather[0].description,"Temp: " + data.list.main.temp + " / " + "Wind: " + data.list.wind.speed,true)
+            .addField(" - " + data.list.weather[0].description,"Temp: " + data.list.main.temp + " / " + "Wind: " + data.list.wind.speed,true)
             .setFooter("Requested by "  + message.author.username.toString(), message.author.avatarURL)
             .setTimestamp()
             message.channel.send({embed});
