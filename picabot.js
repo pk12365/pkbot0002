@@ -124,6 +124,7 @@ bot.on("message", function(message) {
             message.channel.send(data.message);
             return;
         }
+        message.channel.send(`${data}`)
         var ts_array = new Array(9);
 		var wthimg_array = new Array(9);
 		var wthtemp_array = new Array(9);
@@ -151,6 +152,7 @@ bot.on("message", function(message) {
         message.channel.send(`${weather_desc}`);
         message.channel.send(`${temp_max}`);
         message.channel.send(`${temp_min}`);
+        message.channel.send(main.temp);
         });
     }
 
