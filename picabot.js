@@ -155,6 +155,7 @@ bot.on("message", function(message) {
         message.channel.send(`${temp_max}`);
         message.channel.send(`${temp_min}`);
         message.channel.send(data.main.temp);
+        message.channel.send("http://openweathermap.org/img/w/" + data.weather.icon + ".png");
         });
     }
 
