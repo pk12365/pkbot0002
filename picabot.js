@@ -152,7 +152,7 @@ bot.on("message", function(message) {
         message.channel.send(`${weather_desc}`);
         message.channel.send(`${temp_max}`);
         message.channel.send(`${temp_min}`);
-        message.channel.send(main.temp);
+        message.channel.send(data.main.temp);
         });
     }
 
