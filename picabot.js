@@ -73,7 +73,7 @@ bot.on("message", function(message) {
     //Remove prefix from command string
     command = command.slice(prefix.length);
 
-    if (command === rc) {
+    if (command === "rc") {
         message.channel.send(`${randomcolor}`);
     }
 
