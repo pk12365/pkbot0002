@@ -1,6 +1,5 @@
 require("dotenv").config();
 const request = require('request');
-const randomcolor = require('randomcolor');
 const Discord = require("discord.js");
 const ytdl = require("ytdl-core");
 const fs = require("fs");
@@ -20,6 +19,7 @@ var previousSongIndex = 0;
 var shuffle = false;
 var autoremove = false;
 const owmkey = process.env.KEY_WEATHER;
+const randomcolor = parseInt(`0x${(Math.random() * 0xFFFFFF << 0).toString(16)}`);
 
 bot.on("ready", function() {
     console.log("Bot ready");
