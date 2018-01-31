@@ -124,6 +124,9 @@ bot.on("message", function(message) {
             });
             res.on('end', res => {
                 data = JSON.parse(body);
+                var ts_array = new Array(9);
+				var wthimg_array = new Array(9);
+				var wthtemp_array = new Array(9);
                 var weather_img = data.icon;
 				var weather_main = data.main;
 				var weather_desc = data.description;
