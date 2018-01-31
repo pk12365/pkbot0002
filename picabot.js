@@ -7,7 +7,7 @@ const google = require("googleapis");
 const youtube = google.youtube("v3");
 //var config = JSON.parse(fs.readFileSync('./config.json', 'utf-8'));
 const bot = new Discord.Client();
-const prefix = ".";
+const prefix = "$";
 const botChannelName = "icwbot2";
 const botlogchannel = "406504806954565644";
 const botowner = "264470521788366848";
@@ -111,101 +111,32 @@ bot.on("message", function(message) {
     }
 
     if (command === "weather") {
-        const api = 'http://api.openweathermap.org/data/2.5/weather?q=' + args[0] + owmkey;
-        let args4 = args.slice(0).join(' ');
-        if (args4.length < 1) return message.reply('Bir şehir ismi yazmalsınız.');
-        try {
-            var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-            function Get(yourUrl) {
-                var Httpreq = new XMLHttpRequest(); //yagag
-                Httpreq.open("GET", yourUrl, false);
-                Httpreq.send(null);
-                return Httpreq.responseText;
-            }
-            var json = JSON.parse(Get(api));
-            var coord = json.coord;
-            var weather = json.weather[0];
-            var main = json.main;
-            var wind = json.wind;
-            var clouds = json.clouds;
-            var sys = json.sys;
-            function windDirection(degree) {
-                if (degree < 11 || degree > 348) {
-                    return "Kuzey";
-                } else if (degree > 11 && degree < 33) {
-                    return "Kuzey-Kuzeydoğu";
-                } else if (degree > 33 && degree < 56) {
-                    return "Kuzeydoğu";
-                } else if (degree > 56 && degree < 78) {
-                    return "Doğu-Kuzeydoğu";
-                } else if (degree > 78 && degree < 101) {
-                    return "Doğu";
-                } else if (degree > 101 && degree < 123) {
-                    return "Doğu-Güneydoğu";
-                } else if (degree > 123 && degree < 146) {
-                    return "Güneydoğu";
-                } else if (degree > 146 && degree < 168) {
-                    return "Güney-Güneydoğu";
-                } else if (degree > 168 && degree < 191) {
-                    return "Güney";
-                } else if (degree > 191 && degree < 213) {
-                    return "Güney-Güneybatı";
-                } else if (degree > 213 && degree < 236) {
-                    return "Güneybatı";
-                } else if (degree > 236 && degree < 258) {
-                    return "Batı-Güneybatı";
-                } else if (degree > 258 && degree < 281) {
-                    return "Batı";
-                } else if (degree > 281 && degree < 303) {
-                    return "Batı-Kuzeybatı";
-                } else if (degree > 303 && degree < 326) {
-                    return "Kuzeybatı";
-                } else if (degree > 326 && degree < 348) {
-                    return "Kuzey-Kuzeybatı";
-                } else {
-                    return "N/A";
-                }
-            }
-            function UnixToDate(unix) {
-                var d = new Date(unix * 1000).getHours();
-                var d1 = new Date(unix * 1000).getMinutes();
-                var text = d + ':' + d1
-                return text;
-            }
-            var cc = main.temp;
-            var hc = main.temp_max;
-            var lc = main.temp_min;
-            var currentcelsius = cc - 273.15;
-            var currentf1 = currentcelsius * 1.8;
-            var currentfahrenheit = currentf1 + 32;
-            var ccelsius = Math.round(currentcelsius);
-            var cfahrenheit = Math.round(currentfahrenheit);
-
-            var highcelsius = hc - 273.15;
-            var highf1 = highcelsius * 1.8;
-            var highfahrenheit = highf1 + 32;
-            var hcelsius = Math.round(highcelsius);
-            var hfahrenheit = Math.round(highfahrenheit);
-
-            var lowcelsius = lc - 273.15;
-            var lowf1 = lowcelsius * 1.8;
-            var lowfahrenheit = lowf1 + 32;
-            var lcelsius = Math.round(lowcelsius);
-            var lfahrenheit = Math.round(lowfahrenheit);
-            const embed = new discord.RichEmbed()
-            .setTitle(json.name + ',' + sys.country + ' için hava durumu gösteriliyor')
-            .setThumbnail('http://openweathermap.org/img/w/' + weather.icon + '.png')
-            .setColor('RANDOM')
-            .addField('Koordinatları', 'Enlem: **' + coord.lat + '**\nBoylam: **' + coord.lon + '**', inline = true)
-            .addField('Şehrin IDsi', '**' + json.id + '**', inline = true)
-            .addField('Rüzgar', 'Yönü: **' + windDirection(wind.deg) + '**\nHızı: **' + wind.speed + 'm/s**', inline = true)
-            .addField('Bulut Oranı', '**%' + clouds.all + '**', inline = true)
-            .addField('Hava Koşulları', 'Mevcut Sıcaklık: **' + ccelsius + ' °C / ' + cfahrenheit + ' °F**\nEn Yüksek Sıcaklık: **' + hcelsius + ' °C / ' + hfahrenheit + ' °F**\nEn Düşük Sıcaklık: **' + lcelsius + ' °C / ' + lfahrenheit + ' °F**\nNem: **%' + main.humidity + '**\nBarometrik Basınç: **' + main.pressure + '**', inline = true) //.addField('Güneş', 'Gündoğumu: **' + UnixToDate(sys.sunrise)[1] + '**\nGünbatımı: **' + UnixToDate(sys.sunset)[1] + '**', inline=true)
-            .addField('Güneş', 'Gündoğumu: **' + UnixToDate(sys.sunrise) + '**\nGünbatımı: **' + UnixToDate(sys.sunset) + '**', inline = true)
-            return message.channel.sendEmbed(embed);
-        } catch (e) {
-            return message.channel.send(e);
+        var arg = message.content.substring(prefix.length).split(" ");
+        if(arg.length <= 1) {return;};
+        var stringdata = "";
+        for(var i = 1; i < arg.length;i++){
+            stringdata += (arg[i] + " ");
         }
+        request({
+            url: 'http://api.openweathermap.org/data/2.5/forecast?q=' + stringdata + '&APPID=' + owmkey +'&units=metric'
+        }, (error, response, body) => {
+            if(error) return;
+            var data = JSON.parse(body);
+            if(data.cod == "404"){
+                message.channel.send(data.message);
+                return;
+            }
+            var stringdata = data.list[0].dt_txt.substring(0, 10);
+            var stringore = data.list.dt_txt.substring(11, data.list.dt_txt.length - 3);
+            var embed = new Discord.RichEmbed()
+            .setAuthor("ICW weather info", "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
+            .setTitle(data.city.name + " ," + data.city.country + " - " + stringdata + "\n")
+            .setColor()
+            .addField(stringore + " - " + data.list.weather[0].description,"Temp: " + data.list.main.temp + " / " + "Wind: " + data.list.wind.speed,true)
+            .setFooter("Requested by "  + message.author.username.toString(), message.author.avatarURL)
+            .setTimestamp()
+            message.channel.send({embed});
+        });
     }
 
 /*    if (command === "leaveserver") {
