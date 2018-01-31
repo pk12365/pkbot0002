@@ -80,7 +80,7 @@ bot.on("message", function(message) {
 
     if (command === "help") {
         let helpembed = new Discord.RichEmbed()
-        .setColor(0xDE3163)
+        .setColor(randomcolor)
         .setAuthor("Hi " + message.author.username.toString(), message.author.avatarURL)
         .setDescription(`ICW help Section \nPrefix = ${prefix} \nvolume command is for all users \nmore commands coming soon`)
         .addField("Bot info commands", `invite - (bot invite link)\nbotinfo - (info about the bot) \nuptime - (uptime of the bot)\nservers - (bots servers)`)
@@ -215,7 +215,7 @@ bot.on("message", function(message) {
         var minutes = Math.floor((bot.uptime % 3600000) / 60000);
         var seconds = Math.floor(((bot.uptime % 360000) % 60000) / 1000);
         const uptimeembed = new Discord.RichEmbed()
-            .setColor([0, 38, 255])
+            .setColor(randomcolor)
             .addField('Uptime', `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`);
         message.channel.send({ embed: uptimeembed });
     }
@@ -233,7 +233,7 @@ bot.on("message", function(message) {
         let sicon = message.guild.iconURL;
         var serverinfoembed = new Discord.RichEmbed()
         .setAuthor(message.guild.name + "info", sicon.toString())
-        .setColor(0x08E8DE)
+        .setColor(randomcolor)
         .setDescription(`Since: ${servercreatedat}`)
         .addField ("Server Owner:", `${serverowner}`,inline = true)
         .addField("Owner id:", `${serverownerid}`,inline = true)
@@ -369,7 +369,7 @@ bot.on("message", function(message) {
                     currentSongIndex = 0;
                     message.member.voiceChannel.leave();
                     var finishembed = new Discord.RichEmbed()
-                        .setColor(0x00FFFF)
+                        .setColor(randomcolor)
                         .setAuthor("Finished playing because no more song in the queue", "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
                         .setDescription("please add more song if you like 🎧")
                         .setFooter("Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
@@ -444,34 +444,13 @@ bot.on("message", function(message) {
                 serverQueue.songs = [];
                 message.member.voiceChannel.leave();
                 var stopembed = new Discord.RichEmbed()
-                    .setColor(0x008000)
+                    .setColor(randomcolor)
                     .setAuthor("Finished playing by stop command", "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
                     .setDescription("thanks for using see you soon bye bye 👋")
                     .setFooter("Stoped by: " + message.author.username.toString(), message.author.avatarURL)
                     .setTimestamp();
                 message.channel.send({ embed: stopembed });
             }
-            /*else if(args.length > 0){
-            	var index = Number.parseInt(args[0]);
-            	if(Number.isInteger(index)){
-            		message.channel.send(`\`${serverQueue[index - 1].title}\` has been removed from the song queue`, {reply: message});
-            		serverQueue.songs.splice(index - 1, 1);
-            		if(index - 1 <= currentSongIndex){
-            			currentSongIndex--;
-            		}
-            	} else{
-            		message.channel.send(`\`${args[0]}\` is an invalid index`, {reply: message});
-            	}
-            } else{
-            	dispatcher.end("clear");
-            	currentSongIndex = 0;
-            	serverQueue = [];
-            	//bot.user.setGame(currentSong.title);
-            	//Workaround since above wouldn't work
-            	bot.user.setPresence({ game: { name: serverQueue.songs[0].title, type: 0 } });
-            	message.member.voiceChannel.leave();
-            	message.channel.send("The song queue has been cleared", {reply: message});
-            }*/
         } else {
             message.channel.send("You can't stop music if you're not in a voice channel :cry:", { reply: message });
         }
@@ -565,7 +544,6 @@ bot.on("message", function(message) {
                 .setFooter("Changed by: " + message.author.username.toString(), message.author.avatarURL)
                 .setTimestamp();
             message.channel.send({ embed: setvolembed });
-            //}
         } else {
             message.channel.send("you cant change volume if you are not in voice channel", { reply: message });
         }
@@ -603,7 +581,7 @@ var addSong = function(message, url) {
         //message.channel.send("queuecontrsuct pushed successfully.");
         else {
             var addsongembed = new Discord.RichEmbed()
-                .setColor(0xCC0000)
+                .setColor(randomcolor)
                 .setAuthor(`I have added \`${info.title}\` to the song queue!`, "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
                 .setDescription("link here: " + `[click](${url})`)
                 .setURL(`${url}`)
@@ -641,7 +619,7 @@ var playSong = function(message, connection) {
         dispatcher = connection.playStream(stream, { volume: serverQueue.volume[message.guild.id] / 80 });
         //message.channel.send("dispatcher defined correctly");
         var nowplayembed = new Discord.RichEmbed()
-            .setColor(0x002FA7)
+            .setColor(randomcolor)
             .setAuthor(`Now ${(shuffle) ? "randomly " : ""}playing \`${currentSong.title}\``, "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
             .setDescription("link here: " + `[click](${currentSong.url})`)
             .setURL(`${currentSong.url}`)
@@ -675,7 +653,7 @@ var playSong = function(message, connection) {
                         //Workaround since above wouldn't work
                         message.member.voiceChannel.leave();
                         var finishembed = new Discord.RichEmbed()
-                            .setColor(0x008000)
+                            .setColor(randomcolora)
                             .setAuthor("Finished playing because no more song in the queue", "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
                             .setDescription("please add more song if you like 🎧")
                             .setFooter("Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
