@@ -127,8 +127,8 @@ bot.on("message", function(message) {
                 var weather_img = data.icon;
 				var weather_main = data.main;
 				var weather_desc = data.description;
-				var temp_max = parseFloat(data["main"].temp_max) - 273.15;
-				var temp_min = parseFloat(data["main"].temp_min) - 273.15;
+				var temp_max = parseFloat(data.temp_max) - 273.15;
+				var temp_min = parseFloat(data.temp_min) - 273.15;
                 var city_id = data["id"];
                 for(var i=0;i<ts_array.length;i++) {
                     ts_array[i] = data["list"][i].dt_txt.slice(11, 16);
