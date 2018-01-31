@@ -121,9 +121,11 @@ bot.on("message", function(message) {
             res.setEncoding('utf8');
             res.on('data', chunk => {
                 body += chunk;
+                message.channel.send("http.get(url, res => {var body = '';res.setEncoding('utf8');res.on('data', chunk => {body += chunk;")
             });
             res.on('end', res => {
                 data = JSON.parse(body);
+                message.channel.send("data = JSON.parse(body);")
                 var ts_array = new Array(9);
 				var wthimg_array = new Array(9);
 				var wthtemp_array = new Array(9);
@@ -147,6 +149,10 @@ bot.on("message", function(message) {
 				.addField("max temp", temp_max + "℃", true)
                 .addField("min temp", temp_min + "℃", true);
                 message.channel.send({embed});
+                message.channel.send(`${weather_main}`);
+                message.channel.send(`${weather_desc}`);
+                message.channel.send(`${temp_max}`);
+                message.channel.send(`${temp_min}`);
             });
         });
     }
