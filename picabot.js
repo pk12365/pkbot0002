@@ -142,7 +142,7 @@ bot.on("message", function(message) {
 		.setColor(0x00AE86)
 		.setDescription(weather_desc)
         .setFooter("icw-bot")
-        .setThumbnail('http://openweathermap.org/img/w/' + weather_img + '.png')
+        .setThumbnail("http://openweathermap.org/img/w/" + data.weather.icon + ".png")
         .setTimestamp()
 		.setURL("https://openweathermap.org/city/" + city_id)
 		.addField("main", weather_main + "c", true)
