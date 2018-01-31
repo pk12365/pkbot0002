@@ -137,17 +137,17 @@ bot.on("message", function(message) {
         var city_id = data.name;
         const embed = new Discord.RichEmbed()
         .setTitle(data.name + ',' + data.sys.country)
-		.setAuthor(message.author.username, message.author.avatarURL)
+		.setAuthor("ICW weather info", "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
 		.setColor(0x00AE86)
 		.setDescription(data.weather[0].description)
-        .setFooter("icw-bot")
         .setThumbnail("http://openweathermap.org/img/w/" + data.weather[0].icon + ".png")
-        .setTimestamp()
 		.setURL("https://openweathermap.org/city/" + city_id)
 		.addField("main", weather_main + " c", true)
 		.addField("pressure", pressure + " Hpz", true)
 		.addField("wind", wind + " mph", true)
-        .addField("visibility", data.visibility, true);
+        .addField("visibility", data.visibility, true)
+        .setFooter("Requested by "  + message.author.username.toString(), message.author.avatarURL)
+        .setTimestamp();
         message.channel.send({embed});
         });
     }
