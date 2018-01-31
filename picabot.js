@@ -129,7 +129,31 @@ bot.on("message", function(message) {
 				var weather_desc = data["weather"][0].description;
 				var temp_max = parseFloat(data["main"].temp_max) - 273.15;
 				var temp_min = parseFloat(data["main"].temp_min) - 273.15;
-				var city_id = data["id"];
+                var city_id = data["id"];
+                for(var i=0;i<ts_array.length;i++) {
+                    ts_array[i] = data["list"][i].dt_txt.slice(11, 16);
+                    wthimg_array[i] = data["list"][i]["weather"][0].icon;
+                    wthtemp_array[i] = parseFloat(data["list"][i]["main"].temp) - 273.15;
+                }
+                for(var i=0;i<ts_array.length;i++) {
+                    if(wthimg_array[i].startsWith("01")) {
+                        wthimg_array[i] = ":sunny:";
+                    } else if(wthimg_array[i].startsWith("02")) {
+                        wthimg_array[i] = ":white_sun_cloud:";
+                    } else if(wthimg_array[i].startsWith("03")) {
+                        wthimg_array[i] = ":cloud:";
+                    } else if(wthimg_array[i].startsWith("04")) {
+                        wthimg_array[i] = ":cloud:";
+                    } else if(wthimg_array[i].startsWith("10")) {
+                        wthimg_array[i] = ":white_sun_rain_cloud:";
+                    } else if(wthimg_array[i].startsWith("11")) {
+                        wthimg_array[i] = ":cloud_lightning:";
+                    } else if(wthimg_array[i].startsWith("13")) {
+                        wthimg_array[i] = ":cloud_snow:";
+                    } else {
+                        wthimg_array[i] = ":question:";
+                    }
+                }
                 const embed = new Discord.RichEmbed()
                 .setTitle(cityname.toUpperCase())
 			    .setAuthor(message.author.username, message.author.avatarURL)
