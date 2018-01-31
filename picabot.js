@@ -122,12 +122,6 @@ bot.on("message", function(message) {
                 message.channel.send(data.message);
                 return;
             }
-            var coord = json.coord;
-            var weather = json.weather[0];
-            var main = json.main;
-            var wind = json.wind;
-            var clouds = json.clouds;
-            var sys = json.sys;
 
             var currentcelsius = cc - 273.15;
             var ccelsius = Math.round(currentcelsius);
