@@ -73,6 +73,10 @@ bot.on("message", function(message) {
     //Remove prefix from command string
     command = command.slice(prefix.length);
 
+    if (command === rc) {
+        message.channel.send(`${randomcolor}`);
+    }
+
     if (command === "help") {
         let helpembed = new Discord.RichEmbed()
         .setColor(0xDE3163)
