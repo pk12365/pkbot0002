@@ -7,7 +7,7 @@ const google = require("googleapis");
 const youtube = google.youtube("v3");
 //var config = JSON.parse(fs.readFileSync('./config.json', 'utf-8'));
 const bot = new Discord.Client();
-const prefix = "$";
+const prefix = ".";
 const botChannelName = "icwbot2";
 const botlogchannel = "406504806954565644";
 const botowner = "264470521788366848";
@@ -112,13 +112,9 @@ bot.on("message", function(message) {
 
     if (command === "weather") {
         var arg = message.content.substring(prefix.length).split(" ");
-        if(arg.length <= 1) {return;};
-        var stringdata = "";
-        for(var i = 1; i < arg.length;i++){
-            stringdata += (arg[i] + " ");
-        }
+        if(arg.length <= 1) {return;}
         request({
-            url: 'http://api.openweathermap.org/data/2.5/forecast?q=' + stringdata + '&APPID=' + owmkey +'&units=metric'
+            url: 'http://api.openweathermap.org/data/2.5/forecast?q=' + '&APPID=' + owmkey +'&units=metric'
         }, (error, response, body) => {
             if(error) return;
             var data = JSON.parse(body);
@@ -126,11 +122,9 @@ bot.on("message", function(message) {
                 message.channel.send(data.message);
                 return;
             }
-            var stringdata = data.list[0].dt_txt.substring(0, 10);
-            var stringore = data.list.dt_txt.substring(11, data.list.dt_txt.length - 3);
             var embed = new Discord.RichEmbed()
             .setAuthor("ICW weather info", "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
-            .setTitle(data.city.name + " ," + data.city.country + " - " + stringdata + "\n")
+            .setTitle(data.city.name + " ," + data.city.country + " - " + "\n")
             .setColor()
             .addField(stringore + " - " + data.list.weather[0].description,"Temp: " + data.list.main.temp + " / " + "Wind: " + data.list.wind.speed,true)
             .setFooter("Requested by "  + message.author.username.toString(), message.author.avatarURL)
