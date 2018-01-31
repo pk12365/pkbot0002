@@ -19,7 +19,7 @@ var previousSongIndex = 0;
 var shuffle = false;
 var autoremove = false;
 const owmkey = process.env.KEY_WEATHER;
-const randomcolor = parseInt(`0x${(Math.random() * 0xFFFFFF << 0).toString(16)}`);
+const randomcolor = '0x'+Math.floor(Math.random()*16777215).toString(16);
 
 bot.on("ready", function() {
     console.log("Bot ready");
