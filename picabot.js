@@ -129,12 +129,12 @@ bot.on("message", function(message) {
 		var wthimg_array = new Array(9);
 		var wthtemp_array = new Array(9);
         var weather_img = data.weather.icon;
-		var weather_main = parseFloat(data.main.temp) - 273.15;
+        var weather_main = parseFloat(data.main.temp) - 273.15;
+        var wind = data.wind.speed;
 		var weather_desc = data.weather.description;
 		var temp_max = parseFloat(data.main.temp_max) - 273.15;
 		var temp_min = parseFloat(data.main.temp_min) - 273.15;
         var city_id = data.name;
-
         const embed = new Discord.RichEmbed()
         .setTitle(cityname)
 		.setAuthor(message.author.username, message.author.avatarURL)
@@ -146,8 +146,8 @@ bot.on("message", function(message) {
 		.setURL("https://openweathermap.org/city/" + city_id)
 		.addField("main", weather_main + "c", true)
 		.addField("desc", weather_desc, true)
-		.addField("max temp", temp_max + "℃", true)
-        .addField("min temp", temp_min + "℃", true);
+		.addField("wind", wind + "mph", true)
+        .addField("visibility", data.visibility, true);
         message.channel.send({embed});
         message.channel.send(`${weather_main}`);
         message.channel.send(`${weather_desc}`);
