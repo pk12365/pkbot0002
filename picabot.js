@@ -1,5 +1,6 @@
 require("dotenv").config();
 const request = require('request');
+const randomcolor = require('randomcolor');
 const Discord = require("discord.js");
 const ytdl = require("ytdl-core");
 const fs = require("fs");
@@ -135,7 +136,7 @@ bot.on("message", function(message) {
         const embed = new Discord.RichEmbed()
         .setTitle(data.name + ',' + data.sys.country)
 		.setAuthor("ICW weather info", "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
-		.setColor(0x00AE86)
+		.setColor(randomcolor)
 		.setDescription(data.weather[0].description)
         .setThumbnail("http://openweathermap.org/img/w/" + data.weather[0].icon + ".png")
 		.setURL("https://openweathermap.org/city/" + city_id)
