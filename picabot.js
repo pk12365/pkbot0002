@@ -204,7 +204,7 @@ bot.on("message", function(message) {
             .addField('Güneş', 'Gündoğumu: **' + UnixToDate(sys.sunrise) + '**\nGünbatımı: **' + UnixToDate(sys.sunset) + '**', inline = true)
             return message.channel.sendEmbed(embed);
         } catch (e) {
-            return message.channel.send(error);
+            return message.channel.send(e);
         }
     }
 
