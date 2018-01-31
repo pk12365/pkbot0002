@@ -144,9 +144,9 @@ bot.on("message", function(message) {
         .setThumbnail("http://openweathermap.org/img/w/" + data.weather[0].icon + ".png")
         .setTimestamp()
 		.setURL("https://openweathermap.org/city/" + city_id)
-		.addField("main", data.weather[0].main + " c", true)
-		.addField("pressure", pressure, true)
-		.addField("wind", wind + "mph", true)
+		.addField("main", data.main.temp + " c", true)
+		.addField("pressure", pressure, + " Hpz", true)
+		.addField("wind", wind + " mph", true)
         .addField("visibility", data.visibility, true);
         message.channel.send({embed});
         });
