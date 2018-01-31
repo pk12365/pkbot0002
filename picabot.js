@@ -19,7 +19,6 @@ var previousSongIndex = 0;
 var shuffle = false;
 var autoremove = false;
 const owmkey = process.env.KEY_WEATHER;
-const randomcolor = Math.floor(Math.random()*16777215).toString(16);
 
 bot.on("ready", function() {
     console.log("Bot ready");
@@ -66,6 +65,8 @@ bot.on("message", function(message) {
     if (!message.content.startsWith(prefix)) return undefined;
 
     const serverQueue = songQueue.get(message.guild.id);
+
+    const randomcolor = Math.floor(Math.random()*16777215).toString(16);
 
     const args = message.content.substring(1).split(' ');
     //Get command from message
