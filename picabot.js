@@ -137,12 +137,12 @@ bot.on("message", function(message) {
 		var temp_min = parseFloat(data.main.temp_min) - 273.15;
         var city_id = data.name;
         const embed = new Discord.RichEmbed()
-        .setTitle(data.sys.name, data.sys.country)
+        .setTitle(data.name + ',' + data.sys.country)
 		.setAuthor(message.author.username, message.author.avatarURL)
 		.setColor(0x00AE86)
 		.setDescription(weather_desc)
         .setFooter("icw-bot")
-        .setThumbnail(weather_img)
+        .setThumbnail('http://openweathermap.org/img/w/' + weather_img + '.png')
         .setTimestamp()
 		.setURL("https://openweathermap.org/city/" + city_id)
 		.addField("main", weather_main + "c", true)
