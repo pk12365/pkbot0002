@@ -142,20 +142,14 @@ bot.on("message", function(message) {
 		.setColor(0x00AE86)
 		.setDescription(weather_desc)
         .setFooter("icw-bot")
-        .setThumbnail("http://openweathermap.org/img/w/" + data.weather.icon + ".png")
+        .setThumbnail("http://openweathermap.org/img/w/" + data.weather[0].icon + ".png")
         .setTimestamp()
 		.setURL("https://openweathermap.org/city/" + city_id)
-		.addField("main", weather_main + "c", true)
+		.addField("main", weather_main + " c", true)
 		.addField("pressure", pressure, true)
 		.addField("wind", wind + "mph", true)
         .addField("visibility", data.visibility, true);
         message.channel.send({embed});
-        message.channel.send(`${weather_main}`);
-        message.channel.send(`${weather_desc}`);
-        message.channel.send(`${temp_max}`);
-        message.channel.send(`${temp_min}`);
-        message.channel.send(data.main.temp);
-        message.channel.send("http://openweathermap.org/img/w/" + data.weather[0].icon + ".png");
         });
     }
 
