@@ -114,45 +114,42 @@ bot.on("message", function(message) {
         var arg = message.content.substring(prefix.length).split(" ");
         var cityname = arg;
         var http = require('http');
-        var url = 'http://api.openweathermap.org/data/2.5/weather?q=' + cityname + '&APPID=' + owmkey + '&units=metric';
-        http.get(url, res => {
-            var body = '';
-            res.setEncoding('utf8');
-            res.on('data', chunk => {
-                body += chunk;
-                message.channel.send("http.get(url, res => {var body = '';res.setEncoding('utf8');res.on('data', chunk => {body += chunk;")
-            });
-            res.on('end', res => {
-                data = JSON.parse(body);
-                message.channel.send("data = JSON.parse(body);")
-                var ts_array = new Array(9);
-				var wthimg_array = new Array(9);
-				var wthtemp_array = new Array(9);
-                var weather_img = data.icon;
-				var weather_main = data.main;
-				var weather_desc = data.description;
-				var temp_max = parseFloat(data.temp_max) - 273.15;
-				var temp_min = parseFloat(data.temp_min) - 273.15;
-                var city_id = data["id"];
+        request({
+        url : 'http://api.openweathermap.org/data/2.5/weather?q=' + cityname + '&APPID=' + owmkey + '&units=metric'
+        }, (error, response, body) => {
+        if(error) return;
+        var data = JSON.parse(body);
+        if(data.cod == "404"){
+            message.channel.send(data.message);
+            return;
+        }
+        var ts_array = new Array(9);
+		var wthimg_array = new Array(9);
+		var wthtemp_array = new Array(9);
+        var weather_img = data.icon;
+		var weather_main = data.main;
+		var weather_desc = data.description;
+		var temp_max = parseFloat(data.temp_max) - 273.15;
+		var temp_min = parseFloat(data.temp_min) - 273.15;
+        var city_id = data["id"];
 
-                const embed = new Discord.RichEmbed()
-                .setTitle(cityname)
-			    .setAuthor(message.author.username, message.author.avatarURL)
-			    .setColor(0x00AE86)
-			    .setDescription("weather is")
-				.setFooter("icw-bot")
-                .setTimestamp()
-				.setURL("https://openweathermap.org/city/" + city_id)
-				.addField("main", weather_main, true)
-				.addField("desc", weather_desc, true)
-				.addField("max temp", temp_max + "℃", true)
-                .addField("min temp", temp_min + "℃", true);
-                message.channel.send({embed});
-                message.channel.send(`${weather_main}`);
-                message.channel.send(`${weather_desc}`);
-                message.channel.send(`${temp_max}`);
-                message.channel.send(`${temp_min}`);
-            });
+        const embed = new Discord.RichEmbed()
+        .setTitle(cityname)
+		.setAuthor(message.author.username, message.author.avatarURL)
+		.setColor(0x00AE86)
+		.setDescription("weather is")
+		.setFooter("icw-bot")
+        .setTimestamp()
+		.setURL("https://openweathermap.org/city/" + city_id)
+		.addField("main", weather_main, true)
+		.addField("desc", weather_desc, true)
+		.addField("max temp", temp_max + "℃", true)
+        .addField("min temp", temp_min + "℃", true);
+        message.channel.send({embed});
+        message.channel.send(`${weather_main}`);
+        message.channel.send(`${weather_desc}`);
+        message.channel.send(`${temp_max}`);
+        message.channel.send(`${temp_min}`);
         });
     }
 
