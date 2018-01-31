@@ -134,11 +134,6 @@ bot.on("message", function(message) {
 				var temp_min = parseFloat(data.temp_min) - 273.15;
                 var city_id = data["id"];
                 for(var i=0;i<ts_array.length;i++) {
-                    ts_array[i] = data["list"][i].dt_txt.slice(11, 16);
-                    wthimg_array[i] = data["list"][i]["weather"].icon;
-                    wthtemp_array[i] = parseFloat(data["list"][i]["main"].temp) - 273.15;
-                }
-                for(var i=0;i<ts_array.length;i++) {
                     if(wthimg_array[i].startsWith("01")) {
                         wthimg_array[i] = ":sunny:";
                     } else if(wthimg_array[i].startsWith("02")) {
