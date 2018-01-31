@@ -129,7 +129,7 @@ bot.on("message", function(message) {
 		var wthimg_array = new Array(9);
 		var wthtemp_array = new Array(9);
         var weather_img = data.icon;
-		var weather_main = data.main;
+		var weather_main = parseFloat(data.main.temp) - 273.15;
 		var weather_desc = data.description;
 		var temp_max = parseFloat(data.temp_max) - 273.15;
 		var temp_min = parseFloat(data.temp_min) - 273.15;
