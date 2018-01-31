@@ -124,15 +124,15 @@ bot.on("message", function(message) {
             });
             res.on('end', res => {
                 data = JSON.parse(body);
-                var weather_img = data["weather"][0].icon;
-				var weather_main = data["weather"][0].main;
-				var weather_desc = data["weather"][0].description;
+                var weather_img = data.icon;
+				var weather_main = data.main;
+				var weather_desc = data.description;
 				var temp_max = parseFloat(data["main"].temp_max) - 273.15;
 				var temp_min = parseFloat(data["main"].temp_min) - 273.15;
                 var city_id = data["id"];
                 for(var i=0;i<ts_array.length;i++) {
                     ts_array[i] = data["list"][i].dt_txt.slice(11, 16);
-                    wthimg_array[i] = data["list"][i]["weather"][0].icon;
+                    wthimg_array[i] = data["list"][i]["weather"].icon;
                     wthtemp_array[i] = parseFloat(data["list"][i]["main"].temp) - 273.15;
                 }
                 for(var i=0;i<ts_array.length;i++) {
