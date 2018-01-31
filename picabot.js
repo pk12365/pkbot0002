@@ -122,10 +122,20 @@ bot.on("message", function(message) {
                 message.channel.send(data.message);
                 return;
             }
+            var json = JSON.parse(Get(api));
+            var coord = json.coord;
+            var weather = json.weather[0];
+            var main = json.main;
+            var wind = json.wind;
+            var clouds = json.clouds;
+            var sys = json.sys;
+
+            var currentcelsius = cc - 273.15;
+            var ccelsius = Math.round(currentcelsius);
             var embed = new Discord.RichEmbed()
             .setAuthor("ICW weather info", "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
             .setColor()
-            .addField(" - " + data.list.weather[0].description,"Temp: " + data.list.main.temp + " / " + "Wind: " + data.list.wind.speed,true)
+            .addField(" - " + weather.description,"Temp: " + ccelsius + " / " + "Wind: " + wind.speed,true)
             .setFooter("Requested by "  + message.author.username.toString(), message.author.avatarURL)
             .setTimestamp()
             message.channel.send({embed});
