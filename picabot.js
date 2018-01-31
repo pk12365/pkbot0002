@@ -124,10 +124,6 @@ bot.on("message", function(message) {
             message.channel.send(data.message);
             return;
         }
-        message.channel.send(`${data}`)
-        var ts_array = new Array(9);
-		var wthimg_array = new Array(9);
-		var wthtemp_array = new Array(9);
         var weather_img = data.weather.icon;
         var weather_main = parseFloat(data.main.temp) - 273.15;
         var wind = data.wind.speed;
@@ -135,6 +131,7 @@ bot.on("message", function(message) {
 		var temp_max = parseFloat(data.main.temp_max) - 273.15;
 		var temp_min = parseFloat(data.main.temp_min) - 273.15;
         var city_id = data.name;
+        var direction = data.wind.deg;
         const embed = new Discord.RichEmbed()
         .setTitle(data.name + ',' + data.sys.country)
 		.setAuthor("ICW weather info", "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
@@ -144,7 +141,7 @@ bot.on("message", function(message) {
 		.setURL("https://openweathermap.org/city/" + city_id)
 		.addField("main", weather_main + " c", true)
 		.addField("pressure", pressure + " Hpz", true)
-		.addField("wind", wind + " mph", true)
+		.addField("wind", wind + " mph" + "/ Direction" + direction, true)
         .addField("visibility", data.visibility, true)
         .setFooter("Requested by "  + message.author.username.toString(), message.author.avatarURL)
         .setTimestamp();
