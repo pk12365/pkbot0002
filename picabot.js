@@ -128,22 +128,23 @@ bot.on("message", function(message) {
         var ts_array = new Array(9);
 		var wthimg_array = new Array(9);
 		var wthtemp_array = new Array(9);
-        var weather_img = data.icon;
+        var weather_img = data.weather.icon;
 		var weather_main = parseFloat(data.main.temp) - 273.15;
-		var weather_desc = data.description;
-		var temp_max = parseFloat(data.temp_max) - 273.15;
-		var temp_min = parseFloat(data.temp_min) - 273.15;
-        var city_id = data["id"];
+		var weather_desc = data.weather.description;
+		var temp_max = parseFloat(data.main.temp_max) - 273.15;
+		var temp_min = parseFloat(data.main.temp_min) - 273.15;
+        var city_id = data.name;
 
         const embed = new Discord.RichEmbed()
         .setTitle(cityname)
 		.setAuthor(message.author.username, message.author.avatarURL)
 		.setColor(0x00AE86)
 		.setDescription("weather is")
-		.setFooter("icw-bot")
+        .setFooter("icw-bot")
+        .setThumbnail(weather_img)
         .setTimestamp()
 		.setURL("https://openweathermap.org/city/" + city_id)
-		.addField("main", weather_main, true)
+		.addField("main", weather_main + "c", true)
 		.addField("desc", weather_desc, true)
 		.addField("max temp", temp_max + "℃", true)
         .addField("min temp", temp_min + "℃", true);
