@@ -122,7 +122,6 @@ bot.on("message", function(message) {
                 message.channel.send(data.message);
                 return;
             }
-            var json = JSON.parse(Get(api));
             var coord = json.coord;
             var weather = json.weather[0];
             var main = json.main;
