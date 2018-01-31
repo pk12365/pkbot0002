@@ -131,21 +131,22 @@ bot.on("message", function(message) {
         var weather_img = data.weather.icon;
         var weather_main = parseFloat(data.main.temp) - 273.15;
         var wind = data.wind.speed;
+        var pressure = data.main.pressure;
 		var weather_desc = data.weather.description;
 		var temp_max = parseFloat(data.main.temp_max) - 273.15;
 		var temp_min = parseFloat(data.main.temp_min) - 273.15;
         var city_id = data.name;
         const embed = new Discord.RichEmbed()
-        .setTitle(cityname)
+        .setTitle(data.sys.name, data.sys.country)
 		.setAuthor(message.author.username, message.author.avatarURL)
 		.setColor(0x00AE86)
-		.setDescription("weather is")
+		.setDescription(weather_desc)
         .setFooter("icw-bot")
         .setThumbnail(weather_img)
         .setTimestamp()
 		.setURL("https://openweathermap.org/city/" + city_id)
 		.addField("main", weather_main + "c", true)
-		.addField("desc", weather_desc, true)
+		.addField("pressure", pressure, true)
 		.addField("wind", wind + "mph", true)
         .addField("visibility", data.visibility, true);
         message.channel.send({embed});
