@@ -66,7 +66,7 @@ bot.on("message", function(message) {
 
     const serverQueue = songQueue.get(message.guild.id);
 
-    const randomcolor = Math.floor(Math.random()*16777215).toString(16);
+    const randomcolor = '0x'+Math.floor(Math.random()*16777215).toString(16);
 
     const args = message.content.substring(1).split(' ');
     //Get command from message
