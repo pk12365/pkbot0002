@@ -114,8 +114,7 @@ bot.on("message", function(message) {
         var arg = message.content.substring(prefix.length).split(" ");
         var cityname = arg;
         var http = require('http');
-        const owmurlnow = 'http://api.openweathermap.org/data/2.5/weather';
-        var url = owmurlnow + '?q=' + cityname + '&APPID=' + owmkey;
+        var url = 'http://api.openweathermap.org/data/2.5/weather?q=' + cityname + '&APPID=' + owmkey + '&units=metric';
         http.get(url, res => {
             var body = '';
             res.setEncoding('utf8');
