@@ -191,7 +191,7 @@ bot.on("message", function(message) {
         var infoembed = new Discord.RichEmbed()
         .setAuthor("Hi " + message.author.username.toString(), message.author.avatarURL)
         .setTitle("info")
-        .setColor(0x03C03C)
+        .setColor(randomcolor)
         .setDescription(`this bot for music with volume control and fun`)
         .addField("Devloped by",`PK#1650`,inline = true)
         .addField("Try with", `${prefix}help`,inline = true)
