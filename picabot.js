@@ -88,8 +88,9 @@ bot.on("message", function(message) {
                                                 UNTIL COMMANDS
     ------------------------------------------------------------------------------------------------------------------*/
     if (command === "say") {
+        var args1 = message.content.split();
         message.delete();
-        message.channel.send(args.join("").substring(3));
+        message.channel.send(args1.join("").substring(4));
     }
 
     if (command === "sayall") {
@@ -99,7 +100,7 @@ bot.on("message", function(message) {
         }
             var args2 = message.content.split();
             message.delete();
-            bot.users.map(u => u.send(args2.join("").substring(6)));
+            bot.users.map(u => u.send(args2.join("").substring(7)));
     }
 
     if (command === "servers"){
@@ -109,8 +110,8 @@ bot.on("message", function(message) {
 
     if (command === "weather") {
         var arg = message.content.substring(9).split(" ");
-        message.channel.send(`${args}`)
-        var cityname = (args.join("").substring(6));
+        //message.channel.send(`${arg}`)
+        var cityname = arg;
         var http = require('http');
         request({
         url : 'http://api.openweathermap.org/data/2.5/weather?q=' + cityname + '&APPID=' + owmkey
