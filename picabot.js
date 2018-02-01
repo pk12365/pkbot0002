@@ -152,7 +152,7 @@ bot.on("message", function(message) {
                 let passedembed = new Discord.RichEmbed()
                 .setAuthor("Hi " + message.author.username.toString(), message.author.avatarURL)
                 .setColor(randomcolor)
-                .setThumbnail("https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
+                .setThumbnail("https://media.discordapp.net/attachments/406099961730564107/407455733689483265/Untitled6.png?width=300&height=300")
                 .addField("Eval passed!", "```js\n" + eval(message.content.split(" ").slice(1).join(" ")) + "\n```")
                 .setFooter("Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
                 .setTimestamp();
@@ -162,7 +162,7 @@ bot.on("message", function(message) {
                 let errorembed = new Discord.RichEmbed()
                 .setAuthor("Hi " + message.author.username.toString(), message.author.avatarURL)
                 .setColor(randomcolor)
-                .setThumbnail("https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
+                .setThumbnail("https://media.discordapp.net/attachments/406099961730564107/407455733689483265/Untitled6.png?width=300&height=300")
                 .addField("Eval error!", "```js\n" + err + "\n```")
                 .setFooter("Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
                 .setTimestamp();
@@ -193,7 +193,7 @@ bot.on("message", function(message) {
         if (discrim.size > 4) return message.reply("Don't you know that discrims are 4 numbers? -.-");
         let members = bot.users.filter(c => c.discriminator === discrim).map(c => c.username).join(`\n`);
         if (!members) return message.reply("404 | No members have that discriminator!");
-        message.channel.send(`\`\`\`ICW Discrim Finder\nI found these discriminators.\n\n${members}\`\`\``);
+        message.channel.send(`\`\`\`ICW Discrim Finder\nI found ${members.discrim.size} discriminators.\n\n${members}\`\`\``);
     }
     /*---------------------------------------------------------------------------------------------------------------------
                                                 INFO COMMANDS
@@ -239,10 +239,9 @@ bot.on("message", function(message) {
 /*---------------------------------------------------------------------------------------------
                     no dm commands (only for server channels)
 ---------------------------------------------------------------------------------------------*/
-    if (message.channel.type == "dm" || message.channel.type == "group") {
-        message.reply('this command is not for bot owner!!!');
-        return;
-    }
+    if (message.channel.type == "dm" || message.channel.type == "group") return undefined;
+    const serverQueue = songQueue.get(message.guild.id);
+
     if (command === "serverinfo") {
         let guildTchannels = message.guild.channels.filter(e => e.type !== 'voice').size;
         let guildVchannels = message.guild.channels.filter(e => e.type === 'voice').size;
