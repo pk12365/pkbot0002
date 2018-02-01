@@ -7,7 +7,7 @@ const google = require("googleapis");
 const youtube = google.youtube("v3");
 //var config = JSON.parse(fs.readFileSync('./config.json', 'utf-8'));
 const bot = new Discord.Client();
-const prefix = "....";
+const prefix = "$";
 const botChannelName = "icwbot2";
 const botlogchannel = "406504806954565644";
 const botowner = "264470521788366848";
@@ -80,6 +80,9 @@ bot.on("message", function(message) {
         .addField("Music commands",`play - (for serach and add your song in thre queue) \npause - (pause the player) \nresume - (resume the player) \nvolume - (set your player volume) \nskip - (for next song) \nprev - (for previos song) \nstop - (for stop the player) \nqueue - (for check playlist) \nsong - (view current song) \nrandom - (playing randomly)`)
         .setThumbnail("https://media.discordapp.net/attachments/406099961730564107/407455733689483265/Untitled6.png?width=300&height=300")
         .setFooter("Bot Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
+        .addField("support server",`[link](https://discord.gg/zFDvBay)`,inline = true)
+        .addField("bot invite link",`[invite](https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot)`,inline = true)
+        .addField("please give me vote",`[vote and invite link](https://discordbots.org/bot/376292306233458688)`)
         .setTimestamp();
         message.author.send({embed: helpembed});
         message.channel.send("check your dms", {replay: message}).then(sent => sent.delete({timeout: 99}));
@@ -220,6 +223,7 @@ bot.on("message", function(message) {
         .addField("bot invite link",`[invite](https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot)`,inline = true)
         .setThumbnail("https://media.discordapp.net/attachments/406099961730564107/407455733689483265/Untitled6.png?width=300&height=300")
         .setFooter("Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
+        .addField("please give me vote",`[vote and invite link](https://discordbots.org/bot/376292306233458688)`)
         .setTimestamp();
         message.channel.send({ embed: infoembed });
     }
@@ -385,7 +389,7 @@ bot.on("message", function(message) {
                     currentSongIndex = serverQueue.songs.length - 1;
                     //bot.user.setGame(currentSong.title);
                     //Workaround since above wouldn't work
-                    bot.user.setPresence({ game: { name: "", type: 0 } });
+                    //bot.user.setPresence({ game: { name: "", type: 0 } });
                     serverQueue.songs = [];
                     currentSongIndex = 0;
                     message.member.voiceChannel.leave();
