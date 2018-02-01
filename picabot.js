@@ -109,8 +109,7 @@ bot.on("message", function(message) {
     }
 
     if (command === "weather") {
-        var arg = message.content.substring(9).split(" ");
-        message.channel.send(args.join("").substring(6));
+        //message.channel.send(args.join("").substring(7));
         var cityname = args.join("").substring(7);
         var http = require('http');
         request({
@@ -186,21 +185,22 @@ bot.on("message", function(message) {
     }*/
 
     if (command === "discrim") {
-        const discrim = message.content.split(' ')[1];
+        const discrims = message.content.split(' ')[1];
+        const discrim = args.join("").substring(7);
         if (!discrim) return message.reply("oops! I could not find the discriminator that you had given.");
         if (typeof discrim !== 'integer')
             if (discrim.size < 4) return message.reply("Don't you know that discrims are 4 numbers? -.-");
         if (discrim.size > 4) return message.reply("Don't you know that discrims are 4 numbers? -.-");
         let members = bot.users.filter(c => c.discriminator === discrim).map(c => c.username).join(`\n`);
         if (!members) return message.reply("404 | No members have that discriminator!");
-        message.channel.send(`\`\`\`ICW Discrim Finder\nI found ${members.discrim.size} discriminators.\n\n${members}\`\`\``);
+        message.channel.send(`\`\`\`ICW Discrim Finder\nI found these discriminators.\n\n${members}\`\`\``);
     }
     /*---------------------------------------------------------------------------------------------------------------------
                                                 INFO COMMANDS
     ----------------------------------------------------------------------------------------------------------------------*/
     if (command === "invite") {
         message.channel.send("Invite URL: https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot");
-        message.channel.send("please check your dms", {replay: message}).then(sent => sent.delete({timeout: 99999}));
+        message.channel.send("please check your dms", {replay: message}).then(sent => sent.delete({timeout: 99}));
     }
 
     if (command === "botinfo") {
