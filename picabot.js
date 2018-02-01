@@ -64,7 +64,7 @@ bot.on("message", function(message) {
 
     const randomcolor = '0x'+Math.floor(Math.random()*16777215).toString(16);
 
-    const args = message.content.substring(1).split(' ');
+    const args = message.content.substring(prefix.length).split(' ');
     //Get command from message
     let command = message.content.toLowerCase().split(" ")[0];
     //Remove prefix from command string
@@ -90,7 +90,7 @@ bot.on("message", function(message) {
     if (command === "say") {
         var args1 = message.content.split();
         message.delete();
-        message.channel.send(args1.join("").substring(4));
+        message.channel.send(args.join(""));
     }
 
     if (command === "sayall") {
