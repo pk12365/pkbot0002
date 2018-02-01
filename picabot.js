@@ -82,7 +82,8 @@ bot.on("message", function(message) {
         .setFooter("Bot Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
         .addField("support server",`[link](https://discord.gg/zFDvBay)`,inline = true)
         .addField("bot invite link",`[invite](https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot)`,inline = true)
-        .addField("please give me vote",`[vote and invite link](https://discordbots.org/bot/376292306233458688)`)
+        .addField("please give upvote",`[vote and invite link](https://discordbots.org/bot/376292306233458688)`,inline = true)
+        .addField("help with donate",`[patreon](https://www.patreon.com/icw)`,inline = true)
         .setTimestamp();
         message.author.send({embed: helpembed});
         message.channel.send("check your dms", {replay: message}).then(sent => sent.delete({timeout: 99}));
@@ -223,7 +224,8 @@ bot.on("message", function(message) {
         .addField("bot invite link",`[invite](https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot)`,inline = true)
         .setThumbnail("https://media.discordapp.net/attachments/406099961730564107/407455733689483265/Untitled6.png?width=300&height=300")
         .setFooter("Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
-        .addField("please give me vote",`[vote and invite link](https://discordbots.org/bot/376292306233458688)`)
+        .addField("please give me vote",`[vote and invite link](https://discordbots.org/bot/376292306233458688)`,inline = true)
+        .addField("help with donate",`[patreon](https://www.patreon.com/icw)`,inline = true)
         .setTimestamp();
         message.channel.send({ embed: infoembed });
     }
