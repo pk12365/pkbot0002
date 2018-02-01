@@ -110,8 +110,8 @@ bot.on("message", function(message) {
 
     if (command === "weather") {
         var arg = message.content.substring(9).split(" ");
-        //message.channel.send(`${arg}`)
-        var cityname = arg;
+        message.channel.send(args.join("").substring(6));
+        var cityname = args.join("").substring(6);
         var http = require('http');
         request({
         url : 'http://api.openweathermap.org/data/2.5/weather?q=' + cityname + '&APPID=' + owmkey
