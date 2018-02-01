@@ -239,9 +239,10 @@ bot.on("message", function(message) {
 /*---------------------------------------------------------------------------------------------
                     no dm commands (only for server channels)
 ---------------------------------------------------------------------------------------------*/
-    if (message.channel.type == "dm" || message.channel.type == "group") return undefined;
-    const serverQueue = songQueue.get(message.guild.id);
-
+    if (message.channel.type == "dm" || message.channel.type == "group") {
+        message.reply('this command is only for bot owner!!!');
+        return;
+    }
     if (command === "serverinfo") {
         let guildTchannels = message.guild.channels.filter(e => e.type !== 'voice').size;
         let guildVchannels = message.guild.channels.filter(e => e.type === 'voice').size;
