@@ -90,7 +90,7 @@ bot.on("message", function(message) {
     if (command === "say") {
         var args1 = message.content.split();
         message.delete();
-        message.channel.send(args.join(""));
+        message.channel.send(args.join("").substring(4));
     }
 
     if (command === "sayall") {
