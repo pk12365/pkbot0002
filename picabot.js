@@ -7,7 +7,7 @@ const google = require("googleapis");
 const youtube = google.youtube("v3");
 //var config = JSON.parse(fs.readFileSync('./config.json', 'utf-8'));
 const bot = new Discord.Client();
-const prefix = "....";
+const prefix = ".";
 const botChannelName = "icwbot2";
 const botlogchannel = "406504806954565644";
 const botowner = "264470521788366848";
@@ -64,7 +64,7 @@ bot.on("message", function(message) {
 
     const randomcolor = '0x'+Math.floor(Math.random()*16777215).toString(16);
 
-    const args = message.content.substring(prefix.length).split(' ');
+    const args = message.content.substring(1).split(' ');
     //Get command from message
     let command = message.content.toLowerCase().split(" ")[0];
     //Remove prefix from command string
