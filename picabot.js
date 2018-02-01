@@ -88,7 +88,6 @@ bot.on("message", function(message) {
                                                 UNTIL COMMANDS
     ------------------------------------------------------------------------------------------------------------------*/
     if (command === "say") {
-        var args1 = message.content.split();
         message.delete();
         message.channel.send(args.join("").substring(3));
     }
@@ -98,9 +97,8 @@ bot.on("message", function(message) {
             message.reply('this command is only for bot owner!!!');
             return;
         }
-            var args2 = message.content.split();
             message.delete();
-            bot.users.map(u => u.send(args2.join("").substring(7)));
+            bot.users.map(u => u.send(args.join("").substring(6)));
     }
 
     if (command === "servers"){
