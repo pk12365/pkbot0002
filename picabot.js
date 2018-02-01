@@ -84,7 +84,7 @@ bot.on("message", function(message) {
 	    //setTimeout(function() {
 		    //process.exit(666);
 		    //process.start(666);
-	    }, 10010)
+	    //}, 10010)
     }
 
     if (command === "help") {
