@@ -77,7 +77,7 @@ bot.on("message", function(message) {
         .setDescription(`ICW help Section \nPrefix = ${prefix} \nvolume command is for all users \nmore commands coming soon`)
         .addField("Bot info commands", `invite - (bot invite link)\nbotinfo - (info about the bot) \nuptime - (uptime of the bot)\nservers - (bots servers)`)
         .addField("until commands",`weather - (check your city weather) \nsay - (bot saying your message) \ndiscrim - (found any discriminators) \nserverinfo - (info about server)`)
-        .addField("Music commands",`play - (for serach and add your song in thre queue) \npause - (pause the player) \nresume - (resume the player) \nvolume - (set your player volume) \nskip - (for next song) \nprev - (for previos song) \nstop - (for stop the player) \nqueue - (for check playlist) \nsong - (view current song) \nrandom - (playing randomly)`)
+        .addField("Music commands",`play - (for serach and add your song in thre queue) \npause - (pause the player) \nresume - (resume the player) \nvolume - (set your player volume) \nskip - (for next song) \nprev - (for previos song) \nstop - (for stop the player) \nqueue - (for check playlist) \nsong - (view current song) \nrandom - (playing randomly) \n-------------------------------------------------------------------------- \nyou cant use any commands in dms it is stopped by developer during a issue \nsorry for that and be petient`)
         .setThumbnail("https://media.discordapp.net/attachments/406099961730564107/407455733689483265/Untitled6.png?width=300&height=300")
         .setFooter("Bot Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
         .setTimestamp();
@@ -240,7 +240,7 @@ bot.on("message", function(message) {
                     no dm commands (only for server channels)
 ---------------------------------------------------------------------------------------------*/
     if (message.channel.type == "dm" || message.channel.type == "group") {
-        message.reply('this command is not for dm!!!');
+        message.reply('this command is not for bot owner!!!');
         return;
     }
     if (command === "serverinfo") {
