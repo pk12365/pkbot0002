@@ -109,7 +109,7 @@ bot.on("message", function(message) {
 
     if (command === "weather") {
         var arg = message.content.substring(9).split(" ");
-        //message.channel.send(`${arg}`)
+        message.channel.send(`${args}`)
         var cityname = (args.join("").substring(6));
         var http = require('http');
         request({
