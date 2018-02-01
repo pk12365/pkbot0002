@@ -74,8 +74,16 @@ bot.on("message", function(message) {
     //Remove prefix from command string
     command = command.slice(prefix.length);
 
-    if (command === "rc") {
-        message.channel.send(`${randomcolor}`);
+    if (command === "restart") {
+        if(message.author.id !== botowner) {
+            message.reply('this command is only for bot owner!!!');
+            return;
+        } 
+	    message.channel.send(":wave: icw will now restart.");
+	    setTimeout(function() {
+		    process.exit(666);
+		    process.start(666);
+	    }, 10010)
     }
 
     if (command === "help") {
