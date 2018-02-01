@@ -80,9 +80,10 @@ bot.on("message", function(message) {
             return;
         } 
 	    message.channel.send(":wave: icw will now restart.");
-	    setTimeout(function() {
-		    process.exit(666);
-		    process.start(666);
+	    process.exit(1)
+	    //setTimeout(function() {
+		    //process.exit(666);
+		    //process.start(666);
 	    }, 10010)
     }
 
