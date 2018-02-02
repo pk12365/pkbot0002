@@ -5,11 +5,9 @@ const ytdl = require("ytdl-core");
 const fs = require("fs");
 const google = require("googleapis");
 const youtube = google.youtube("v3");
-var cusprefix = require("./cusprefix.json");
 //var config = JSON.parse(fs.readFileSync('./config.json', 'utf-8'));
 const bot = new Discord.Client();
 const prefix = "$";
-const customprefix = [];
 const botChannelName = "icwbot2";
 const botlogchannel = "406504806954565644";
 const botowner = "264470521788366848";
@@ -59,23 +57,10 @@ fs.readFile("save.json", function(err, data) {
 });
 
 bot.on("message", function(message) {
-		var cusprefix;
-		let cusprefixJSON;
-		try{
-			cusprefixJSON = JSON.parse(FileStream.readFileSync('cusprefix.json'));
-			if (cusprefixJSON[message.guild.id.toString()] != undefined) {
-				cusprefix = cusprefixJSON[message.guild.id.toString()];
-			}else{
-				cusprefix = "^";
-			}
-		}
-		catch(err){
-			cusprefix = "^";
-		}
 
     if (message.author.bot) return undefined;
 
-    if (!message.content.startsWith(cusprefix.cusprefix || prefix || prefix.JSON || cusprefix)) return undefined;
+    if (!message.content.startsWith(prefix)) return undefined;
 
     const randomcolor = '0x'+Math.floor(Math.random()*16777215).toString(16);
 
@@ -84,15 +69,6 @@ bot.on("message", function(message) {
     let command = message.content.toLowerCase().split(" ")[0];
     //Remove prefix from command string
     command = command.slice(prefix.length);
-
-    if (command === "prefixchange" || command === "pc") {
-		console.log("'PrefixSet' was executed in the guild '" + message.guild.name + "' by " + message.author.tag + " (" + message.author.id + ") but failed to complete");
-        message.channel.send(cusprefix);
-        cusprefix = message.content.split(" ").slice(1, 2)[0];
-        fs.writeFile("./cusprefix.json", JSON.stringify(cusprefix), (err) => console.error);
-		message.channel.send("Prefix set to `" + (cusprefix) + "`");
-		console.log("'PrefixSet' was executed in the guild '" + message.guild.name + "' by " + message.author.tag + " (" + message.author.id + ")");
-	}
 
     if (command === "help") {
         let helpembed = new Discord.RichEmbed()
@@ -172,7 +148,7 @@ bot.on("message", function(message) {
             message.reply('this command is only for bot owner!!!');
             return;
         }
-            if (/bot.token/.exec(message.content.split(" ").slice(1).join(" "))) return message.channel.send("You cannot use `bot.token` in an eval.")
+            if (/bot.token/.exec(message.content.split(" ").slice(1).join(" "))) return message.channel.send("I think im not idiot");
             try {
                 let passedembed = new Discord.RichEmbed()
                 .setAuthor("Hi " + message.author.username.toString(), message.author.avatarURL)
@@ -229,7 +205,7 @@ bot.on("message", function(message) {
         message.channel.send("please check your dms", {replay: message}).then(sent => sent.delete({timeout: 99}));
     }
 
-    if (command === "botinfo") {
+    if (command === "botinfo" || command === "info") {
         let TextChannels = bot.channels.filter(e => e.type !== 'voice').size;
         let VoiceChannels = bot.channels.filter(e => e.type === 'voice').size;
         var infoembed = new Discord.RichEmbed()
@@ -301,7 +277,7 @@ bot.on("message", function(message) {
     /*------------------------------------------------------------------------------------------
                                             MUSIC COMMANDS
     -------------------------------------------------------------------------------------------*/
-    if (command === "play") {
+    if (command === "play" || command === "p" || command === "m p") {
         if (message.member.voiceChannel !== undefined) {
             if (args.length > 0) {
                 var query = "";
@@ -397,7 +373,7 @@ bot.on("message", function(message) {
     }
 
 
-    if (command === "skip") {
+    if (command === "skip" || command === "next") {
         if (message.member.voiceChannel !== undefined) {
             if (!message.guild.me.voiceChannel) {
                 message.channel.send("bot is not in voice channel and nothing to play", { reply: message });
@@ -521,7 +497,7 @@ bot.on("message", function(message) {
         }
     }
 
-    if (command === "song") {
+    if (command === "song" || command === "np") {
         if (!message.guild.me.voiceChannel) {
             message.channel.send("bot is not in voice channel and nothing to play", { reply: message });
             return;
@@ -540,7 +516,7 @@ bot.on("message", function(message) {
         }
     }
 
-    if (command === "queue") {
+    if (command === "queue" || command === "q") {
         if (!message.guild.me.voiceChannel) {
             message.channel.send("bot is not in voice channel and nothing to play", { reply: message });
             return;
@@ -567,7 +543,18 @@ bot.on("message", function(message) {
         }
     }
 
-    if (command === "volume") {
+    if (command === "viewvolume" || command === "vv") {
+        var volembed = new Discord.RichEmbed()
+        .setColor(randomcolor)
+                .setAuthor("volume controls", "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
+                .setDescription(`Current volume is ${args[1]}%`)
+                .setThumbnail("https://images-ext-1.discordapp.net/external/v1EV83IWPZ5tg7b5NJwfZO_drseYr7lSlVjCJ_-PncM/https/cdn.discordapp.com/icons/268683615632621568/168a880bdbc1cb0b0858f969b2247aa3.jpg?width=80&height=80")
+                .setFooter("Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
+                .setTimestamp();
+                message.channel.send({embed: volembed});
+    }
+
+    if (command === "volume" || command === "sv" || command === "setvolume") {
         if (message.member.voiceChannel !== undefined) {
             if (!message.guild.me.voiceChannel) {
                 message.channel.send("bot is not in voice channel", { reply: message });
