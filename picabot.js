@@ -8,7 +8,7 @@ const youtube = google.youtube("v3");
 var cusprefix = require("./cusprefix.json");
 //var config = JSON.parse(fs.readFileSync('./config.json', 'utf-8'));
 const bot = new Discord.Client();
-const prefix = "$";
+//const prefix = "$";
 const customprefix = [];
 const botChannelName = "icwbot2";
 const botlogchannel = "406504806954565644";
@@ -59,6 +59,19 @@ fs.readFile("save.json", function(err, data) {
 });
 
 bot.on("message", function(message) {
+		var prefix;
+		let PrefixesJSON;
+		try{
+			cusprefixJSON = JSON.parse(FileStream.readFileSync('cusprefix.json'));
+			if (PrefixesJSON[message.guild.id.toString()] != undefined) {
+				prefix = PrefixesJSON[message.guild.id.toString()];
+			}else{
+				prefix = "$";
+			}
+		}
+		catch(err){
+			prefix = "$";
+		}
 
     if (message.author.bot) return undefined;
 
