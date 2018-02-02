@@ -58,6 +58,14 @@ fs.readFile("save.json", function(err, data) {
     }
 });
 
+bot.on("msg", function(message) {
+    if (!message.content.startsWith(cusprefix.cusprefix)) return undefined;
+    cmd = cmd.slice(prefix.length);
+    if (cmd === "hi") {
+        message.channel.send("hello");
+    }
+
+});
 bot.on("message", function(message) {
 
     if (message.author.bot) return undefined;
