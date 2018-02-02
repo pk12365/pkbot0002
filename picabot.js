@@ -62,7 +62,7 @@ bot.on("message", function(message) {
 
     if (message.author.bot) return undefined;
 
-    if (!message.content.startsWith(prefix || cusprefix.cusprefix)) return undefined;
+    if (!message.content.startsWith(cusprefix.cusprefix || prefix)) return undefined;
 
     const randomcolor = '0x'+Math.floor(Math.random()*16777215).toString(16);
 
@@ -76,7 +76,7 @@ bot.on("message", function(message) {
 		console.log("'PrefixSet' was executed in the guild '" + message.guild.name + "' by " + message.author.tag + " (" + message.author.id + ") but failed to complete");
         message.channel.send(cusprefix);
         cusprefix = message.content.split(" ").slice(1, 2)[0];
-		fs.writeFile("./cusprefix.json", JSON.stringify(cusprefix), (err) => console.error);
+        fs.writeFile("./cusprefix.json", JSON.stringify(cusprefix), (err) => console.error);
 		message.channel.send("Prefix set to `" + (cusprefix) + "`");
 		console.log("'PrefixSet' was executed in the guild '" + message.guild.name + "' by " + message.author.tag + " (" + message.author.id + ")");
 	}
