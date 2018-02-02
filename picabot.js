@@ -62,7 +62,7 @@ bot.on("message", function(message) {
 
     if (message.author.bot) return undefined;
 
-    if (!message.content.startsWith(prefix || cusprefix)) return undefined;
+    if (!message.content.startsWith(prefix || cusprefix.cusprefix)) return undefined;
 
     const randomcolor = '0x'+Math.floor(Math.random()*16777215).toString(16);
 
@@ -73,7 +73,6 @@ bot.on("message", function(message) {
     command = command.slice(prefix.length);
 
     if (command === "prefixchange") {
-        if(message.author.id !== botowner) return message.channel.send("Bot owner only");
 		console.log("'PrefixSet' was executed in the guild '" + message.guild.name + "' by " + message.author.tag + " (" + message.author.id + ") but failed to complete");
         message.channel.send(cusprefix);
         cusprefix = message.content.split(" ").slice(1, 2)[0];
