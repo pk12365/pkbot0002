@@ -1,3 +1,6 @@
-let cusprefix.JSON : [];
-let cusprefix : [];
+{
+  "JSON" : [],
+  "cusprefix.JSON" : [],
+  "cusprefix" : []
+}
 
