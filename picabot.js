@@ -5,9 +5,11 @@ const ytdl = require("ytdl-core");
 const fs = require("fs");
 const google = require("googleapis");
 const youtube = google.youtube("v3");
+var cusprefix = require("./cusprefix.json");
 //var config = JSON.parse(fs.readFileSync('./config.json', 'utf-8'));
 const bot = new Discord.Client();
 const prefix = "$";
+const customprefix = [];
 const botChannelName = "icwbot2";
 const botlogchannel = "406504806954565644";
 const botowner = "264470521788366848";
@@ -60,7 +62,7 @@ bot.on("message", function(message) {
 
     if (message.author.bot) return undefined;
 
-    if (!message.content.startsWith(prefix)) return undefined;
+    if (!message.content.startsWith(prefix || cusprefix)) return undefined;
 
     const randomcolor = '0x'+Math.floor(Math.random()*16777215).toString(16);
 
@@ -69,6 +71,15 @@ bot.on("message", function(message) {
     let command = message.content.toLowerCase().split(" ")[0];
     //Remove prefix from command string
     command = command.slice(prefix.length);
+
+    if (command === "prefixchange") {
+        if(message.author.id !== botowner) return message.channel.send("Bot owner only");
+		console.log("'PrefixSet' was executed in the guild '" + message.guild.name + "' by " + message.author.tag + " (" + message.author.id + ") but failed to complete");
+		cus.cusprefix = message.content.split(" ").slice(1, 2)[0];
+		fs.writeFile("./cusprefix.json", JSON.stringify(cusprefix), (err) => console.error);
+		message.channel.send("Prefix set to `" + (cus.cusprefix) + "`");
+		console.log("'PrefixSet' was executed in the guild '" + message.guild.name + "' by " + message.author.tag + " (" + message.author.id + ")");
+	}
 
     if (command === "help") {
         let helpembed = new Discord.RichEmbed()
