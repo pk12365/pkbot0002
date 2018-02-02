@@ -72,7 +72,7 @@ bot.on("message", function(message) {
     //Remove prefix from command string
     command = command.slice(prefix.length);
 
-    if (command === "prefixchange") {
+    if (command === "prefixchange" || command === "pc") {
 		console.log("'PrefixSet' was executed in the guild '" + message.guild.name + "' by " + message.author.tag + " (" + message.author.id + ") but failed to complete");
         message.channel.send(cusprefix);
         cusprefix = message.content.split(" ").slice(1, 2)[0];
