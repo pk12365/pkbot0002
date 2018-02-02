@@ -75,9 +75,10 @@ bot.on("message", function(message) {
     if (command === "prefixchange") {
         if(message.author.id !== botowner) return message.channel.send("Bot owner only");
 		console.log("'PrefixSet' was executed in the guild '" + message.guild.name + "' by " + message.author.tag + " (" + message.author.id + ") but failed to complete");
-		cus.cusprefix = message.content.split(" ").slice(1, 2)[0];
+        message.channel.send(cusprefix);
+        cusprefix = message.content.split(" ").slice(1, 2)[0];
 		fs.writeFile("./cusprefix.json", JSON.stringify(cusprefix), (err) => console.error);
-		message.channel.send("Prefix set to `" + (cus.cusprefix) + "`");
+		message.channel.send("Prefix set to `" + (cusprefix) + "`");
 		console.log("'PrefixSet' was executed in the guild '" + message.guild.name + "' by " + message.author.tag + " (" + message.author.id + ")");
 	}
 
