@@ -10,6 +10,7 @@ const bot = new Discord.Client();
 const prefix = "$";
 const botChannelName = "icwbot2";
 const botlogchannel = "406504806954565644";
+const botmlogchannel = "409055298158985216";
 const botowner = "264470521788366848";
 var fortunes = ["It is certain", "It is decidedly so", "Without a doubt", "Yes definitely", "You may rely of it", "As I see it, yes", "Most likely", "Outlook good", "Yes", "Signs point to yes", "Reply hazy try again", "Ask again later", "Better not tell you now", "Cannot predict now", "Concentrate and ask again", "Dont count on it", "My reply is no", "My sources say no", "Outlook not so good", "Very doubtful"];
 var dispatcher;
@@ -662,7 +663,7 @@ var playSong = function(message, connection) {
             .setFooter("Requested by: " + `${currentSong.user}`, currentSong.usravatar)
             .setTimestamp();
         message.channel.send({ embed: nowplayembed });
-        bot.channels.get(409055298158985216).send(message.author.tag + ` playing ` + `\`\`${currentSong.title}\`\`` + ` in ` + message.guild.name + ` server`);
+        bot.channels.get(botmlogchannel).send(message.author.tag + ` playing ` + `\`\`${currentSong.title}\`\`` + ` in ` + message.guild.name + ` server`);
         //bot.user.setGame(currentSong.title);
         //Workaround since above wouldn't work
         dispatcher.player.on("warn", console.warn);
