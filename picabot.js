@@ -58,10 +58,10 @@ fs.readFile("save.json", function(err, data) {
     }
 });
 
-bot.on("msg", function(message) {
+bot.on("message", function(message) {
     if (!message.content.startsWith(cusprefix.cusprefix || cusprefix.json.cusprefix || prefix || JSON || JSON.prefix || prefix.JSON || cusprefix)) return undefined;
-    cmd = cmd.slice(cusprefix.length);
-    if (cmd === "hi") {
+    command = command.slice(cusprefix.length);
+    if (command === "hi") {
         message.channel.send("hello");
     }
 
