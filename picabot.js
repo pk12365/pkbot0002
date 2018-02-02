@@ -59,7 +59,7 @@ fs.readFile("save.json", function(err, data) {
 });
 
 bot.on("msg", function(message) {
-    if (!message.content.startsWith(cusprefix.cusprefix || cusprefix.json.cusprefix || JSON || JSON.prefix || prefix.JSON || cusprefix)) return undefined;
+    if (!message.content.startsWith(cusprefix.cusprefix || cusprefix.json.cusprefix || prefix || JSON || JSON.prefix || prefix.JSON || cusprefix)) return undefined;
     cmd = cmd.slice(cusprefix.length);
     if (cmd === "hi") {
         message.channel.send("hello");
