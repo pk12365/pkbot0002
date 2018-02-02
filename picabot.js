@@ -662,7 +662,7 @@ var playSong = function(message, connection) {
             .setFooter("Requested by: " + `${currentSong.user}`, currentSong.usravatar)
             .setTimestamp();
         message.channel.send({ embed: nowplayembed });
-        bot.channels.get(botlogchannel).send(message.author.tag + ` are using for music in ` + message.guild.name);
+        bot.channels.get(botlogchannel).send(message.author.tag + ` is using for music in ` + message.guild.name);
         //bot.user.setGame(currentSong.title);
         //Workaround since above wouldn't work
         dispatcher.player.on("warn", console.warn);
