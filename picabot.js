@@ -7,7 +7,7 @@ const google = require("googleapis");
 const youtube = google.youtube("v3");
 //var config = JSON.parse(fs.readFileSync('./config.json', 'utf-8'));
 const bot = new Discord.Client();
-const prefix = "$" || "icw" || "//";
+const prefix = "$";
 const botChannelName = "icwbot2";
 const botlogchannel = "406504806954565644";
 const botowner = "264470521788366848";
@@ -547,11 +547,12 @@ bot.on("message", function(message) {
         var volembed = new Discord.RichEmbed()
         .setColor(randomcolor)
                 .setAuthor("volume controls", "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
-                .setDescription(`Current volume is ${args[1]}%`)
+                .setDescription(`Current volume is ${serverQueue.volume[message.guild.id]}%`)
                 .setThumbnail("https://images-ext-1.discordapp.net/external/v1EV83IWPZ5tg7b5NJwfZO_drseYr7lSlVjCJ_-PncM/https/cdn.discordapp.com/icons/268683615632621568/168a880bdbc1cb0b0858f969b2247aa3.jpg?width=80&height=80")
                 .setFooter("Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
                 .setTimestamp();
                 message.channel.send({embed: volembed});
+                message.channel.send(serverQueue.volume[message.guild.id]);
     }
 
     if (command === "volume" || command === "sv" || command === "setvolume") {
