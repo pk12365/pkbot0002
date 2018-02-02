@@ -75,7 +75,7 @@ bot.on("message", function(message) {
 
     if (message.author.bot) return undefined;
 
-    if (!message.content.startsWith(cusprefix.cusprefix || cusprefix.json.cusprefix || prefix || JSON || JSON.prefix || prefix.JSON || cusprefix)) return undefined;
+    if (!message.content.startsWith(cusprefix.cusprefix || prefix || prefix.JSON || cusprefix)) return undefined;
 
     const randomcolor = '0x'+Math.floor(Math.random()*16777215).toString(16);
 
