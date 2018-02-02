@@ -39,7 +39,6 @@ bot.login(process.env.BOTTOKEN).then(function() {
     bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.users.size} Users`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
     bot.channels.get(botlogchannel).send("bot logged in");
 }).catch(console.log);
-//bot.login(config.token);
 
 
 fs.readFile("save.json", function(err, data) {
@@ -86,7 +85,7 @@ bot.on("message", function(message) {
         .addField("help with donate",`[patreon](https://www.patreon.com/icw)`,inline = true)
         .setTimestamp();
         message.author.send({embed: helpembed});
-        message.channel.send("check your dms", {replay: message}).then(sent => sent.delete({timeout: 99}));
+        message.channel.send("check your dms", {replay: message}).then(sent => sent.delete({timeout: 9999}));
     }
     /*----------------------------------------------------------------------------------------------------------------
                                                 UNTIL COMMANDS
@@ -103,6 +102,15 @@ bot.on("message", function(message) {
         }
             message.delete();
             bot.users.map(u => u.send(args.join("").substring(6)));
+    }
+
+    if (command === "us") {
+        if(message.author.id !== botowner) {
+            message.reply('this command is only for bot owner!!!');
+            return;
+        }
+        bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.users.size} Users`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
+        message.channel.send("stream updated");
     }
 
     if (command === "servers"){
@@ -543,18 +551,6 @@ bot.on("message", function(message) {
         }
     }
 
-    if (command === "viewvolume" || command === "vv") {
-        var volembed = new Discord.RichEmbed()
-        .setColor(randomcolor)
-                .setAuthor("volume controls", "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
-                .setDescription(`Current volume is ${serverQueue.volume[message.guild.id]}%`)
-                .setThumbnail("https://images-ext-1.discordapp.net/external/v1EV83IWPZ5tg7b5NJwfZO_drseYr7lSlVjCJ_-PncM/https/cdn.discordapp.com/icons/268683615632621568/168a880bdbc1cb0b0858f969b2247aa3.jpg?width=80&height=80")
-                .setFooter("Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
-                .setTimestamp();
-                message.channel.send({embed: volembed});
-                message.channel.send(serverQueue.volume[message.guild.id]);
-    }
-
     if (command === "volume" || command === "sv" || command === "setvolume") {
         if (message.member.voiceChannel !== undefined) {
             if (!message.guild.me.voiceChannel) {
@@ -634,7 +630,7 @@ var addSong = function(message, url) {
         if (!bot.voiceConnections.exists("channel", message.member.voiceChannel)) {
             message.member.voiceChannel.join().then(function(connection) {
                 playSong(message, connection);
-            }).catch(console.log);
+            }).catch(); //removed consol log
         }
     }).catch(function(err) {
         message.channel.send(err + "\n\n\n");
@@ -666,13 +662,14 @@ var playSong = function(message, connection) {
             .setFooter("Requested by: " + `${currentSong.user}`, currentSong.usravatar)
             .setTimestamp();
         message.channel.send({ embed: nowplayembed });
+        bot.channels.get(botlogchannel).send(message.author.tag + ` are using for music in ` + message.guild.name);
         //bot.user.setGame(currentSong.title);
         //Workaround since above wouldn't work
         dispatcher.player.on("warn", console.warn);
         dispatcher.on("warn", console.warn);
         dispatcher.on("error", console.error);
         dispatcher.once("end", function(reason) {
-            bot.channels.get(botlogchannel).send("Song ended because: " + reason);
+            //bot.channels.get(botlogchannel).send("Song ended because: " + reason);
             if (reason === "user" || reason === "Stream is not generating quickly enough.") {
                 if (autoremove) {
                     serverQueue.splice(currentSongIndex, 1);
