@@ -85,7 +85,7 @@ bot.on("message", function(message) {
 
     const randomcolor = '0x'+Math.floor(Math.random()*16777215).toString(16);
 
-    const args = message.content.substring(prefix.length).split();
+    const args = message.content.substring(prefix.length).split('');
     //Get command from message
     let command = message.content.toLowerCase().split(" ")[0];
     //Remove prefix from command string
@@ -580,25 +580,25 @@ bot.on("message", function(message) {
                 message.channel.send("bot is not in voice channel", { reply: message });
                 return;
             }
-		serverQueue.volume[message.guild.id] = parseFloat(args) - command.length;
-            if (args > 100) {
+            if (args[1] > 100) {
                 message.channel.send("Invalid Volume! Please provide a volume from 1 to 100.");
                 return;
             }
-            if (args < 1) {
+            if (args[1] < 1) {
                 message.channel.send("Invalid Volume! Please provide a volume from 1 to 100.");
                 return;
             }
-            if (isNaN(args)) {
+            if (isNaN(args[1])) {
 		    message.channel.send(args);
                 message.channel.send(`please provide a valid input. example \`${prefix}volume 100\``, { reply: message });
                 return;
             }
-            dispatcher.setVolumeLogarithmic(args / 80);
+		serverQueue.volume[message.guild.id] = args[1];
+            dispatcher.setVolumeLogarithmic(args[1] / 80);
             var setvolembed = new Discord.RichEmbed()
                 .setColor(randomcolor)
                 .setAuthor("volume controls", "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
-                .setDescription(`volume set ${args}%`)
+                .setDescription(`volume set ${args[1]}%`)
                 .setThumbnail("https://images-ext-1.discordapp.net/external/v1EV83IWPZ5tg7b5NJwfZO_drseYr7lSlVjCJ_-PncM/https/cdn.discordapp.com/icons/268683615632621568/168a880bdbc1cb0b0858f969b2247aa3.jpg?width=80&height=80")
                 .setFooter("Changed by: " + message.author.username.toString(), message.author.avatarURL)
                 .setTimestamp();
