@@ -59,12 +59,12 @@ fs.readFile("save.json", function(err, data) {
 });
 
 bot.on('message', message => {
+    if (message.author.bot) return undefined;
     if (message.channel.type == "dm" || message.channel.type == "group") {
         message.channel.send("i cant talk with you in dm channel");
         return undefined;
     }
     if (message.content.startsWith(`<@${bot.user.id}>`)) {
-        if (message.author.bot) return;
         clbot.configure({botapi: process.env.CLEVERBOT_KEY});
         Cleverbot.prepare(() => {
             clbot.write(message.content, (response) => {
