@@ -59,8 +59,8 @@ fs.readFile("save.json", function(err, data) {
 });
 
 bot.on('message', message => {
-    if (message.author.bot) return;
-    if (message.channel.type == 'dm') {
+    if (msg.content.startsWith(`<@${bot.user.id}>`)) {
+        if (message.author.bot) return;
         clbot.configure({botapi: 'CC5t7pEnGxIq-mjrBf89H2pDcWQ'});
         Cleverbot.prepare(() => {
             clbot.write(message.content, (response) => {
@@ -71,7 +71,7 @@ bot.on('message', message => {
                 }, Math.random() * (1 - 3) + 1 * 1000);
             });
         });
-	    return;
+        return;
     }
 });
 
