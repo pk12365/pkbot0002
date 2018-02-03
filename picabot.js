@@ -315,7 +315,6 @@ bot.on("message", function(message) {
                     query += args[i] + " ";
                 }
                 query += " " + args[args.length - 1];
-                message.channel.send(query);
                 var results = youtube.search.list({
                     "key": process.env.GOOGLEAPIKEY,
                     "q": query,
@@ -332,6 +331,8 @@ bot.on("message", function(message) {
                             message.channel.send(`There were no results for \`${query}\``);
                         } else {
                             addSong(message, "https://www.youtube.com/watch?v=" + data.items[0].id.videoId);
+                            message.channel.send(query);
+                            message.channel.send(args);
                         }
                     }
                 });
