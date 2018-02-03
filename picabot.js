@@ -57,6 +57,7 @@ fs.readFile("save.json", function(err, data) {
 });
 
 bot.on("message", function(message) {
+	bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.users.size} Users`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
 
     if (message.author.bot) return undefined;
 
