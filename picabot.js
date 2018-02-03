@@ -594,7 +594,7 @@ bot.on("message", function(message) {
                 message.channel.send(`please provide a valid input. example \`${prefix}volume 100\``, { reply: message });
                 return;
             }
-            serverQueue.volume[message.guild.id] = args[1];
+            serverQueue.volume[message.guild.id] = args[1].join("").substring(command.length);
             dispatcher.setVolumeLogarithmic(args[1] / 80);
             var setvolembed = new Discord.RichEmbed()
                 .setColor(randomcolor)
