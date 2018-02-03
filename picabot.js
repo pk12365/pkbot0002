@@ -114,7 +114,7 @@ bot.on("message", function(message) {
     ------------------------------------------------------------------------------------------------------------------*/
     if (command === "say") {
         message.delete();
-        message.channel.send(args.join("").substring(3));
+        message.channel.send(args.join("").substring(command.length));
     }
 
     if (command === "sayall") {
