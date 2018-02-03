@@ -575,31 +575,30 @@ bot.on("message", function(message) {
     }
 
     if (command === "volume" || command === "sv" || command === "setvolume") {
-	    serverQueue.volume[message.guild.id] = args[1].join(``).substring(command.length);
+	    serverQueue.volume[message.guild.id] = args.join("").substring(command.length);
         if (message.member.voiceChannel !== undefined) {
             if (!message.guild.me.voiceChannel) {
                 message.channel.send("bot is not in voice channel", { reply: message });
                 return;
             }
-            if (args[1] > 100) {
+            if (args > 100) {
                 message.channel.send("Invalid Volume! Please provide a volume from 1 to 100.");
                 return;
             }
-            if (args[1] < 1) {
+            if (args < 1) {
                 message.channel.send("Invalid Volume! Please provide a volume from 1 to 100.");
                 return;
             }
-            if (isNaN(args[1])) {
-		    message.channel.send(args[1]);
+            if (isNaN(args)) {
 		    message.channel.send(args);
                 message.channel.send(`please provide a valid input. example \`${prefix}volume 100\``, { reply: message });
                 return;
             }
-            dispatcher.setVolumeLogarithmic(args[1] / 80);
+            dispatcher.setVolumeLogarithmic(args / 80);
             var setvolembed = new Discord.RichEmbed()
                 .setColor(randomcolor)
                 .setAuthor("volume controls", "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
-                .setDescription(`volume set ${args[1]}%`)
+                .setDescription(`volume set ${args}%`)
                 .setThumbnail("https://images-ext-1.discordapp.net/external/v1EV83IWPZ5tg7b5NJwfZO_drseYr7lSlVjCJ_-PncM/https/cdn.discordapp.com/icons/268683615632621568/168a880bdbc1cb0b0858f969b2247aa3.jpg?width=80&height=80")
                 .setFooter("Changed by: " + message.author.username.toString(), message.author.avatarURL)
                 .setTimestamp();
