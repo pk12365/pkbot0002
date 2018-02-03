@@ -575,12 +575,12 @@ bot.on("message", function(message) {
     }
 
     if (command === "volume" || command === "sv" || command === "setvolume") {
-	    serverQueue.volume[message.guild.id] = args.join("").substring(command.length);
         if (message.member.voiceChannel !== undefined) {
             if (!message.guild.me.voiceChannel) {
                 message.channel.send("bot is not in voice channel", { reply: message });
                 return;
             }
+		serverQueue.volume[message.guild.id] = args.join("").substring(command.length);
             if (args > 100) {
                 message.channel.send("Invalid Volume! Please provide a volume from 1 to 100.");
                 return;
