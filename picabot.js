@@ -1,5 +1,4 @@
 require("dotenv").config();
-const cleverbot = require('cleverbot.io');
 const request = require('request');
 const Discord = require("discord.js");
 const ytdl = require("ytdl-core");
@@ -54,22 +53,6 @@ fs.readFile("save.json", function(err, data) {
         } else {
             throw err;
         }
-    }
-});
-
-bot.on("message", message => {
-	if (message.content.startsWith(`<@${bot.user.id}>`)) {
-		message.channel.startTyping();
-		const content = message.content.slice(21);
-		let cbot = new cleverbot(process.env.CBOT_USER, process.env.CBOT_KEY);
-		cbot.setNick(message.author.username);
-		cbot.create(function (err, session) {
-			cbot.ask(content, function (err, response) {
-				message.channel.send(response);
-				message.channel.stopTyping();
-			});
-		});
-		return;
     }
 });
 
