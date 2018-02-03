@@ -59,7 +59,7 @@ fs.readFile("save.json", function(err, data) {
 });
 
 bot.on('message', message => {
-    if (msg.content.startsWith(`<@${bot.user.id}>`)) {
+    if (message.content.startsWith(`<@${bot.user.id}>`)) {
         if (message.author.bot) return;
         clbot.configure({botapi: 'CC5t7pEnGxIq-mjrBf89H2pDcWQ'});
         Cleverbot.prepare(() => {
