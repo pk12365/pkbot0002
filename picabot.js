@@ -1,5 +1,4 @@
 require("dotenv").config();
-const cleverbot = require('cleverbot.io');
 const request = require('request');
 const Discord = require("discord.js");
 const ytdl = require("ytdl-core");
@@ -21,6 +20,8 @@ var previousSongIndex = 0;
 var shuffle = false;
 var autoremove = false;
 const owmkey = process.env.KEY_WEATHER;
+const Cleverbot = require('cleverbot-node');
+const clbot = new Cleverbot;
 
 bot.on("ready", function() {
     console.log("Bot ready");
@@ -57,19 +58,20 @@ fs.readFile("save.json", function(err, data) {
     }
 });
 
-bot.on("message", message => {
-	if (message.content.startsWith(`<@${bot.user.id}>`)) {
-		message.channel.startTyping();
-		const content = message.content.slice(21);
-		let cbot = new cleverbot(process.env.CBOT_USER, process.env.CBOT_KEY);
-		cbot.setNick(message.author.username);
-		cbot.create(function (err, session) {
-			cbot.ask(content, function (err, response) {
-				message.channel.send(response);
-				message.channel.stopTyping();
-			});
-		});
-		return;
+bot.on('message', message => {
+    if (message.author.bot) return;
+    if (message.channel.type == 'dm') {
+        clbot.configure({botapi: 'CC5t7pEnGxIq-mjrBf89H2pDcWQ'});
+        Cleverbot.prepare(() => {
+            clbot.write(message.content, (response) => {
+                message.channel.startTyping();
+                setTimeout(() => {
+                    message.channel.sendMessage(response.message).catch(console.error);
+                    message.channel.stopTyping();
+                }, Math.random() * (1 - 3) + 1 * 1000);
+            });
+        });
+	    return;
     }
 });
 
