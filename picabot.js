@@ -59,16 +59,20 @@ fs.readFile("save.json", function(err, data) {
 });
 
 bot.on('message', message => {
+    if (message.channel.type == "dm" || message.channel.type == "group") {
+        message.channel.send("i cant talk with you in dm channel");
+        return undefined;
+    }
     if (message.content.startsWith(`<@${bot.user.id}>`)) {
         if (message.author.bot) return;
-        clbot.configure({botapi: 'CC5t7pEnGxIq-mjrBf89H2pDcWQ'});
+        clbot.configure({botapi: process.env.CLEVERBOT_KEY});
         Cleverbot.prepare(() => {
             clbot.write(message.content, (response) => {
                 message.channel.startTyping();
                 setTimeout(() => {
-                    message.channel.sendMessage(response.message).catch(console.error);
+                    message.channel.send(response.message);
                     message.channel.stopTyping();
-                }, Math.random() * (1 - 3) + 1 * 1000);
+                }, Math.random() * (1 - 3) + 1 * 600);
             });
         });
         return;
