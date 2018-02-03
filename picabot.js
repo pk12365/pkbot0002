@@ -310,11 +310,12 @@ bot.on("message", function(message) {
     if (command === "play" || command === "p" || command === "m p") {
         if (message.member.voiceChannel !== undefined) {
             if (args.length > 0) {
-                var query = "";
-                for (var i = 0; i < args.length - 1; i++) {
-                    query += args[i] + " ";
-                }
-                query += " " + args[args.length - 1];
+                //var query = "";
+                //for (var i = 0; i < args.length - 1; i++) {
+                    //query += args[i] + " ";
+                //}
+                //query += " " + args[args.length - 1];
+                let query = args.join("").substring(command.length);
                 var results = youtube.search.list({
                     "key": process.env.GOOGLEAPIKEY,
                     "q": query,
@@ -331,8 +332,6 @@ bot.on("message", function(message) {
                             message.channel.send(`There were no results for \`${query}\``);
                         } else {
                             addSong(message, "https://www.youtube.com/watch?v=" + data.items[0].id.videoId);
-                            message.channel.send(query);
-                            message.channel.send(args);
                         }
                     }
                 });
