@@ -25,6 +25,5 @@
     "googleapis": "^20.1.0",
     "node-opus": "^0.2.6",
     "ytdl-core": "^0.15.82",
-    "cleverbot-node": "^0.3.11"
   }
 }
