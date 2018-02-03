@@ -67,8 +67,8 @@ bot.on('message', message => {
             clbot.write(message.content, (response) => {
                 message.channel.startTyping();
                 //setTimeout(() => {
-                    message.channel.send(response.message);
-                    message.channel.stopTyping();
+                message.channel.send(response.message);
+                message.channel.stopTyping();
                 //}, Math.random() * (1 - 3) + 1 * 600);
             });
         });
@@ -314,7 +314,7 @@ bot.on("message", function(message) {
                 for (var i = 0; i < args.length - 1; i++) {
                     query += args[i] + " ";
                 }
-                query += " " + args[args.length - 1];
+                query += " " + args[args.length - command.length];
                 var results = youtube.search.list({
                     "key": process.env.GOOGLEAPIKEY,
                     "q": query,
