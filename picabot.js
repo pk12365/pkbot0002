@@ -1,6 +1,5 @@
 require("dotenv").config();
-const Cleverbot = require("cleverbot-node");
-const clbot = new Cleverbot;
+const cleverbot = require('cleverbot.io');
 const request = require('request');
 const Discord = require("discord.js");
 const ytdl = require("ytdl-core");
@@ -59,17 +58,20 @@ fs.readFile("save.json", function(err, data) {
 });
 
 bot.on("message", message => {
-    clbot.configure({botapi: process.env.CLEVERBOT_KEY});
-    if (message.channel.type === "dm") {
-      clbot.write(message.content, (response) => {
-        message.channel.startTyping();
-        setTimeout(() => {
-          message.channel.send(response.output).catch(console.error);
-          message.channel.stopTyping();
-        }, Math.random() * (1 - 3) + 1 * 1000);
-      });
+	if (message.content.startsWith(`<@${bot.user.id}>`)) {
+		message.channel.startTyping();
+		const content = message.content.slice(21);
+		let cbot = new cleverbot(process.env.CBOT_USER, process.env.CBOT_KEY);
+		cbot.setNick(message.author.username);
+		cbot.create(function (err, session) {
+			cbot.ask(content, function (err, response) {
+				message.channel.send(response);
+				message.channel.stopTyping();
+			});
+		});
+		return;
     }
-  });
+});
 
 bot.on("message", function(message) {
     bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.users.size} Users`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
