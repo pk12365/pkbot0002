@@ -85,7 +85,7 @@ bot.on("message", function(message) {
 
     const randomcolor = '0x'+Math.floor(Math.random()*16777215).toString(16);
 
-    const args = message.content.substring(prefix.length).split();
+    const args = message.content.substring(prefix.length + command.length).split();
     //Get command from message
     let command = message.content.toLowerCase().split(" ")[0];
     //Remove prefix from command string
