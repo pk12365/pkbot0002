@@ -85,7 +85,7 @@ bot.on("message", function(message) {
 
     const randomcolor = '0x'+Math.floor(Math.random()*16777215).toString(16);
 
-    const args = message.content.substring(prefix.length + command.length).split();
+    const args = message.content.substring(prefix.length).split();
     //Get command from message
     let command = message.content.toLowerCase().split(" ")[0];
     //Remove prefix from command string
@@ -575,6 +575,7 @@ bot.on("message", function(message) {
     }
 
     if (command === "volume" || command === "sv" || command === "setvolume") {
+	    serverQueue.volume[message.guild.id] = args[1].join(``).substring(command.length);
         if (message.member.voiceChannel !== undefined) {
             if (!message.guild.me.voiceChannel) {
                 message.channel.send("bot is not in voice channel", { reply: message });
@@ -594,7 +595,6 @@ bot.on("message", function(message) {
                 message.channel.send(`please provide a valid input. example \`${prefix}volume 100\``, { reply: message });
                 return;
             }
-            serverQueue.volume[message.guild.id] = args[1].join("").substring(command.length);
             dispatcher.setVolumeLogarithmic(args[1] / 80);
             var setvolembed = new Discord.RichEmbed()
                 .setColor(randomcolor)
