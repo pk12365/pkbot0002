@@ -61,7 +61,7 @@ fs.readFile("save.json", function(err, data) {
 bot.on('message', message => {
     if (message.author.bot) return undefined;
     if (message.channel.type == "dm" || message.channel.type == "group") return undefined;
-    if (message.content.startsWith(`<@${bot.user.id}>`) || message.content.startsWith(`icw`)) {
+    if (message.content.startsWith(`<@${bot.user.id}>`) || message.content.startsWith(`icw`) || message.content.startsWith(`Icw`) || message.content.startsWith(`ICW`)) {
         clbot.configure({botapi: process.env.CLEVERBOT_KEY});
         Cleverbot.prepare(() => {
             clbot.write(message.content, (response) => {
@@ -85,7 +85,7 @@ bot.on("message", function(message) {
 
     const randomcolor = '0x'+Math.floor(Math.random()*16777215).toString(16);
 
-    const args = message.content.substring(prefix.length).split(' ');
+    const args = message.content.substring(prefix.length);
     //Get command from message
     let command = message.content.toLowerCase().split(" ")[0];
     //Remove prefix from command string
