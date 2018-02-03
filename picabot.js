@@ -314,7 +314,8 @@ bot.on("message", function(message) {
                 for (var i = 0; i < args.length - 1; i++) {
                     query += args[i] + " ";
                 }
-                query += " " + args[args.length - command.length];
+                query += " " + args[args.length - 1];
+                message.channel.send(query);
                 var results = youtube.search.list({
                     "key": process.env.GOOGLEAPIKEY,
                     "q": query,
