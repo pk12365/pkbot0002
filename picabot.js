@@ -85,7 +85,7 @@ bot.on("message", function(message) {
 
     const randomcolor = '0x'+Math.floor(Math.random()*16777215).toString(16);
 
-    const args = message.content.substring(prefix.length).split();
+    const args = message.content.substring(prefix.length + 1).split();
     //Get command from message
     let command = message.content.toLowerCase().split(" ")[0];
     //Remove prefix from command string
@@ -220,8 +220,6 @@ bot.on("message", function(message) {
         let args3 = message.content.substring(prefix.length).split(' ');
         //const discrims = message.content.split(' ')[1];
         const discrim = args3.join("").substring(7);
-        message.channel.send(args3);
-        message.channel.send(discrim);
         if (!discrim) return message.reply("oops! I could not find the discriminator that you had given.");
         if (typeof discrim !== 'integer')
             if (discrim.size < 4) return message.reply("Don't you know that discrims are 4 numbers? -.-");
