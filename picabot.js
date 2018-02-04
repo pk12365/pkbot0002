@@ -580,7 +580,7 @@ bot.on("message", function(message) {
                 message.channel.send("bot is not in voice channel", { reply: message });
                 return;
             }
-            let args2 = args.join("").substring(command.length););
+            let args2 = args.join("").substring(command.length);
             if (args2 > 100) {
                 message.channel.send("Invalid Volume! Please provide a volume from 1 to 100.");
                 return;
