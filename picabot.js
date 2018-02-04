@@ -592,6 +592,7 @@ bot.on("message", function(message) {
                 return;
             }
             if (isNaN(args2[1])) {
+                message.channel.send(args2);
                 message.channel.send(`please provide a valid input. example \`${prefix}volume 100\``, { reply: message });
                 return;
             }
