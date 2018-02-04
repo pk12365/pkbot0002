@@ -581,7 +581,9 @@ bot.on("message", function(message) {
                 return;
             }
             let args2 = args.join("").substring(command.length);
-            message.channel.send(args2);
+            message.channel.send(args);
+            message.channel.send(`args2`);
+            messasge.channel.send(`${args2}`);
             serverQueue.volume[message.guild.id] = args2[1];
             if (args2[1] > 100) {
                 message.channel.send("Invalid Volume! Please provide a volume from 1 to 100.");
