@@ -583,7 +583,7 @@ bot.on("message", function(message) {
             let args2 = args.join("").substring(command.length);
             message.channel.send(args);
             message.channel.send(`args2`);
-            messasge.channel.send(`${args2}`);
+            message.channel.send(`${args2}`);
             serverQueue.volume[message.guild.id] = args2[1];
             if (args2[1] > 100) {
                 message.channel.send("Invalid Volume! Please provide a volume from 1 to 100.");
@@ -591,6 +591,11 @@ bot.on("message", function(message) {
             }
             if (args2[1] < 1) {
                 message.channel.send("Invalid Volume! Please provide a volume from 1 to 100.");
+                return;
+            }
+            if (isNaN(args2[1])) {
+                message.channel.send(args2);
+                message.channel.send(`please provide a valid input. example \`${prefix}volume 100\``, { reply: message });
                 return;
             }
             dispatcher.setVolumeLogarithmic(args2[1] / 80);
