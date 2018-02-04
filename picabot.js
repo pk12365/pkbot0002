@@ -219,6 +219,7 @@ bot.on("message", function(message) {
     if (command === "discrim") {
         const discrims = message.content.split(' ')[1];
         const discrim = args.join("").substring(7);
+        message.channel.send(discrim);
         if (!discrim) return message.reply("oops! I could not find the discriminator that you had given.");
         if (typeof discrim !== 'integer')
             if (discrim.size < 4) return message.reply("Don't you know that discrims are 4 numbers? -.-");
