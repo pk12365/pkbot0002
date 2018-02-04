@@ -588,12 +588,12 @@ bot.on("message", function(message) {
                 message.channel.send("Invalid Volume! Please provide a volume from 1 to 100.");
                 return;
             }
+            serverQueue.volume[message.guild.id] = args.join("").substring(command.length);
+            message.channel.send(serverQueue.volume[message.guild.id]);
             if (isNaN(args[1])) {
                 message.channel.send(`please provide a valid input. example \`${prefix}volume 100\``, { reply: message });
                 return;
             }
-            serverQueue.volume[message.guild.id] = args.join("").substring(command.length);
-            message.channel.send(serverQueue.volume[message.guild.id]);
             dispatcher.setVolumeLogarithmic(args[1] / 80);
             var setvolembed = new Discord.RichEmbed()
                 .setColor(randomcolor)
