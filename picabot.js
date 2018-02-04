@@ -217,7 +217,7 @@ bot.on("message", function(message) {
     }*/
 
     if (command === "discrim") {
-        const discrims = message.content.split(' ')[1];
+        const discrims = message.content.split('')[1];
         const discrim = args.join(``).substring(7);
         message.channel.send(args);
         message.channel.send(discrim);
