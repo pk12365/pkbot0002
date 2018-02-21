@@ -187,29 +187,24 @@ bot.on("message", function(message) {
             return;
         }
             if (/bot.token/.exec(message.content.split(" ").slice(1).join(" "))) return message.channel.send("I think im not idiot");
-	    if (/process.env.BOTTOKEN/.exec(message.content.split(" ").slice(1).join(" "))) return message.channel.send("I think im not idiot");
-            try {
-                /*let passedembed = new Discord.RichEmbed()
-                .setAuthor("Hi " + message.author.username.toString(), message.author.avatarURL)
-                .setColor(randomcolor)
-                .setThumbnail("https://media.discordapp.net/attachments/406099961730564107/407455733689483265/Untitled6.png?width=300&height=300")
-                .addField("Eval passed!", "```js\n" + eval(message.content.split(" ").slice(1).join(" ")) + "\n```")
-                .setFooter("Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
-                .setTimestamp();
-                message.channel.send({embed: passedembed});*/
-                message.channel.send("```js\n" + eval(message.content.split(" ").slice(1).join(" ")) + "\n```");
-            } catch (err) {
-                /*let errorembed = new Discord.RichEmbed()
-                .setAuthor("Hi " + message.author.username.toString(), message.author.avatarURL)
-                .setColor(randomcolor)
-                .setThumbnail("https://media.discordapp.net/attachments/406099961730564107/407455733689483265/Untitled6.png?width=300&height=300")
-                .addField("Eval error!", "```js\n" + err + "\n```")
-                .setFooter("Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
-                .setTimestamp();
-                message.channel.send({embed: errorembed});*/
-                message.channel.send("```js\n" + err + "\n```");cmdrun
-            }
-            return;
+	    const code = args.join(" ");
+	    const token = bot.token.split("").join("[^]{0,2}");
+	    const rev = bot.token.split("").reverse().join("[^]{0,2}");
+	    const filter = new RegExp(`${token}|${rev}`, "g");
+	    try {
+		    let output = eval(code);
+		    if (output instanceof Promise || (Boolean(output) && typeof output.then === "function" && typeof output.catch === "function")) output = await output;
+		    output = inspect(output, { depth: 0, maxArrayLength: null });
+		    output = output.replace(filter, "[TOKEN]");
+		    output = clean(output);
+		    if (output.length < 1950) {
+			    message.channel.send(`\`\`\`js\n${output}\n\`\`\``);
+		    } else {
+			    message.channel.send(`${output}`, {split:"\n", code:"js"});
+		    }
+	    } catch (error) {
+		    message.channel.send(`The following error occured \`\`\`js\n${error}\`\`\``)
+	    }
     }
 
 /*    if (command === "leaveserver") {
