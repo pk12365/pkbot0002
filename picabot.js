@@ -94,7 +94,7 @@ bot.on("message", function(message) {
     command = command.slice(prefix.length);
     if (command === "restart") {
 	    message.channel.send("bot restarting");
-            hclient.app('testicw').dynos.restart(console.log('Restarting due to Termination Request.'));
+            h.app('testicw').dynos.restart(console.log('Restarting due to Termination Request.'));
     }
 
     if (command === "help") {
