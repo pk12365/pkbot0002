@@ -22,7 +22,9 @@ var autoremove = false;
 const owmkey = process.env.KEY_WEATHER;
 const Cleverbot = require('cleverbot-node');
 const clbot = new Cleverbot;
-
+var Heroku = require('heroku.node');
+var hbot = new Heroku({email: 'pardeepsingh1236512365@gmail.com', api_key: 'Process.env.H_APIKEY'});
+ 
 bot.on("ready", function() {
     console.log("Bot ready");
     bot.channels.get(botlogchannel).send("bot ready");
@@ -90,6 +92,10 @@ bot.on("message", function(message) {
     let command = message.content.toLowerCase().split(" ")[0];
     //Remove prefix from command string
     command = command.slice(prefix.length);
+    if (command === "restart") {
+	    message.channel.send("bot restarting");
+            hclient.app('testicw').dynos.restart(console.log('Restarting due to Termination Request.'));
+    }
 
     if (command === "help") {
         let helpembed = new Discord.RichEmbed()
