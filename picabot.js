@@ -184,7 +184,7 @@ bot.on("message", function(message) {
 	if(command === 'eval') {
 		const code = args.join(" ");
 		const token = bot.token.split("").join("[^]{0,2}");
-		const rev = .token.split("").reverse().join("[^]{0,2}");
+		const rev = bot.token.split("").reverse().join("[^]{0,2}");
 		const filter = new RegExp(`${token}|${rev}`, "g");
 		try {
 			let output = eval(code);
