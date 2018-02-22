@@ -24,7 +24,8 @@ const Cleverbot = require('cleverbot-node');
 const clbot = new Cleverbot;
 var Heroku = require('heroku.node');
 var hbot = new Heroku({email: 'pardeepsingh1236512365@gmail.com', api_key: 'Process.env.H_APIKEY'});
- 
+const { inspect } = require("util");
+
 bot.on("ready", function() {
     console.log("Bot ready");
     bot.channels.get(botlogchannel).send("bot ready");
