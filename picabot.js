@@ -90,6 +90,11 @@ bot.on("message", async(message) => {
 		    message.channel.send(`The following error occured \`\`\`js\n${error}\`\`\``)
 	    }
     }
+	function clean(text)  {
+		return text
+			.replace(/`/g, "`" + String.fromCharCode(8203))
+			.replace(/@/g, "@" + String.fromCharCode(8203));
+	}
 });
 
 bot.on('message', message => {
