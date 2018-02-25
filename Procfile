@@ -1,1 +1,1 @@
-worker: pm2 start picabot.js
+worker: pm2 start app.js --name "picabot.js"
