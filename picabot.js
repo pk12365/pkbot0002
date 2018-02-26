@@ -296,7 +296,7 @@ bot.on("message", function(message) {
     if (command === "kick") {
         if (!message.guild.member(bot.user).hasPermission("KICK_MEMBERS")) return message.channel.send(`I don't have permission to do that`);
         if (!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send(`Insufficient permissions`);
-        let kickUser = message.mentions.users.first();
+        let kickUser = message.mentions.members.first();
         let reason = args.join(" ");
         if (!kickUser) return message.channel.send(`Specify a user to kick`);
         message.channel.send(reason);
