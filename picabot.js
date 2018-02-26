@@ -306,7 +306,7 @@ bot.on("message", function(message) {
         if (kickUser.kickable && kickUser.highestRole.comparePositionTo(message.guild.member(message.author).highestRole) >= 0) return message.channel.send("Your role is either the same or lower than the user you wish to kick.");
         kickUser.send(`You have been kicked from ${message.guild} by ${message.author.username}. Reason: ${reason}`);
         try {
-            message.guild.member(kickUser).kick();
+            message.guild.member(kickUser).kick().catch(console.error);
             var kickembed = new Discord.RichEmbed()
             .setColor(randomcolor)
             .setAuthor(message.author.username.toString(), message.author.avatarURL)
