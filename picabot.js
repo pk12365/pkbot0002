@@ -21,9 +21,9 @@ var shuffle = false;
 var autoremove = false;
 const owmkey = process.env.KEY_WEATHER;
 const Cleverbot = require('cleverbot-node');
-const clbot = new Cleverbot;
+const clbot = new Cleverbot();
 var Heroku = require('heroku.node');
-var hbot = new Heroku({email: 'pardeepsingh1236512365@gmail.com', api_key: 'Process.env.H_APIKEY'});
+var hbot = new Heroku({ email: 'pardeepsingh1236512365@gmail.com', api_key: 'Process.env.H_APIKEY' });
 const { inspect } = require("util");
 
 bot.on("ready", function() {
@@ -62,46 +62,47 @@ fs.readFile("save.json", function(err, data) {
 });
 
 bot.on("message", async(message) => {
-	if(!message.content.startsWith(prefix) || message.author.bot) return;
-	const args = message.content.slice(prefix.length).trim().split(/ +/g);
-	const command = args.shift().toLowerCase();
+    if (!message.content.startsWith(prefix)) return undefined;
+    const args = message.content.slice(prefix.length).trim().split(/ +/g);
+    const command = args.shift().toLowerCase();
     if (command === "eval") {
-        if(message.author.id !== botowner) {
+        if (message.author.id !== botowner) {
             message.reply('this command is only for bot owner!!!');
             return;
         }
-            if (/bot.token/.exec(message.content.split(" ").slice(1).join(" "))) return message.channel.send("I think im not idiot");
-	    const code = args.join(" ");
-	    const token = bot.token.split("").join("[^]{0,2}");
-	    const rev = bot.token.split("").reverse().join("[^]{0,2}");
-	    const filter = new RegExp(`${token}|${rev}`, "g");
-	    try {
-		    let output = eval(code);
-		    if (output instanceof Promise || (Boolean(output) && typeof output.then === "function" && typeof output.catch === "function")) output = await output;
-		    output = inspect(output, { depth: 0, maxArrayLength: null });
-		    output = output.replace(filter, "[TOKEN]");
-		    output = clean(output);
-		    if (output.length < 1950) {
-			    message.channel.send(`\`\`\`js\n${output}\n\`\`\``);
-		    } else {
-			    message.channel.send(`${output}`, {split:"\n", code:"js"});
-		    }
-	    } catch (error) {
-		    message.channel.send(`The following error occured \`\`\`js\n${error}\`\`\``)
-	    }
+        if (/bot.token/.exec(message.content.split(" ").slice(1).join(" "))) return message.channel.send("I think im not idiot");
+        const code = args.join(" ");
+        const token = bot.token.split("").join("[^]{0,2}");
+        const rev = bot.token.split("").reverse().join("[^]{0,2}");
+        const filter = new RegExp(`${token}|${rev}`, "g");
+        try {
+            let output = eval(code);
+            if (output instanceof Promise || (Boolean(output) && typeof output.then === "function" && typeof output.catch === "function")) output = await output;
+            output = inspect(output, { depth: 0, maxArrayLength: null });
+            output = output.replace(filter, "[TOKEN]");
+            output = clean(output);
+            if (output.length < 1950) {
+                message.channel.send(`\`\`\`js\n${output}\n\`\`\``);
+            } else {
+                message.channel.send(`${output}`, { split: "\n", code: "js" });
+            }
+        } catch (error) {
+            message.channel.send(`The following error occured \`\`\`js\n${error}\`\`\``)
+        }
     }
-	function clean(text)  {
-		return text
-			.replace(/`/g, "`" + String.fromCharCode(8203))
-			.replace(/@/g, "@" + String.fromCharCode(8203));
-	}
+
+    function clean(text) {
+        return text
+            .replace(/`/g, "`" + String.fromCharCode(8203))
+            .replace(/@/g, "@" + String.fromCharCode(8203));
+    }
 });
 
 bot.on('message', message => {
     if (message.author.bot) return undefined;
     if (message.channel.type == "dm" || message.channel.type == "group") return undefined;
     if (message.content.startsWith(`<@${bot.user.id}>`) || message.content.startsWith(`icw`) || message.content.startsWith(`Icw`) || message.content.startsWith(`ICW`)) {
-        clbot.configure({botapi: process.env.CLEVERBOT_KEY});
+        clbot.configure({ botapi: process.env.CLEVERBOT_KEY });
         Cleverbot.prepare(() => {
             clbot.write(message.content, (response) => {
                 message.channel.startTyping();
@@ -122,7 +123,7 @@ bot.on("message", function(message) {
 
     if (!message.content.startsWith(prefix)) return undefined;
 
-    const randomcolor = '0x'+Math.floor(Math.random()*16777215).toString(16);
+    const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
 
     const args = message.content.substring(prefix.length + 1).split();
     //Get command from message
@@ -130,29 +131,29 @@ bot.on("message", function(message) {
     //Remove prefix from command string
     command = command.slice(prefix.length);
     if (command === "restart") {
-	    message.channel.send("bot restarting");
-	    let alldynos = hbot.app('testicw').dynos.list;
-	    message.channel.send(alldynos);
-            hbot.app('testicw').dynos.restart(console.log('Restarting due to Termination Request.'));
+        message.channel.send("bot restarting");
+        let alldynos = hbot.app('testicw').dynos.list;
+        message.channel.send(alldynos);
+        hbot.app('testicw').dynos.restart(console.log('Restarting due to Termination Request.'));
     }
 
     if (command === "help") {
         let helpembed = new Discord.RichEmbed()
-        .setColor(randomcolor)
-        .setAuthor("Hi " + message.author.username.toString(), message.author.avatarURL)
-        .setDescription(`ICW help Section \nPrefix = ${prefix} \nvolume command is for all users \nmore commands coming soon`)
-        .addField("Bot info commands", `invite - (bot invite link)\nbotinfo - (info about the bot) \nuptime - (uptime of the bot)\nservers - (bots servers)`)
-        .addField("until commands",`cleverbot - (talk with bot with mention or icw \`\`example - icw hi\`\`) \nweather - (check your city weather) \nsay - (bot saying your message) \ndiscrim - (found any discriminators) \nserverinfo - (info about server)`)
-        .addField("Music commands",`play - (for serach and add your song in thre queue) \npause - (pause the player) \nresume - (resume the player) \nvolume - (set your player volume) \nskip - (for next song) \nprev - (for previos song) \nstop - (for stop the player) \nqueue - (for check playlist) \nsong - (view current song) \nrandom - (playing randomly)`)
-        .setThumbnail("https://media.discordapp.net/attachments/406099961730564107/407455733689483265/Untitled6.png?width=300&height=300")
-        .setFooter("Bot Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
-        .addField("support server",`[link](https://discord.gg/zFDvBay)`,inline = true)
-        .addField("bot invite link",`[invite](https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot)`,inline = true)
-        .addField("please give upvote",`[vote and invite link](https://discordbots.org/bot/376292306233458688)`,inline = true)
-        .addField("help with donate",`[patreon](https://www.patreon.com/icw)`,inline = true)
-        .setTimestamp();
-        message.author.send({embed: helpembed});
-        message.channel.send("check your dms", {replay: message}).then(sent => sent.delete({timeout: 9999}));
+            .setColor(randomcolor)
+            .setAuthor("Hi " + message.author.username.toString(), message.author.avatarURL)
+            .setDescription(`ICW help Section \nPrefix = ${prefix} \nvolume command is for all users \nmore commands coming soon`)
+            .addField("Bot info commands", `invite - (bot invite link)\nbotinfo - (info about the bot) \nuptime - (uptime of the bot)\nservers - (bots servers)`)
+            .addField("until commands", `cleverbot - (talk with bot with mention or icw \`\`example - icw hi\`\`) \nweather - (check your city weather) \nsay - (bot saying your message) \ndiscrim - (found any discriminators) \nserverinfo - (info about server)`)
+            .addField("Music commands", `play - (for serach and add your song in thre queue) \npause - (pause the player) \nresume - (resume the player) \nvolume - (set your player volume) \nskip - (for next song) \nprev - (for previos song) \nstop - (for stop the player) \nqueue - (for check playlist) \nsong - (view current song) \nrandom - (playing randomly)`)
+            .setThumbnail("https://media.discordapp.net/attachments/406099961730564107/407455733689483265/Untitled6.png?width=300&height=300")
+            .setFooter("Bot Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
+            .addField("support server", `[link](https://discord.gg/zFDvBay)`, inline = true)
+            .addField("bot invite link", `[invite](https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot)`, inline = true)
+            .addField("please give upvote", `[vote and invite link](https://discordbots.org/bot/376292306233458688)`, inline = true)
+            .addField("help with donate", `[patreon](https://www.patreon.com/icw)`, inline = true)
+            .setTimestamp();
+        message.author.send({ embed: helpembed });
+        message.channel.send("check your dms", { replay: message }).then(sent => sent.delete({ timeout: 9999 }));
     }
     /*----------------------------------------------------------------------------------------------------------------
                                                 UNTIL COMMANDS
@@ -163,16 +164,16 @@ bot.on("message", function(message) {
     }
 
     if (command === "sayall") {
-        if(message.author.id !== botowner) {
+        if (message.author.id !== botowner) {
             message.reply('this command is only for bot owner!!!');
             return;
         }
-            message.delete();
-            bot.users.map(u => u.send(args.join("").substring(6)));
+        message.delete();
+        bot.users.map(u => u.send(args.join("").substring(6)));
     }
 
     if (command === "us") {
-        if(message.author.id !== botowner) {
+        if (message.author.id !== botowner) {
             message.reply('this command is only for bot owner!!!');
             return;
         }
@@ -180,7 +181,7 @@ bot.on("message", function(message) {
         message.channel.send("stream updated");
     }
 
-    if (command === "servers"){
+    if (command === "servers") {
         let guilds = bot.guilds.map((guild) => `${guild.name} (${guild.id})`);
         message.channel.send(`I'm in the following guilds:\n${guilds.join ('\n')}`);
     }
@@ -190,46 +191,46 @@ bot.on("message", function(message) {
         var cityname = args.join("").substring(7);
         var http = require('http');
         request({
-        url : 'http://api.openweathermap.org/data/2.5/weather?q=' + cityname + '&APPID=' + owmkey
+            url: 'http://api.openweathermap.org/data/2.5/weather?q=' + cityname + '&APPID=' + owmkey
         }, (error, response, body) => {
-        if(error) return;
-        var data = JSON.parse(body);
-        if(data.cod == "404"){
-            message.channel.send(data.message);
-            return;
-        }
-        var weather_main = parseFloat(data.main.temp) - 273.15;
-		var temp_max = parseFloat(data.main.temp_max) - 273.15;
-		var temp_min = parseFloat(data.main.temp_min) - 273.15;
-        const embed = new Discord.RichEmbed()
-        .setTitle(data.name + ',' + data.sys.country)
-		.setAuthor("ICW weather info", "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
-		.setColor(randomcolor)
-		.setDescription(data.weather[0].description)
-        .setThumbnail("http://openweathermap.org/img/w/" + data.weather[0].icon + ".png")
-		.setURL("https://openweathermap.org/city/" + data.name)
-		.addField("main", weather_main + " c", true)
-        .addField("pressure", data.main.pressure + " Hpz", true)
-		.addField("wind", data.wind.speed + " mph" + "/ Direction" + data.wind.deg, true)
-        .addField("visibility", data.visibility, true)
-        .setFooter("Requested by "  + message.author.username.toString(), message.author.avatarURL)
-        .setTimestamp();
-        message.channel.send({embed});
+            if (error) return;
+            var data = JSON.parse(body);
+            if (data.cod == "404") {
+                message.channel.send(data.message);
+                return;
+            }
+            var weather_main = parseFloat(data.main.temp) - 273.15;
+            var temp_max = parseFloat(data.main.temp_max) - 273.15;
+            var temp_min = parseFloat(data.main.temp_min) - 273.15;
+            const embed = new Discord.RichEmbed()
+                .setTitle(data.name + ',' + data.sys.country)
+                .setAuthor("ICW weather info", "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
+                .setColor(randomcolor)
+                .setDescription(data.weather[0].description)
+                .setThumbnail("http://openweathermap.org/img/w/" + data.weather[0].icon + ".png")
+                .setURL("https://openweathermap.org/city/" + data.name)
+                .addField("main", weather_main + " c", true)
+                .addField("pressure", data.main.pressure + " Hpz", true)
+                .addField("wind", data.wind.speed + " mph" + "/ Direction" + data.wind.deg, true)
+                .addField("visibility", data.visibility, true)
+                .setFooter("Requested by " + message.author.username.toString(), message.author.avatarURL)
+                .setTimestamp();
+            message.channel.send({ embed });
         });
     }
-  
-/*    if (command === "leaveserver") {
-        if(message.author.id !== botowner) {
-            message.reply('this command is only for bot owner!!!');
-            return;
-        }
-        var args3 = message.content.substring(12);
-        let guild = bot.guilds.get(args3[0]);
-        message.channel.send(args3);
-        message.channel.send(`guild ${guild}`);
-        //guild.leave();
-        message.channel.send('Left guild.');
-    }*/
+
+    /*    if (command === "leaveserver") {
+            if(message.author.id !== botowner) {
+                message.reply('this command is only for bot owner!!!');
+                return;
+            }
+            var args3 = message.content.substring(12);
+            let guild = bot.guilds.get(args3[0]);
+            message.channel.send(args3);
+            message.channel.send(`guild ${guild}`);
+            //guild.leave();
+            message.channel.send('Left guild.');
+        }*/
 
     if (command === "discrim") {
         //let args3 = message.content.substring(prefix.length).split(' ');
@@ -248,31 +249,31 @@ bot.on("message", function(message) {
     ----------------------------------------------------------------------------------------------------------------------*/
     if (command === "invite") {
         message.channel.send("Invite URL: https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot");
-        message.channel.send("please check your dms", {replay: message}).then(sent => sent.delete({timeout: 99}));
+        message.channel.send("please check your dms", { replay: message }).then(sent => sent.delete({ timeout: 99 }));
     }
 
     if (command === "botinfo" || command === "info") {
         let TextChannels = bot.channels.filter(e => e.type !== 'voice').size;
         let VoiceChannels = bot.channels.filter(e => e.type === 'voice').size;
         var infoembed = new Discord.RichEmbed()
-        .setAuthor("Hi " + message.author.username.toString(), message.author.avatarURL)
-        .setTitle("info")
-        .setColor(randomcolor)
-        .setDescription(`this bot for music with volume control and fun`)
-        .addField("Devloped by",`PK#1650`,inline = true)
-        .addField("Try with", `${prefix}help`,inline = true)
-        .addField("Totel Guilds",`${bot.guilds.size}`,inline = true)
-        .addField("Totel Channels",`${bot.channels.size}`,inline =true)
-        .addField("Totel Text Channels",`${TextChannels}`,inline = true)
-        .addField("Totel Voice Channels",`${VoiceChannels}`,inline = true)
-        .addField("Totel Users",`${bot.users.size}`)
-        .addField("support server",`[link](https://discord.gg/zFDvBay)`,inline = true)
-        .addField("bot invite link",`[invite](https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot)`,inline = true)
-        .setThumbnail("https://media.discordapp.net/attachments/406099961730564107/407455733689483265/Untitled6.png?width=300&height=300")
-        .setFooter("Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
-        .addField("please give me vote",`[vote and invite link](https://discordbots.org/bot/376292306233458688)`,inline = true)
-        .addField("help with donate",`[patreon](https://www.patreon.com/icw)`,inline = true)
-        .setTimestamp();
+            .setAuthor("Hi " + message.author.username.toString(), message.author.avatarURL)
+            .setTitle("info")
+            .setColor(randomcolor)
+            .setDescription(`this bot for music with volume control and fun`)
+            .addField("Devloped by", `PK#1650`, inline = true)
+            .addField("Try with", `${prefix}help`, inline = true)
+            .addField("Totel Guilds", `${bot.guilds.size}`, inline = true)
+            .addField("Totel Channels", `${bot.channels.size}`, inline = true)
+            .addField("Totel Text Channels", `${TextChannels}`, inline = true)
+            .addField("Totel Voice Channels", `${VoiceChannels}`, inline = true)
+            .addField("Totel Users", `${bot.users.size}`)
+            .addField("support server", `[link](https://discord.gg/zFDvBay)`, inline = true)
+            .addField("bot invite link", `[invite](https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot)`, inline = true)
+            .setThumbnail("https://media.discordapp.net/attachments/406099961730564107/407455733689483265/Untitled6.png?width=300&height=300")
+            .setFooter("Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
+            .addField("please give me vote", `[vote and invite link](https://discordbots.org/bot/376292306233458688)`, inline = true)
+            .addField("help with donate", `[patreon](https://www.patreon.com/icw)`, inline = true)
+            .setTimestamp();
         message.channel.send({ embed: infoembed });
     }
 
@@ -286,18 +287,74 @@ bot.on("message", function(message) {
             .addField('Uptime', `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`);
         message.channel.send({ embed: uptimeembed });
     }
-/*---------------------------------------------------------------------------------------------
-                    no dm commands (only for server channels)
----------------------------------------------------------------------------------------------*/
+    /*---------------------------------------------------------------------------------------------
+                        no dm commands (only for server channels)
+    ---------------------------------------------------------------------------------------------*/
     if (message.channel.type == "dm" || message.channel.type == "group") return undefined;
     const serverQueue = songQueue.get(message.guild.id);
+
+    if (command === "kick") {
+        if (!message.guild.member(bot.user).hasPermission("KICK_MEMBERS")) {
+            message.channel.send(`I don't have permission to do that`);
+        }
+        if (!message.member.hasPermission("KICK_MEMBERS")) {
+            message.channel.send(`Insufficient permissions`);
+        } else {
+            let kickUser = message.mentions.users.first();
+            let reason = args.slice(1).join(" ");
+            if (!kickUser) return message.channel.send(`Specify a user to kick`);
+            if(!kickUser.id == message.author.id) return message.channel.send("You cannot kick yourself!");
+            kickUser.send(`You have been kicked from ${message.guild} by ${message.author.username}. Reason: ${reason}`);
+            try {
+                message.guild.member(kickUser).kick();
+                var kickembed = new Discord.RichEmbed()
+                .setColor(randomcolor)
+                .setAuthor(message.author.username.toString(), message.author.avatarURL)
+                .addField(`Action: Kick`)
+                .addField(`Mamber: ${kickUser} (${kickUser.id})`)
+                .addField(`Reason: ${reason}`)
+                .setTimestamp();
+                message.channel.send({embed: kickembed});
+            } catch (err) {
+                message.channel.send(`I failed to kick the user... Reason: ${err}`);
+            }
+        }
+    }
+
+    if (command === "ban") {
+        if (!message.guild.member(bot.user).hasPermission("BAN_MEMBERS")) {
+            message.channel.send(`I don't have permission to do that`);
+        }
+        if (!message.member.hasPermission("BAN_MEMBERS")) {
+            message.channel.send(`Insufficient permissions`);
+        } else {
+            let banUser = message.mentions.users.first();
+            let reason = args.slice(1).join(" ");
+            if (!banUser) return message.channel.send(`Specify a user to ban`);
+            if(!banUser.id == message.author.id) return message.channel.send("You cannot ban yourself!");
+            banUser.send(`You have been baned from ${message.guild} Reason: ${reason}`);
+            try {
+                message.guild.member(banUser).ban();
+                var banembed = new Discord.RichEmbed()
+                .setColor(randomcolor)
+                .setAuthor(message.author.username.toString(), message.author.avatarURL)
+                .addField(`Action: Ban`)
+                .addField(`Mamber: ${banUser} (${banUser.id})`)
+                .addField(`Reason: ${reason}`)
+                .setTimestamp();
+                message.channel.send({embed: banembed});
+            } catch (err) {
+                message.channel.send(`I failed to ban the user... Reason: ${err}`);
+            }
+        }
+    }
 
     if (command === "serverinfo") {
         let guildTchannels = message.guild.channels.filter(e => e.type !== 'voice').size;
         let guildVchannels = message.guild.channels.filter(e => e.type === 'voice').size;
         let serverowner = message.guild.owner.user.tag;
         let serverownerid = message.guild.owner.id;
-        let servermembers =message.guild.memberCount;
+        let servermembers = message.guild.memberCount;
         let serveronlinemembers = message.guild.members.filter(m => m.user.presence.status !== "offline").size;
         let serveroflinemembers = message.guild.members.filter(m => m.user.presence.status === "offline").size;
         let serverroles = message.guild.roles.size;
@@ -305,20 +362,20 @@ bot.on("message", function(message) {
         let servercreatedat = message.guild.createdAt;
         let sicon = message.guild.iconURL;
         var serverinfoembed = new Discord.RichEmbed()
-        .setAuthor(message.guild.name + "info", sicon.toString())
-        .setColor(randomcolor)
-        .setDescription(`Since: ${servercreatedat}`)
-        .addField ("Server Owner:", `${serverowner}`,inline = true)
-        .addField("Owner id:", `${serverownerid}`,inline = true)
-        .addField("Members:", `${serveronlinemembers}/${servermembers}`,inline = true)
-        .addField("Totel Roles:", `${serverroles}`,inline = true)
-        .addField("Text channel:", `${guildTchannels}`,inline = true)
-        .addField("Voice channels:", `${guildVchannels}`,inline = true)
-        .addField("Server Region:", `${serverregion}`)
-        .setThumbnail(`${sicon}`)
-        .setFooter("Bot Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
-        .setTimestamp();
-        message.channel.send({embed: serverinfoembed});
+            .setAuthor(message.guild.name + "info", sicon.toString())
+            .setColor(randomcolor)
+            .setDescription(`Since: ${servercreatedat}`)
+            .addField("Server Owner:", `${serverowner}`, inline = true)
+            .addField("Owner id:", `${serverownerid}`, inline = true)
+            .addField("Members:", `${serveronlinemembers}/${servermembers}`, inline = true)
+            .addField("Totel Roles:", `${serverroles}`, inline = true)
+            .addField("Text channel:", `${guildTchannels}`, inline = true)
+            .addField("Voice channels:", `${guildVchannels}`, inline = true)
+            .addField("Server Region:", `${serverregion}`)
+            .setThumbnail(`${sicon}`)
+            .setFooter("Bot Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
+            .setTimestamp();
+        message.channel.send({ embed: serverinfoembed });
     }
     /*------------------------------------------------------------------------------------------
                                             MUSIC COMMANDS
@@ -328,7 +385,7 @@ bot.on("message", function(message) {
             if (args.length > 0) {
                 //var query = "";
                 //for (var i = 0; i < args.length - 1; i++) {
-                    //query += args[i] + " ";
+                //query += args[i] + " ";
                 //}
                 //query += " " + args[args.length - 1];
                 let query = args.join("").substring(command.length);
@@ -750,7 +807,7 @@ var playSong = function(message, connection) {
         });
     }
 };
-const randomcolor = '0x'+Math.floor(Math.random()*16777215).toString(16);
+const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
 var checkForCommand = function(message) {
     if (!message.author.bot && message.content.startsWith(prefix)) {
         var args = message.content.substring(1).split(' ');
