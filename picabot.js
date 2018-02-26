@@ -302,8 +302,8 @@ bot.on("message", function(message) {
         message.channel.send(reason);
         if (!reason) return message.channel.send("You did not give a reason to kick the user.")
         if(!kickUser.id == message.author.id) return message.channel.send("You cannot kick yourself/!");
-        if (!kickUser.kickable && kickUser.highestRole.comparePositionTo(message.guild.member(bot.user).highestRole) >=0) return message.channel.send("my role is either the same or lower than the user you wish to kick.");
-        if (!kickUser.kickable && kickUser.highestRole.comparePositionTo(message.guild.member(message.author).highestRole) >= 0) return message.channel.send("Your role is either the same or lower than the user you wish to kick.");
+        if (!kickUser.kickable) return message.channel.send("my role is either the same or lower than the user you wish to kick.");
+        if (!kickUser.kickable) return message.channel.send("Your role is either the same or lower than the user you wish to kick.");
         kickUser.send(`You have been kicked from ${message.guild} by ${message.author.username}. Reason: ${reason}`);
         try {
             message.guild.member(kickUser).kick().catch(console.error);
