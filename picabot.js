@@ -294,30 +294,25 @@ bot.on("message", function(message) {
     const serverQueue = songQueue.get(message.guild.id);
 
     if (command === "kick") {
-        if (!message.guild.member(bot.user).hasPermission("KICK_MEMBERS")) {
-            message.channel.send(`I don't have permission to do that`);
-        }
-        if (!message.member.hasPermission("KICK_MEMBERS")) {
-            message.channel.send(`Insufficient permissions`);
-        } else {
-            let kickUser = message.mentions.users.first();
-            let reason = args.slice(1).join(" ");
-            if (!kickUser) return message.channel.send(`Specify a user to kick`);
-            if(!kickUser.id == message.author.id) return message.channel.send("You cannot kick yourself!");
-            kickUser.send(`You have been kicked from ${message.guild} by ${message.author.username}. Reason: ${reason}`);
-            try {
-                message.guild.member(kickUser).kick();
-                var kickembed = new Discord.RichEmbed()
-                .setColor(randomcolor)
-                .setAuthor(message.author.username.toString(), message.author.avatarURL)
-                .addField(`Action: Kick`)
-                .addField(`Mamber: ${kickUser} (${kickUser.id})`)
-                .addField(`Reason: ${reason}`)
-                .setTimestamp();
-                message.channel.send({embed: kickembed});
-            } catch (err) {
+        if (!message.guild.member(bot.user).hasPermission("KICK_MEMBERS")) return message.channel.send(`I don't have permission to do that`);
+        if (!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send(`Insufficient permissions`);
+        let kickUser = message.mentions.users.first();
+        let reason = args.slice(1).join(" ");
+        if (!kickUser) return message.channel.send(`Specify a user to kick`);
+        if(!kickUser.id == message.author.id) return message.channel.send("You cannot kick yourself!");
+        kickUser.send(`You have been kicked from ${message.guild} by ${message.author.username}. Reason: ${reason}`);
+        try {
+            message.guild.member(kickUser).kick();
+            var kickembed = new Discord.RichEmbed()
+            .setColor(randomcolor)
+            .setAuthor(message.author.username.toString(), message.author.avatarURL)
+            .addField(`Action: Kick`)
+            .addField(`Mamber: ${kickUser} (${kickUser.id})`)
+            .addField(`Reason: ${reason}`)
+            .setTimestamp();
+            message.channel.send({embed: kickembed});
+        } catch (err) {
                 message.channel.send(`I failed to kick the user... Reason: ${err}`);
-            }
         }
     }
 
