@@ -306,13 +306,13 @@ bot.on("message", function(message) {
         if(!kickUser.id == message.author.id) return message.channel.send("You cannot kick yourself/!");
         if (!kickUser.kickable) return message.channel.send("my role is either the same or lower than the user you wish to kick.");
         if (!kickUser.kickable) return message.channel.send("Your role is either the same or lower than the user you wish to kick.");
-        kickUser.send(`You have been kicked from ${message.guild} by ${message.author.username}. Reason: ${reason}`);
+        kickUser.send(`You have been kicked from ${message.guild}. Reason: ${reason}`);
         try {
             //message.guild.member(kickUser).kick().catch(console.error);
             var kickembed = new Discord.RichEmbed()
             .setColor(randomcolor)
             .setAuthor("Action by : " + message.author.username.toString(), message.author.avatarURL)
-            .setDescription(`**Action**: Kick \n**Mamber**: ${kickUser} (${kickUser.id})**Reason**: ${reason}`)
+            .setDescription(`**Action**: Kick \n**Mamber**: ${kickUser.user.tag} (${kickUser.id}) \n**Reason**: ${reason}`)
             //.addField(`Mamber: ${kickUser} (${kickUser.id})`)
             //.addField(`Reason: ${reason}`)
             .setTimestamp();
