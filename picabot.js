@@ -322,7 +322,7 @@ bot.on("message", function(message) {
         if (!message.guild.member(bot.user).hasPermission("BAN_MEMBERS")) return message.channel.send(`I don't have permission to do that`);
         if (!message.member.hasPermission("BAN_MEMBERS")) return message.channel.send(`You don't have permission to do that`);
         let banUser = message.mentions.members.first();
-        if (!bankUser) return message.channel.send(`Specify a user to ban`);
+        if (!banUser) return message.channel.send(`Specify a user to ban`);
         let args2 = message.content.substring(prefix.length + command.length).split(`<@${banUser.user.id}>`);
         let reason = args2.join(" ").substring(3);
         if (!reason) return message.channel.send("You did not give a reason to ban the user.")
