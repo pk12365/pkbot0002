@@ -293,6 +293,19 @@ bot.on("message", function(message) {
     if (message.channel.type == "dm" || message.channel.type == "group") return undefined;
     const serverQueue = songQueue.get(message.guild.id);
 
+    if (command === "warn"){
+        let warnUser = message.mentions.members.first();
+        if (!warnUser) return message.channel.send(`Specify a user to warn`);
+        let args2 = message.content.substring(prefix.length + command.length).split(`<@${warnUser.user.id}>`);
+        let reason = args2.join(" ").substring(3);
+        if (!reason) return message.channel.send("You did not give a reason to warn the user.");
+        if(!warnUser.id == message.author.id) return message.channel.send("You cannot warn yourself/!");
+        message.delete();
+        warnUser.send(`**you have been warned from** ${message.guild}. \n**Reason**: ${reason}`);
+        message.channel.send(`***${warnUser.user.tag} has been warned***`)
+
+    }
+
     if (command === "kick") {
         if (!message.guild.member(bot.user).hasPermission("KICK_MEMBERS")) return message.channel.send(`I don't have permission to do that`);
         if (!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send(`U don't have permission to do that`);
