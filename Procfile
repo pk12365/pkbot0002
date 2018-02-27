@@ -1,1 +1,1 @@
-worker: pm2 start picabot.js -i 4
+worker: node picabot.js -i 4
