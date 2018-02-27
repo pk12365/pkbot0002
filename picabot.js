@@ -301,7 +301,7 @@ bot.on("message", function(message) {
         let reason = args2.join(" ");
         if (!kickUser) return message.channel.send(`Specify a user to kick`);
         message.channel.send(reason);
-        message.channel.send(`${kickUser.size}`);
+        message.channel.send(`${kickUser.user.tag.length}`);
         if (!reason) return message.channel.send("You did not give a reason to kick the user.")
         if(!kickUser.id == message.author.id) return message.channel.send("You cannot kick yourself/!");
         if (!kickUser.kickable) return message.channel.send("my role is either the same or lower than the user you wish to kick.");
