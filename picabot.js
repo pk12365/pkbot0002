@@ -25,6 +25,9 @@ const clbot = new Cleverbot();
 var Heroku = require('heroku.node');
 var hbot = new Heroku({ email: 'pardeepsingh1236512365@gmail.com', api_key: 'Process.env.H_APIKEY' });
 const { inspect } = require("util");
+const cheerio = require('cheerio');
+const snekfetch = require('snekfetch');
+const querystring = require('querystring');
 
 bot.on("ready", function() {
     console.log("Bot ready");
@@ -90,11 +93,10 @@ bot.on("message", async(message) => {
             message.channel.send(`The following error occured \`\`\`js\n${error}\`\`\``)
         }
     }
-
     function clean(text) {
         return text
-            .replace(/`/g, "`" + String.fromCharCode(8203))
-            .replace(/@/g, "@" + String.fromCharCode(8203));
+        .replace(/`/g, "`" + String.fromCharCode(8203))
+        .replace(/@/g, "@" + String.fromCharCode(8203));
     }
 });
 
@@ -144,6 +146,7 @@ bot.on("message", function(message) {
             .setDescription(`ICW help Section \nPrefix = ${prefix} \nvolume command is for all users \nmore commands coming soon`)
             .addField("Bot info commands", `invite - (bot invite link)\nbotinfo - (info about the bot) \nuptime - (uptime of the bot)\nservers - (bots servers)`)
             .addField("until commands", `cleverbot - (talk with bot with mention or icw \`\`example - icw hi\`\`) \nweather - (check your city weather) \nsay - (bot saying your message) \ndiscrim - (found any discriminators) \nserverinfo - (info about server)`)
+            .addField("Modration command", `warn - (for warning a member) \n kick - (for kick a member) \n ban - (for ban a member)`)
             .addField("Music commands", `play - (for serach and add your song in thre queue) \npause - (pause the player) \nresume - (resume the player) \nvolume - (set your player volume) \nskip - (for next song) \nprev - (for previos song) \nstop - (for stop the player) \nqueue - (for check playlist) \nsong - (view current song) \nrandom - (playing randomly)`)
             .setThumbnail("https://media.discordapp.net/attachments/406099961730564107/407455733689483265/Untitled6.png?width=300&height=300")
             .setFooter("Bot Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
@@ -158,6 +161,19 @@ bot.on("message", function(message) {
     /*----------------------------------------------------------------------------------------------------------------
                                                 UNTIL COMMANDS
     ------------------------------------------------------------------------------------------------------------------*/
+    if(command == "gsearch" || command === "google" || command === "g") {
+        let searchMessage = await message.reply('Searching... Sec.');
+        let searchUrl = `https://www.google.com/search?q=${encodeURIComponent(message.content)}`;
+        return snekfetch.get(searchUrl).then((result) => {
+            let $ = cheerio.load(result.text);
+            let googleData = $('.r').first().find('a').first().attr('href');
+            googleData = querystring.parse(googleData.replace('/url?', ''));
+            searchMessage.edit(`Result found!\n${googleData.q}`);
+        }).catch((err) => {
+            searchMessage.edit('No results found!');
+        });
+    }
+
     if (command === "say") {
         message.delete();
         message.channel.send(args.join("").substring(3));
@@ -187,7 +203,6 @@ bot.on("message", function(message) {
     }
 
     if (command === "weather") {
-        //message.channel.send(args.join("").substring(7));
         var cityname = args.join("").substring(7);
         var http = require('http');
         request({
@@ -686,6 +701,7 @@ bot.on("message", function(message) {
             message.channel.send({ embed: setvolembed });
         } else {
             message.channel.send("you cant change volume if you are not in voice channel", { reply: message });
+            bot.channels.get(botmlogchannel).send(`${message.author.username} using volume command in ${message.guild.name}`);
         }
     }
 });
