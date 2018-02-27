@@ -297,7 +297,7 @@ bot.on("message", function(message) {
         if (!message.guild.member(bot.user).hasPermission("KICK_MEMBERS")) return message.channel.send(`I don't have permission to do that`);
         if (!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send(`Insufficient permissions`);
         let kickUser = message.mentions.members.first();
-        let reason = args.join(" ");
+        let args2 = message.content
         if (!kickUser) return message.channel.send(`Specify a user to kick`);
         message.channel.send(reason);
         if (!reason) return message.channel.send("You did not give a reason to kick the user.")
@@ -306,13 +306,13 @@ bot.on("message", function(message) {
         if (!kickUser.kickable) return message.channel.send("Your role is either the same or lower than the user you wish to kick.");
         kickUser.send(`You have been kicked from ${message.guild} by ${message.author.username}. Reason: ${reason}`);
         try {
-            message.guild.member(kickUser).kick().catch(console.error);
+            //message.guild.member(kickUser).kick().catch(console.error);
             var kickembed = new Discord.RichEmbed()
             .setColor(randomcolor)
-            .setAuthor(message.author.username.toString(), message.author.avatarURL)
-            .addField(`Action: Kick`)
-            .addField(`Mamber: ${kickUser} (${kickUser.id})`)
-            .addField(`Reason: ${reason}`)
+            .setAuthor("Action by : ",message.author.username.toString(), message.author.avatarURL)
+            .setDescription(`**Action**: Kick \n**Mamber**: ${kickUser} (${kickUser.id})**Reason**: ${reason}`)
+            //.addField(`Mamber: ${kickUser} (${kickUser.id})`)
+            //.addField(`Reason: ${reason}`)
             .setTimestamp();
             message.channel.send({embed: kickembed});
         } catch (err) {
@@ -327,7 +327,7 @@ bot.on("message", function(message) {
         if (!message.member.hasPermission("BAN_MEMBERS")) {
             message.channel.send(`Insufficient permissions`);
         } else {
-            let banUser = message.mentions.users.first();
+            let banUser = message.mentions.members.first();
             let reason = args.slice(1).join(" ");
             if (!banUser) return message.channel.send(`Specify a user to ban`);
             if(!banUser.id == message.author.id) return message.channel.send("You cannot ban yourself!");
