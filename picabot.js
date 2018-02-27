@@ -298,7 +298,7 @@ bot.on("message", function(message) {
         if (!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send(`Insufficient permissions`);
         let kickUser = message.mentions.members.first();
         if (!kickUser) return message.channel.send(`Specify a user to kick`);
-        let args2 = message.content.substring(prefix.length + command.length + 2).split();
+        let args2 = message.content.substring(prefix.length + command.length).split();
         let reason = args2.join(" ").split(`<@${kickUser.user.id}>`);
         if (!reason) return message.channel.send("You did not give a reason to kick the user.")
         if(!kickUser.id == message.author.id) return message.channel.send("You cannot kick yourself/!");
