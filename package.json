@@ -27,7 +27,8 @@
     "node-opus": "^0.2.6",
     "heroku.node": "^0.2.1",
     "pm2": "2.10.1",
-    "snekfetch": "4.0.0-rc.0",
+    "snekfetch": "^4.0.0-rc.0",
+    "cheerio": "^1.0.0-rc.2",
     "ytdl-core": "^0.20.1"
   }
 }
