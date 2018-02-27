@@ -311,7 +311,7 @@ bot.on("message", function(message) {
             //message.guild.member(kickUser).kick().catch(console.error);
             var kickembed = new Discord.RichEmbed()
             .setColor(randomcolor)
-            .setAuthor("Action by : ",message.author.username.toString(), message.author.avatarURL)
+            .setAuthor("Action by : " + message.author.username.toString(), message.author.avatarURL)
             .setDescription(`**Action**: Kick \n**Mamber**: ${kickUser} (${kickUser.id})**Reason**: ${reason}`)
             //.addField(`Mamber: ${kickUser} (${kickUser.id})`)
             //.addField(`Reason: ${reason}`)
