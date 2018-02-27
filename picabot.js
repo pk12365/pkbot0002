@@ -295,7 +295,7 @@ bot.on("message", function(message) {
 
     if (command === "kick") {
         if (!message.guild.member(bot.user).hasPermission("KICK_MEMBERS")) return message.channel.send(`I don't have permission to do that`);
-        if (!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send(`Insufficient permissions`);
+        if (!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send(`U don't have permission to do that`);
         let kickUser = message.mentions.members.first();
         if (!kickUser) return message.channel.send(`Specify a user to kick`);
         let args2 = message.content.substring(prefix.length + command.length).split(`<@${kickUser.user.id}>`);
@@ -304,9 +304,9 @@ bot.on("message", function(message) {
         if(!kickUser.id == message.author.id) return message.channel.send("You cannot kick yourself/!");
         if (!kickUser.kickable) return message.channel.send("my role is either the same or lower than the user you wish to kick.");
         if (!kickUser.kickable) return message.channel.send("Your role is either the same or lower than the user you wish to kick.");
-        kickUser.send(`You have been kicked from ${message.guild}. Reason: ${reason}`);
+        kickUser.send(`**You have been kicked from** ${message.guild}. \n**Reason**: ${reason}`);
         try {
-            //message.guild.member(kickUser).kick().catch(console.error);
+            message.guild.member(kickUser).kick();
             var kickembed = new Discord.RichEmbed()
             .setColor(randomcolor)
             .setAuthor("Action by : " + message.author.username.toString(), message.author.avatarURL)
@@ -319,30 +319,27 @@ bot.on("message", function(message) {
     }
 
     if (command === "ban") {
-        if (!message.guild.member(bot.user).hasPermission("BAN_MEMBERS")) {
-            message.channel.send(`I don't have permission to do that`);
-        }
-        if (!message.member.hasPermission("BAN_MEMBERS")) {
-            message.channel.send(`Insufficient permissions`);
-        } else {
-            let banUser = message.mentions.members.first();
-            let reason = args.slice(1).join(" ");
-            if (!banUser) return message.channel.send(`Specify a user to ban`);
-            if(!banUser.id == message.author.id) return message.channel.send("You cannot ban yourself!");
-            banUser.send(`You have been baned from ${message.guild} Reason: ${reason}`);
-            try {
-                message.guild.member(banUser).ban();
-                var banembed = new Discord.RichEmbed()
-                .setColor(randomcolor)
-                .setAuthor(message.author.username.toString(), message.author.avatarURL)
-                .addField(`Action: Ban`)
-                .addField(`Mamber: ${banUser} (${banUser.id})`)
-                .addField(`Reason: ${reason}`)
-                .setTimestamp();
-                message.channel.send({embed: banembed});
-            } catch (err) {
+        if (!message.guild.member(bot.user).hasPermission("BAN_MEMBERS")) return message.channel.send(`I don't have permission to do that`);
+        if (!message.member.hasPermission("BAN_MEMBERS")) return message.channel.send(`You don't have permission to do that`);
+        let banUser = message.mentions.members.first();
+        if (!bankUser) return message.channel.send(`Specify a user to ban`);
+        let args2 = message.content.substring(prefix.length + command.length).split(`<@${banUser.user.id}>`);
+        let reason = args2.join(" ").substring(3);
+        if (!reason) return message.channel.send("You did not give a reason to ban the user.")
+        if(!banUser.id == message.author.id) return message.channel.send("You cannot ban yourself/!");
+        if (!banUser.banable) return message.channel.send("my role is either the same or lower than the user you wish to ban.");
+        if (!banUser.banable) return message.channel.send("Your role is either the same or lower than the user you wish to ban.");
+        kickUser.send(`**You have been baned from** ${message.guild}. \n**Reason**: ${reason}`);
+        try {
+            message.guild.member(banUser).ban();
+            var banembed = new Discord.RichEmbed()
+            .setColor(randomcolor)
+            .setAuthor("Action by : " + message.author.username.toString(), message.author.avatarURL)
+            .setDescription(`**Action**: ban \n**Mamber**: ${banUser.user.tag} (${banUser.id}) \n**Reason**: ${reason}`)
+            .setTimestamp();
+            message.channel.send({embed: banembed});
+        } catch (err) {
                 message.channel.send(`I failed to ban the user... Reason: ${err}`);
-            }
         }
     }
 
