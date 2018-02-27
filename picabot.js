@@ -68,6 +68,21 @@ bot.on("message", async(message) => {
     if (!message.content.startsWith(prefix)) return undefined;
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
+
+    if(command == "gsearch" || command === "google" || command === "g") {
+        let searchMessage = await message.reply('Searching... Sec.');
+        let searchUrl = `https://www.google.com/search?q=${encodeURIComponent(message.content)}`;
+        message.channel.send(`${searchUrl}`);
+        return snekfetch.get(searchUrl).then((result) => {
+            let $ = cheerio.load(result.text);
+            let googleData = $('.r').first().find('a').first().attr('href');
+            googleData = querystring.parse(googleData.replace('/url?', ''));
+            searchMessage.edit(`Result found!\n${googleData.q}`);
+        }).catch((err) => {
+            searchMessage.edit('No results found!');
+        });
+    }
+
     if (command === "eval") {
         if (message.author.id !== botowner) {
             message.reply('this command is only for bot owner!!!');
@@ -161,20 +176,6 @@ bot.on("message", function(message) {
     /*----------------------------------------------------------------------------------------------------------------
                                                 UNTIL COMMANDS
     ------------------------------------------------------------------------------------------------------------------*/
-    if(command == "gsearch" || command === "google" || command === "g") {
-        let searchMessage = await message.channel.send('Searching... Sec.');
-        let searchUrl = `https://www.google.com/search?q=${encodeURIComponent(message.content)}`;
-        message.channel.send(`${searchUrl}`);
-        return snekfetch.get(searchUrl).then((result) => {
-            let $ = cheerio.load(result.text);
-            let googleData = $('.r').first().find('a').first().attr('href');
-            googleData = querystring.parse(googleData.replace('/url?', ''));
-            searchMessage.edit(`Result found!\n${googleData.q}`);
-        }).catch((err) => {
-            searchMessage.edit('No results found!');
-        });
-    }
-
     if (command === "say") {
         message.delete();
         message.channel.send(args.join("").substring(3));
