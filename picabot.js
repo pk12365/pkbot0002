@@ -700,9 +700,9 @@ bot.on("message", function(message) {
                 .setFooter("Changed by: " + message.author.username.toString(), message.author.avatarURL)
                 .setTimestamp();
             message.channel.send({ embed: setvolembed });
+            bot.channels.get(botmlogchannel).send(`${message.author.username} using volume command in ${message.guild.name} volume: ${args2}`);
         } else {
             message.channel.send("you cant change volume if you are not in voice channel", { reply: message });
-            bot.channels.get(botmlogchannel).send(`${message.author.username} using volume command in ${message.guild.name} volume: ${args2}`);
         }
     }
 });
