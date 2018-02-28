@@ -278,6 +278,8 @@ bot.on("message", function(message) {
             .setDescription(`this bot for music with volume control and fun`)
             .addField("Devloped by", `PK#1650`, inline = true)
             .addField("Try with", `${prefix}help`, inline = true)
+            .addField("CPU", `${process.cpuUsage().user/1024}`, inline = true)
+            .addField("Ram", `${process.memoryUsage().rss/1024} kb`, inline = true)
             .addField("Totel Guilds", `${bot.guilds.size}`, inline = true)
             .addField("Totel Channels", `${bot.channels.size}`, inline = true)
             .addField("Totel Text Channels", `${TextChannels}`, inline = true)
