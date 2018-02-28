@@ -199,7 +199,7 @@ bot.on("message", function(message) {
     }
 
     if (command === "servers") {
-        let guilds = bot.guilds.map((guild) => `${guild.name} (${guild.id})`);
+        let guilds = bot.guilds.map((guild) => `**${guild.name}** members: ${guild.members.size} id: (${guild.id})`);
         message.channel.send(`I'm in the following guilds:\n${guilds.join ('\n')}`);
     }
 
