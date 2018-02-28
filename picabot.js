@@ -65,15 +65,15 @@ fs.readFile("save.json", function(err, data) {
 });
 
 bot.on("message", async(message) => {
-    if (!message.content.startsWith(prefix)) return undefined;
+    if (!message.content.startsWith(prefix)) {
+        return undefined;
+    }
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
-
     if(command == "gsearch" || command === "google" || command === "g") {
         let args3 = message.content.substring(command.length + 3);
         let searchMessage = await message.reply('Searching... Sec.');
         let searchUrl = `https://www.google.com/search?q=${encodeURIComponent(args3)}`;
-        message.channel.send(`${searchUrl}`);
         return snekfetch.get(searchUrl).then((result) => {
             let $ = cheerio.load(result.text);
             let googleData = $('.r').first().find('a').first().attr('href');
@@ -106,7 +106,7 @@ bot.on("message", async(message) => {
                 message.channel.send(`${output}`, { split: "\n", code: "js" });
             }
         } catch (error) {
-            message.channel.send(`The following error occured \`\`\`js\n${error}\`\`\``)
+            message.channel.send(`The following error occured \`\`\`js\n${error}\`\`\``);
         }
     }
     function clean(text) {
@@ -144,9 +144,7 @@ bot.on("message", function(message) {
     const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
 
     const args = message.content.substring(prefix.length + 1).split();
-    //Get command from message
     let command = message.content.toLowerCase().split(" ")[0];
-    //Remove prefix from command string
     command = command.slice(prefix.length);
     if (command === "restart") {
         message.channel.send("bot restarting");
@@ -161,7 +159,7 @@ bot.on("message", function(message) {
             .setAuthor("Hi " + message.author.username.toString(), message.author.avatarURL)
             .setDescription(`ICW help Section \nPrefix = ${prefix} \nvolume command is for all users \nmore commands coming soon`)
             .addField("Bot info commands", `invite - (bot invite link)\nbotinfo - (info about the bot) \nuptime - (uptime of the bot)\nservers - (bots servers)`)
-            .addField("until commands", `cleverbot - (talk with bot with mention or icw \`\`example - icw hi\`\`) \nweather - (check your city weather) \nsay - (bot saying your message) \ndiscrim - (found any discriminators) \nserverinfo - (info about server)`)
+            .addField("until commands", `cleverbot - (talk with bot with mention or icw \`\`example - icw hi\`\`) \ngoogle - (search anything) \nweather - (check your city weather) \nsay - (bot saying your message) \ndiscrim - (found any discriminators) \nserverinfo - (info about server)`)
             .addField("Modration command", `warn - (for warning a member) \n kick - (for kick a member) \n ban - (for ban a member)`)
             .addField("Music commands", `play - (for serach and add your song in thre queue) \npause - (pause the player) \nresume - (resume the player) \nvolume - (set your player volume) \nskip - (for next song) \nprev - (for previos song) \nstop - (for stop the player) \nqueue - (for check playlist) \nsong - (view current song) \nrandom - (playing randomly)`)
             .setThumbnail("https://media.discordapp.net/attachments/406099961730564107/407455733689483265/Untitled6.png?width=300&height=300")
@@ -693,7 +691,7 @@ bot.on("message", function(message) {
                 return;
             }
             serverQueue.volume[message.guild.id] = args2;
-            dispatcher.setVolumeLogarithmic(args2 / 80);
+            dispatcher.setVolumeLogarithmic(args2 / 75);
             var setvolembed = new Discord.RichEmbed()
                 .setColor(randomcolor)
                 .setAuthor("volume controls", "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
@@ -704,7 +702,7 @@ bot.on("message", function(message) {
             message.channel.send({ embed: setvolembed });
         } else {
             message.channel.send("you cant change volume if you are not in voice channel", { reply: message });
-            bot.channels.get(botmlogchannel).send(`${message.author.username} using volume command in ${message.guild.name}`);
+            bot.channels.get(botmlogchannel).send(`${message.author.username} using volume command in ${message.guild.name} volume: ${args2}`);
         }
     }
 });
