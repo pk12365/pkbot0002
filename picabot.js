@@ -700,7 +700,7 @@ bot.on("message", function(message) {
                 .setFooter("Changed by: " + message.author.username.toString(), message.author.avatarURL)
                 .setTimestamp();
             message.channel.send({ embed: setvolembed });
-            bot.channels.get(botmlogchannel).send(`${message.author.username} using volume command in ${message.guild.name} volume: ${args2}`);
+            bot.channels.get(botmlogchannel).send(`**${message.author.username}** using volume command in **${message.guild.name}** volume: **${args2}**`);
         } else {
             message.channel.send("you cant change volume if you are not in voice channel", { reply: message });
         }
@@ -784,7 +784,7 @@ var playSong = function(message, connection) {
             .setFooter("Requested by: " + `${currentSong.user}`, currentSong.usravatar)
             .setTimestamp();
         message.channel.send({ embed: nowplayembed });
-        bot.channels.get(botmlogchannel).send(message.author.tag + ` playing ` + `\`\`${currentSong.title}\`\`` + ` in ` + message.guild.name + ` server`);
+        bot.channels.get(botmlogchannel).send(`**${message.author.tag}**` + ` playing ` + `\`\`${currentSong.title}\`\`` + ` in ` + `**${message.guild.name}**` + ` server`);
         //bot.user.setGame(currentSong.title);
         //Workaround since above wouldn't work
         dispatcher.player.on("warn", console.warn);
