@@ -193,9 +193,9 @@ bot.on("message", function(message) {
 
     if (command === "bugreport" || command === "bug") {
         let args2 = args.join("").substring(command.length);
-        if (!args2) return message.channel.send(`***plz add a bug message after command`);
+        if (!args2) return message.channel.send(`***plz add a bug message after command***`);
         message.channel.send(`***Report sented succesfully thank you***`);
-        bot.channels.get(botbuglogchannel).send(`report by: **${message.author.tag}** from: **${message.guild.name}** (${message.guild.id}) \n bug: ${args2}`);
+        bot.channels.get(botbuglogchannel).send(`report by: **${message.author.tag}** from: **${message.guild.name}** (${message.guild.id}) \nbug: ${args2}`);
     }
 
     if (command === "us") {
