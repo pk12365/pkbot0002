@@ -29,6 +29,7 @@ const { inspect } = require("util");
 const cheerio = require('cheerio');
 const snekfetch = require('snekfetch');
 const querystring = require('querystring');
+const translate = require('google-translate-api');
 
 bot.on("ready", function() {
     console.log("Bot ready");
@@ -343,7 +344,6 @@ bot.on("message", function(message) {
         if (!reason) return message.channel.send("You did not give a reason to kick the user.")
         if(!kickUser.id == message.author.id) return message.channel.send("You cannot kick yourself/!");
         if (!kickUser.kickable) return message.channel.send("my role is either the same or lower than the user you wish to kick.");
-        if (!kickUser.kickable) return message.channel.send("Your role is either the same or lower than the user you wish to kick.");
         kickUser.send(`**You have been kicked from** ${message.guild}. \n**Reason**: ${reason}`);
         try {
             message.guild.member(kickUser).kick();
@@ -367,8 +367,7 @@ bot.on("message", function(message) {
         let reason = args2.join(" ").substring(3);
         if (!reason) return message.channel.send("You did not give a reason to ban the user.")
         if(!banUser.id == message.author.id) return message.channel.send("You cannot ban yourself/!");
-        if (!banUser.banable) return message.channel.send("my role is either the same or lower than the user you wish to ban.");
-        if (!banUser.banable) return message.channel.send("Your role is either the same or lower than the user you wish to ban.");
+        if (!banUser.bannable) return message.channel.send("my role is either the same or lower than the user you wish to ban.");
         kickUser.send(`**You have been baned from** ${message.guild}. \n**Reason**: ${reason}`);
         try {
             message.guild.member(banUser).ban();
