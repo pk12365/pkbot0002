@@ -11,6 +11,7 @@ const prefix = "##";
 const botChannelName = "icwbot2";
 const botlogchannel = "406504806954565644";
 const botmlogchannel = "409055298158985216";
+const botbuglogchannel = "418642505509240836";
 const botowner = "264470521788366848";
 var fortunes = ["It is certain", "It is decidedly so", "Without a doubt", "Yes definitely", "You may rely of it", "As I see it, yes", "Most likely", "Outlook good", "Yes", "Signs point to yes", "Reply hazy try again", "Ask again later", "Better not tell you now", "Cannot predict now", "Concentrate and ask again", "Dont count on it", "My reply is no", "My sources say no", "Outlook not so good", "Very doubtful"];
 var dispatcher;
@@ -68,12 +69,12 @@ bot.on("message", async(message) => {
     if (!message.content.startsWith(prefix)) {
         return undefined;
     }
-    const args = message.content.slice(prefix.length).trim().split(/ +/g);
+    const args = message.content.slice(prefix.length).trim().ssplit(/ +/g);
     const command = args.shift().toLowerCase();
     if(command == "gsearch" || command === "google" || command === "g") {
-        let args3 = message.content.substring(command.length + 3);
+        let args3 = message.content.substring(command.length + 2);
         let searchMessage = await message.reply('Searching... Sec.');
-        let searchUrl = `https://www.google.com/search?q=${encodeURIComponent(args3)}`;
+        let searchUrl = `https://www.google.com/search?q=${encodeURIComponent(args3)}`;  
         return snekfetch.get(searchUrl).then((result) => {
             let $ = cheerio.load(result.text);
             let googleData = $('.r').first().find('a').first().attr('href');
@@ -164,6 +165,7 @@ bot.on("message", function(message) {
             .addField("Music commands", `play - (for serach and add your song in thre queue) \`\`p\`\` \npause - (pause the player) \nresume - (resume the player) \nvolume - (set your player volume) \`\`sv , setvolume\`\` \nskip - (for next song) \`\`s , next\`\` \nprev - (for previos song) \nstop - (for stop the player) \nqueue - (for check playlist) \`\`q , playlist\`\` \nsong - (view current song) \`\`np , nowplaying\`\` \nrandom - (playing randomly)`)
             .setThumbnail("https://media.discordapp.net/attachments/406099961730564107/407455733689483265/Untitled6.png?width=300&height=300")
             .setFooter("Bot Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
+            .addField("if you find any bug plz report it with command",`bugreport - (report for any bugs or problams) \`\`bug\`\``)
             .addField("support server", `[link](https://discord.gg/zFDvBay)`, inline = true)
             .addField("bot invite link", `[invite](https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot)`, inline = true)
             .addField("please give upvote", `[vote and invite link](https://discordbots.org/bot/376292306233458688)`, inline = true)
@@ -187,6 +189,13 @@ bot.on("message", function(message) {
         }
         message.delete();
         bot.users.map(u => u.send(args.join("").substring(6)));
+    }
+
+    if (command === "bugreport" || command === "bug") {
+        let args2 = args.join("").substring(command.length);
+        if (!args2) return message.channel.send(`***plz add a bug message after command`);
+        message.channel.send(`***Report sented succesfully thank you***`);
+        bot.channels.get(botbuglogchannel).send(`report by: **${message.author.tag}** from: **${message.guild.name}** (${message.guild.id}) \n bug: ${args2}`);
     }
 
     if (command === "us") {
@@ -693,7 +702,7 @@ bot.on("message", function(message) {
                 return;
             }
             serverQueue.volume[message.guild.id] = args2;
-            dispatcher.setVolumeLogarithmic(args2 / 75);
+            dispatcher.setVolumeLogarithmic(args2 / 80);
             var setvolembed = new Discord.RichEmbed()
                 .setColor(randomcolor)
                 .setAuthor("volume controls", "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
