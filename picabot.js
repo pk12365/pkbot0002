@@ -29,7 +29,6 @@ const { inspect } = require("util");
 const cheerio = require('cheerio');
 const snekfetch = require('snekfetch');
 const querystring = require('querystring');
-const translate = require('google-translate-api');
 
 bot.on("ready", function() {
     console.log("Bot ready");
