@@ -69,7 +69,7 @@ bot.on("message", async(message) => {
     if (!message.content.startsWith(prefix)) {
         return undefined;
     }
-    const args = message.content.slice(prefix.length).trim().ssplit(/ +/g);
+    const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
     if(command == "gsearch" || command === "google" || command === "g") {
         let args3 = message.content.substring(command.length + 2);
