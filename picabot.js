@@ -369,7 +369,7 @@ bot.on("message", function(message) {
         if (!banUser.bannable) return message.channel.send("my role is either the same or lower than the user you wish to ban.");
         banUser.send(`**You have been baned from** ${message.guild}. \n**Reason**: ${reason}`);
         try {
-            message.guild.member(banUser).ban();
+            message.guild.member(banUser).ban(reason);
             var banembed = new Discord.RichEmbed()
             .setColor(randomcolor)
             .setAuthor("Action by : " + message.author.username.toString(), message.author.avatarURL)
