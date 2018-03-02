@@ -679,6 +679,20 @@ bot.on("message", function(message) {
         }
     }
 
+    if (command === "shuffle") {
+        if(message.member.voiceChannel !== undefined) {
+            if(shuffle){
+                shuffle = false;
+                botChannel.send("Shuffle is now disabled", {reply: message});
+            } else{
+                shuffle = true;
+                botChannel.send("Shuffle is now enabled", {reply: message});
+            }
+        } else {
+            botChannel.send("You can't hear my music if you're not in a voice channel :cry:", {reply: message});
+        }
+    }
+
     if (command === "volume" || command === "sv" || command === "setvolume") {
         if (message.member.voiceChannel !== undefined) {
             if (!message.guild.me.voiceChannel) {
