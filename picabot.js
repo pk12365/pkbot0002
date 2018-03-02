@@ -367,7 +367,7 @@ bot.on("message", function(message) {
         if (!reason) return message.channel.send("You did not give a reason to ban the user.")
         if(!banUser.id == message.author.id) return message.channel.send("You cannot ban yourself/!");
         if (!banUser.bannable) return message.channel.send("my role is either the same or lower than the user you wish to ban.");
-        kickUser.send(`**You have been baned from** ${message.guild}. \n**Reason**: ${reason}`);
+        banUser.send(`**You have been baned from** ${message.guild}. \n**Reason**: ${reason}`);
         try {
             message.guild.member(banUser).ban();
             var banembed = new Discord.RichEmbed()
