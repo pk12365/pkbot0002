@@ -683,13 +683,13 @@ bot.on("message", function(message) {
         if(message.member.voiceChannel !== undefined) {
             if(shuffle){
                 shuffle = false;
-                botChannel.send("Shuffle is now disabled", {reply: message});
+                message.channel.send("Shuffle is now disabled", {reply: message});
             } else{
                 shuffle = true;
-                botChannel.send("Shuffle is now enabled", {reply: message});
+                message.channel.send("Shuffle is now enabled", {reply: message});
             }
         } else {
-            botChannel.send("You can't hear my music if you're not in a voice channel :cry:", {reply: message});
+            message.channel.send("You can't hear my music if you're not in a voice channel :cry:", {reply: message});
         }
     }
 
