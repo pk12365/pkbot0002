@@ -30,16 +30,6 @@ const cheerio = require('cheerio');
 const snekfetch = require('snekfetch');
 const querystring = require('querystring');
 const firebase = require("firebase");
-// Initialize Firebase
-var config = {
-  'apiKey': process.env.FB_API_KEY,
-  'authDomain': process.env.FB_AUTH_DOMAIN,
-  'databaseURL': process.env.FB_DATABASE_URL,
-  'projectId': process.env.FB_PROJECT_ID,
-  'storageBucket': process.env.FB_STORAGE_BUCKET,
-  'messagingSenderId': process.env.FB_MESSAGING_SENDER_ID
-};
-firebase.initializeApp(config);
 
 bot.on("ready", function() {
     console.log("Bot ready");
@@ -147,6 +137,17 @@ bot.on('message', message => {
 });
 
 bot.on("message", function(message) {
+    // Initialize Firebase
+    firebase.initializeApp({
+      'apiKey': process.env.FB_API_KEY,
+      'authDomain': process.env.FB_AUTH_DOMAIN,
+      'databaseURL': process.env.FB_DATABASE_URL,
+      'projectId': process.env.FB_PROJECT_ID,
+      'storageBucket': process.env.FB_STORAGE_BUCKET,
+      'messagingSenderId': process.env.FB_MESSAGING_SENDER_ID
+    });
+    firebase.auth().signInWithEmailAndPassword(process.env.FB_EMAIL, process.env.FB_PASSWORD);
+    console.log("fb login 👍");
     bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.users.size} Users`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
 
     if (message.author.bot) return undefined;
@@ -158,6 +159,22 @@ bot.on("message", function(message) {
     const args = message.content.substring(prefix.length + 1).split();
     let command = message.content.toLowerCase().split(" ")[0];
     command = command.slice(prefix.length);
+
+    if (command === "save") {
+      let configRef = firebase.database().ref("configs");
+      configRef.once("value", ss => {
+        if(!ss.hasChild(guild.id)) {
+            configRef.child(guild.id).set({
+                welcome_channel: "NONE",
+                welcome_msg: "Welcome **{user}** to **{guild}**! Enjoy your stay here :smile",
+                leave_msg: "Goodbye **{user}** we hope you come back to **{guild}** soon!",
+                mod_cases: 0,
+                mod_log_channel: "NONE"
+            });
+            message.channel.send("[INFO] Added config for "+guild.name);
+        } else {}
+      });
+    }
     if (command === "restart") {
         message.channel.send("bot restarting");
         let alldynos = hbot.app('testicw').dynos.list;
