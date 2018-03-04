@@ -139,7 +139,7 @@ bot.on('message', message => {
 bot.on("message", function(message) {
     // Initialize Firebase
       function initializeFirebase(){
-      var config {
+      var config = {
       'apiKey': process.env.FB_API_KEY,
       'authDomain': process.env.FB_AUTH_DOMAIN,
       'databaseURL': process.env.FB_DATABASE_URL,
