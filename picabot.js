@@ -146,9 +146,9 @@ bot.on("message", function(message) {
       'storageBucket': process.env.FB_STORAGE_BUCKET,
       'messagingSenderId': process.env.FB_MESSAGING_SENDER_ID
       }
-         firebase.initializeApp(config, 'icwbot')
+  //       firebase.initializeApp(config, 'icwbot')
     //firebase.auth().signInWithEmailAndPassword(process.env.FB_EMAIL, process.env.FB_PASSWORD);
-    console.log("fb login 👍");
+  //  console.log("fb login 👍");
     bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.users.size} Users`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
 
     if (message.author.bot) return undefined;
