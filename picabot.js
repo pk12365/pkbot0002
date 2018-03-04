@@ -147,7 +147,7 @@ bot.on("message", function(message) {
       'storageBucket': process.env.FB_STORAGE_BUCKET,
       'messagingSenderId': process.env.FB_MESSAGING_SENDER_ID
       }
-         firebase.initializeApp(config)
+         firebase.initializeApp(config, 'icwbot')
     };
     firebase.auth().signInWithEmailAndPassword(process.env.FB_EMAIL, process.env.FB_PASSWORD);
     console.log("fb login 👍");
