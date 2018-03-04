@@ -147,7 +147,7 @@ bot.on("message", function(message) {
       'messagingSenderId': process.env.FB_MESSAGING_SENDER_ID
       }
          firebase.initializeApp(config, 'icwbot')
-    firebase.auth().signInWithEmailAndPassword(process.env.FB_EMAIL, process.env.FB_PASSWORD);
+    //firebase.auth().signInWithEmailAndPassword(process.env.FB_EMAIL, process.env.FB_PASSWORD);
     console.log("fb login 👍");
     bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.users.size} Users`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
 
