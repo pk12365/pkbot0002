@@ -138,14 +138,17 @@ bot.on('message', message => {
 
 bot.on("message", function(message) {
     // Initialize Firebase
-    firebase.initializeApp({
+      function initializeFirebase(){
+      var config {
       'apiKey': process.env.FB_API_KEY,
       'authDomain': process.env.FB_AUTH_DOMAIN,
       'databaseURL': process.env.FB_DATABASE_URL,
       'projectId': process.env.FB_PROJECT_ID,
       'storageBucket': process.env.FB_STORAGE_BUCKET,
       'messagingSenderId': process.env.FB_MESSAGING_SENDER_ID
-    });
+      }
+         firebase.initializeApp(config)
+    };
     firebase.auth().signInWithEmailAndPassword(process.env.FB_EMAIL, process.env.FB_PASSWORD);
     console.log("fb login 👍");
     bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.users.size} Users`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
