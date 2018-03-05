@@ -166,7 +166,7 @@ bot.on("message", function(message) {
         value = ss.val();
     });
     return value.toString();
-          message.channel.send(`${value}`)
+          message.channel.send(`${configRef}`)
     }
 
     if (command === "save") {
