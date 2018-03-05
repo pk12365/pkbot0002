@@ -161,26 +161,23 @@ bot.on("message", function(message) {
     command = command.slice(prefix.length);
       
     if (command === "view") {
-          let configRef = firebase.database().ref(`icwbot-f0255/users/${message.author.id}/email`);
-    configRef.on("value", ss => {
-        value = ss.val();
-    });
-    return value.toString();
-          message.channel.send(`${configRef}`)
+          let value;
+          let configRef = firebase.database().ref(`/users/${message.author.id}/email/`);
+          configRef.on("value", ss => {
+                value = ss.val();
+          })
+          value
+          message.channel.send(`${value}`)
     }
 
     if (command === "save") {
-      let configRef = firebase.database().ref("configs");
-      configRef.once("value", ss => {
-        if(!ss.hasChild(guild.id)) {
-            configRef.child(guild.id).set({
-                welcome_channel: "NONE",
-                welcome_msg: "Welcome **{user}** to **{guild}**! Enjoy your stay here :smile",
-                leave_msg: "Goodbye **{user}** we hope you come back to **{guild}** soon!",
-                mod_cases: 0,
-                mod_log_channel: "NONE"
-            });
-            message.channel.send("[INFO] Added config for "+guild.name);
+          firebase.database().ref('servers/' + message.guild.id).set({
+                guildname: `${message.guild.name}`,
+                email: "testemail.com",
+                profile_picture : "testimageUrl"
+          });
+ 
+            message.channel.send("[INFO] Added config for "+message.guild.name);
         } else {}
       });
     }
