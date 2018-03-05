@@ -161,11 +161,11 @@ bot.on("message", function(message) {
     command = command.slice(prefix.length);
       
     if (command === "view") {
-          let value;
-          let configRef = firebase.database().ref(`/icwbot-f0255/users/${message.author.id}`);
-          configRef.on("value", ss => {
-                value = ss.val();
-          })
+          let configRef = firebase.database().ref(`icwbot-f0255/users/${message.author.id}/email`);
+    configRef.on("value", ss => {
+        value = ss.val();
+    });
+    return value.toString();
           message.channel.send(`${value}`)
     }
 
