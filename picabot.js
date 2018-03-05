@@ -178,8 +178,6 @@ bot.on("message", function(message) {
           });
  
             message.channel.send("[INFO] Added config for "+message.guild.name);
-        } else {}
-      });
     }
     if (command === "restart") {
         message.channel.send("bot restarting");
