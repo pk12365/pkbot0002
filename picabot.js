@@ -159,6 +159,15 @@ bot.on("message", function(message) {
     const args = message.content.substring(prefix.length + 1).split();
     let command = message.content.toLowerCase().split(" ")[0];
     command = command.slice(prefix.length);
+      
+    if (command === "view") {
+          let value;
+          let configRef = firebase.database().ref(`/icwbot-f0255/users/${message.author.id}`);
+          configRef.on("value", ss => {
+                value = ss.val();
+          })
+          message.channel.send(`${value}`)
+    }
 
     if (command === "save") {
       let configRef = firebase.database().ref("configs");
