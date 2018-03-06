@@ -154,7 +154,7 @@ bot.on("message", function(message) {
 
 firebase.database().ref(`/servers/${message.guild.id}/`).once('value',(snapshot) => {
 const gprefix = (`${snapshot.val().guildprefix}`);
-      
+      });
     if (!message.content.startsWith(gprefix)) return undefined;
 
     const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
