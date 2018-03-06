@@ -39,7 +39,7 @@ firebase.initializeApp({
       storageBucket: process.env.FB_STORAGE_BUCKET,
       messagingSenderId: process.env.FB_MESSAGING_SENDER_ID
       });
-var database = firebase.database();
+var db = firebase.database();
 firebase.auth().signInWithEmailAndPassword(process.env.FB_EMAIL, process.env.FB_PASSWORD);
 
 bot.on("ready", function() {
@@ -152,7 +152,10 @@ bot.on("message", function(message) {
 
     if (message.author.bot) return undefined;
 
-    if (!message.content.startsWith(prefix)) return undefined;
+firebase.database().ref(`/servers/${message.guild.id}/`).once('value',(snapshot) => {
+const gprefix = (`${snapshot.val().guildprefix}`);
+      
+    if (!message.content.startsWith(prefix)) || (!message.content.startWithg(gprefix)) return undefined;
 
     const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
 
