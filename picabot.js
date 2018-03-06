@@ -166,7 +166,7 @@ bot.on("message", function(message) {
           configRef.on("value", ss => {
                 value = ss.val();
           })
-          value.toString()
+          return value
           message.channel.send(`${value}`);
     }
 
