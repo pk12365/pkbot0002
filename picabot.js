@@ -152,16 +152,13 @@ bot.on("message", function(message) {
 
     if (message.author.bot) return undefined;
 
-firebase.database().ref(`/servers/${message.guild.id}/`).once('value',(snapshot) => {
-const gprefix = (`${snapshot.val().guildprefix}`).join("");
-      
-    if (!message.content.startsWith(gprefix)) return undefined;
-})
+    if (!message.content.startsWith(prefix)) return undefined;
+
     const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
 
-    const args = message.content.substring(gprefix.length + 1).split();
+    const args = message.content.substring(prefix.length + 1).split();
     let command = message.content.toLowerCase().split(" ")[0];
-    command = command.slice(gprefix.length);
+    command = command.slice(prefix.length);
       
     if (command === "view") {
           firebase.database().ref(`/users/${message.author.id}/`).once('value',(snapshot) => {
