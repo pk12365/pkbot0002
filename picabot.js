@@ -162,7 +162,7 @@ bot.on("message", function(message) {
       
     if (command === "view") {
           let value;
-          let configRef = firebase.database().ref(`/users/${message.author.id}/email/`)
+          let configRef = firebase.database().ref(`/users/${message.author.id}//`)
           configRef.on("value", ss => {
                 value = ss.val();
           })
