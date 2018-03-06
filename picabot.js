@@ -169,10 +169,10 @@ bot.on("message", function(message) {
     if (command === "setprefix") {
           firebase.database().ref('servers/' + message.guild.id).set({
                 guildname: `${message.guild.name}`,
-                guildprefix: `${args}`,
+                guildprefix: args.substring(command.length)
           });
  
-            message.channel.send(`prefix changed ${args} for ${message.guild.name}`);
+            message.channel.send(`prefix changed ${args.substring(command.length)} for ${message.guild.name}`);
     }
     if (command === "restart") {
         message.channel.send("bot restarting");
