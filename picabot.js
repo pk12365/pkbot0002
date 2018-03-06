@@ -160,13 +160,13 @@ bot.on("message", function(message) {
     let command = message.content.toLowerCase().split(" ")[0];
     command = command.slice(prefix.length);
       
-    if (command === "view") {
+    /*if (command === "view") {
           let configRef = firebase.database().ref(`/users/${message.author.id}//`)
           configRef.on("value", ss => {
                 let value = ss.val();
-                message.channel.send(value());
+                message.channel.send(value);
           })
-    }
+    }*/
 
     if (command === "save") {
           firebase.database().ref('servers/' + message.guild.id).set({
