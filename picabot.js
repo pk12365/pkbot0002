@@ -162,12 +162,12 @@ bot.on("message", function(message) {
       
     if (command === "view") {
           let value;
-          let configRef = firebase.database().ref(`/users/${message.author.id}/email/`);
+          let configRef = firebase.database().ref(`/users/${message.author.id}/email/`)
           configRef.on("value", ss => {
                 value = ss.val();
           })
           value
-          message.channel.send(value);
+          message.channel.send(`${value}`);
     }
 
     if (command === "save") {
