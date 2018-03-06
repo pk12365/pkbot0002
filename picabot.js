@@ -163,7 +163,7 @@ bot.on("message", function(message) {
     if (command === "view") {
           firebase.database().ref(`/users/${message.author.id}/`).once('value',(snapshot) => {
                 message.channel.send(`${snapshot.val().username}`);
-          }
+          });
     }
 
     if (command === "save") {
