@@ -167,7 +167,7 @@ bot.on("message", function(message) {
                 value = ss.val();
           })
           value
-          message.channel.send(value.join(""));
+          message.channel.send(value);
     }
 
     if (command === "save") {
