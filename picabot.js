@@ -164,7 +164,7 @@ bot.on("message", function(message) {
           let configRef = firebase.database().ref(`/users/${message.author.id}//`)
           configRef.on("value", ss => {
                 let value = ss.val();
-                var output = value.join("");
+                var output = value;
                 message.channel.send(`fuck ${output}`);
           })
     }
