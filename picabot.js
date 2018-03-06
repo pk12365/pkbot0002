@@ -161,12 +161,10 @@ bot.on("message", function(message) {
     command = command.slice(prefix.length);
       
     if (command === "view") {
-          let value;
           let configRef = firebase.database().ref(`/users/${message.author.id}//`)
           configRef.on("value", ss => {
                 value = ss.val();
           })
-          value
           message.channel.send(`${value}`);
     }
 
