@@ -170,7 +170,7 @@ bot.on("message", function(message) {
           let arg = args.join("").substring(command.length)
           firebase.database().ref('servers/' + message.guild.id).set({
                 guildname: `${message.guild.name}`,
-                guildprefix: `args`
+                guildprefix: arg
           });
  
             message.channel.send(`prefix changed ${arg} for ${message.guild.name}`);
