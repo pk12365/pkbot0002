@@ -151,9 +151,10 @@ bot.on("message", function(message) {
     bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.users.size} Users`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
 
     if (message.author.bot) return undefined;
-      firebase.database().ref(`/users/${message.author.id}/`).once('value',(snapshot) => {
-      let gprefix = (`${snapshot.val().username}`);
-          });
+      firebase.database().ref(`/servers/${message.guild.id}/`).once('value',(snapshot) => {
+      
+      let gprefix = (`${snapshot.val().guildprefix}`);
+          })
 
     if (!message.content.startsWith(gprefix || prefix)) return undefined;
 
@@ -178,6 +179,7 @@ bot.on("message", function(message) {
  
             message.channel.send(`prefix changed ${arg} for ${message.guild.name}`);
     }
+
     if (command === "restart") {
         message.channel.send("bot restarting");
         let alldynos = hbot.app('testicw').dynos.list;
