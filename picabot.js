@@ -8,7 +8,6 @@ const youtube = google.youtube("v3");
 //var config = JSON.parse(fs.readFileSync('./config.json', 'utf-8'));
 const bot = new Discord.Client();
 const prefix = "##";
-const gprefix = "++";
 const botChannelName = "icwbot2";
 const botlogchannel = "406504806954565644";
 const botmlogchannel = "409055298158985216";
@@ -157,13 +156,13 @@ bot.on("message", function(message) {
       //let gprefix = "++"(`${snapshot.val().guildprefix}`);
           //})
 
-    if (!message.content.startsWith(gprefix || prefix)) return undefined;
+    if (!message.content.startsWith(prefix)) return undefined;
 
     const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
 
-    const args = message.content.substring(gprefix.length || prefix.length + 1).split();
+    const args = message.content.substring(prefix.length + 1).split();
     let command = message.content.toLowerCase().split(" ")[0];
-    command = command.slice(gprefix.length || prefix.length);
+    command = command.slice(prefix.length);
       
     if (command === "prefix") {
           firebase.database().ref(`/servers/${message.guild.id}/`).once('value',(snapshot) => {
