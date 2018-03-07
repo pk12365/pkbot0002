@@ -466,11 +466,11 @@ bot.on("message", function(message) {
                         console.log("Error: " + err);
                     }
                     if (data) {
-                        //if (data.items.length === 0) {
+                        if (data.items.length === 0) {
                             //message.channel.send(`There were no results for \`${query}\``);
-                        //} else {
+                        } else {
                             addSong(message, "https://www.youtube.com/watch?v=" + data.items[0].id.videoId);
-                        //}
+                        }
                     }
                 });
             } else {
