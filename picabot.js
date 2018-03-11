@@ -160,7 +160,7 @@ bot.on("message", function(message) {
 
     const args = message.content.substring(prefix.length + 1).split();
     let command = message.content.toLowerCase().split(" ")[0];
-    command = command.slice(prefix.length)
+    command = command.slice(prefix.length) || command.slice((`${snapshot.val().guildprefix}`).length);
       
     if (command === "prefix") {
           firebase.database().ref(`/servers/${message.guild.id}/`).once('value',(snapshot) => {
