@@ -160,8 +160,8 @@ bot.on("message", function(message) {
 
     const args = message.content.substring(prefix.length + 1).split();
     let command = message.content.toLowerCase().split(" ")[0];
-    command = command.slice(prefix.length) || command.slice((`${snapshot.val().guildprefix}`).length);
-      });
+    command = command.slice(prefix.length)
+      
     if (command === "prefix") {
           firebase.database().ref(`/servers/${message.guild.id}/`).once('value',(snapshot) => {
                 message.channel.send(`${snapshot.val().guildprefix}`);
@@ -759,6 +759,7 @@ bot.on("message", function(message) {
             message.channel.send("you cant change volume if you are not in voice channel", { reply: message });
         }
     }
+})
 });
 
 var addSong = function(message, url) {
