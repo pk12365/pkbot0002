@@ -153,8 +153,8 @@ bot.on("message", function(message) {
     if (message.author.bot) return undefined;
       const guildprefix = firebase.database()
       .ref(`/servers/${message.guild.id}/`)
-      .child('guildprefix')
-      .once('value')).val();
+      .once('value',(snapshot) => {(`${snapshot.val().guildprefix}`)
+                                   })
  
     let prefix;
       guildprefix.some(p => {
@@ -169,9 +169,8 @@ bot.on("message", function(message) {
       
     if (command === "prefix") {
           firebase.database().ref(`/servers/${message.guild.id}/`).once('value',(snapshot) => {
-                const guildprefix = (`${snapshot.val().guildprefix}`);
+                message.channel.send(`${snapshot.val().guildprefix}`);
           });
-          message.channel.send(`${guildprefix}`);
     }
 
     if (command === "setprefix") {
