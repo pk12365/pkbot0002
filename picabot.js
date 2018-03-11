@@ -8,6 +8,7 @@ const youtube = google.youtube("v3");
 //var config = JSON.parse(fs.readFileSync('./config.json', 'utf-8'));
 const bot = new Discord.Client();
 const prefix = "##";
+const prefix2 = "++";
 const botChannelName = "icwbot2";
 const botlogchannel = "406504806954565644";
 const botmlogchannel = "409055298158985216";
@@ -156,7 +157,7 @@ bot.on("message", function(message) {
       //let gprefix = "++"(`${snapshot.val().guildprefix}`);
           //})
 
-    if (!message.content.startsWith(prefix)) return undefined;
+    if (!message.content.startsWith(prefix) && !message.content.startsWith(prefix2)) return undefined;
 
     const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
 
