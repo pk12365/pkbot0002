@@ -155,8 +155,6 @@ bot.on("message", function(message) {
       .ref(`/servers/${message.guild.id}/`)
       .once('value',(snapshot) => {(`${snapshot.val().guildprefix}`)
                                    })
- 
-    let guildprefix;
       guildprefix.some(p => {
 
     if (!message.content.startsWith(prefix) && !message.content.startsWith(p)) return undefined;
