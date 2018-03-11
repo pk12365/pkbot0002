@@ -159,7 +159,7 @@ bot.on("message", function(message) {
         const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
             const args = message.content.substring(prefix.length + 1).split();
     } else {
-      let args = message.content.substring((`${snapshot.val().guildprefix}`).length + 1).split();
+      const args = message.content.substring((`${snapshot.val().guildprefix}`).length + 1).split();
     }
     const command = args.shift().toLowerCase();
     if (command === "prefix") {
