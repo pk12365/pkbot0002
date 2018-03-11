@@ -150,14 +150,13 @@ bot.on('message', message => {
 
 bot.on("message", function(message) {
     bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.users.size} Users`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
-const prefix3 = "&&";
     if (message.author.bot) return undefined;
-      //firebase.database().ref(`/servers/${message.guild.id}/`).once('value',(snapshot) => {
+      firebase.database().ref(`/servers/${message.guild.id}/`).once('value',(snapshot) => {
       
-      //let gprefix = "++"(`${snapshot.val().guildprefix}`);
-          //})
+      const gprefix = (`${snapshot.val().guildprefix}`);
+          })
 
-    if (!message.content.startsWith(prefix) && !message.content.startsWith(prefix3)) return undefined;
+    if (!message.content.startsWith(prefix) && !message.content.startsWith(gprefix)) return undefined;
 
     const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
 
