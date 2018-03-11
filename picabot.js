@@ -151,9 +151,11 @@ bot.on('message', message => {
 bot.on("message", function(message) {
     bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.users.size} Users`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
     if (message.author.bot) return undefined;
-      firebase.database().ref(`/servers/${message.guild.id}/`).once('value',(snapshot) => {
+      //$firebase.database()
+            //.ref(`/servers/${message.guild.id}/`)
+            //.once('value',(snapshot) => {
 
-    if (!message.content.startsWith(prefix) && !message.content.startsWith((`${snapshot.val().guildprefix}`))) return undefined;
+    if (!message.content.startsWith(prefix)// && !message.content.startsWith((`${snapshot.val().guildprefix}`))) return undefined;
     //if (message.content.startsWith(prefix)) {
         const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
             const args = message.content.substring(prefix.length + 1).split();
@@ -759,7 +761,7 @@ bot.on("message", function(message) {
             message.channel.send("you cant change volume if you are not in voice channel", { reply: message });
         }
     }
-})
+//})
 });
 
 var addSong = function(message, url) {
