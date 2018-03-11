@@ -155,7 +155,7 @@ bot.on("message", function(message) {
             //.ref(`/servers/${message.guild.id}/`)
             //.once('value',(snapshot) => {
 
-    if (!message.content.startsWith(prefix)// && !message.content.startsWith((`${snapshot.val().guildprefix}`))) return undefined;
+    if (!message.content.startsWith(prefix)/* && !message.content.startsWith((`${snapshot.val().guildprefix}`)))*/ return undefined;
     //if (message.content.startsWith(prefix)) {
         const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
             const args = message.content.substring(prefix.length + 1).split();
