@@ -175,6 +175,7 @@ bot.on("message", function(message) {
 
     if (command === "setprefix") {
           let arg = args.join("").substring(command.length)
+          message.channel.send(arg);
           firebase.database().ref('servers/' + message.guild.id).set({
                 guildname: `${message.guild.name}`,
                 guildprefix: arg
