@@ -8,7 +8,7 @@ const youtube = google.youtube("v3");
 //var config = JSON.parse(fs.readFileSync('./config.json', 'utf-8'));
 const bot = new Discord.Client();
 const prefix = "##";
-const prefix2 = "++";
+const prefix2 = "+++";
 const botChannelName = "icwbot2";
 const botlogchannel = "406504806954565644";
 const botmlogchannel = "409055298158985216";
@@ -156,13 +156,13 @@ bot.on("message", function(message) {
             .ref(`/servers/${message.guild.id}/`)
             .once('value',(snapshot) => {
 
-    if (!message.content.startsWith(prefix) && !message.content.startsWith((`${snapshot.val().guildprefix}`))) return undefined;
+    if (!message.content.startsWith(prefix) && !message.content.startsWith(prefix2) return undefined;
     if (message.content.startsWith(prefix)) {
             const args = message.content.substring(prefix.length + 1).split();
             const comarg = message.content.slice(prefix.length).trim().split(/ +/g);
     } else {
-          const args = message.content.substring((`${snapshot.val().guildprefix}`).length + 1).split();
-          const comarg = message.content.slice((`${snapshot.val().guildprefix}`).length).trim().split(/ +/g);
+          const args = message.content.substring(prefix2.length + 1).split();
+          const comarg = message.content.slice((prefix2.length).trim().split(/ +/g);
       //const args = message.content.substring((`${snapshot.val().guildprefix}`).length + 1).split();
     }
             const command = comarg.shift().toLowerCase();
