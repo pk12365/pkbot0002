@@ -165,8 +165,8 @@ bot.on("message", function(message) {
           const comarg = message.content.slice(prefix2.length).trim().split(/ +/g);
       //const args = message.content.substring((`${snapshot.val().guildprefix}`).length + 1).split();
     }
-            switch (comarg[0].toLowerCase()){
-                        let command = comarg.shift().toLowerCase();
+            
+    const command = comarg[0].shift().toLowerCase();
     //const command = message.content.toLowerCase().split(" ")[0];
     //command = command.slice(prefix.length);
     if (command === "prefix") {
@@ -770,7 +770,6 @@ bot.on("message", function(message) {
         }
     }
 //})
- }
 });
 
 var addSong = function(message, url) {
