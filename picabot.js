@@ -179,7 +179,9 @@ bot.on("message", function(message) {
           firebase.database().ref('servers/' + message.guild.id).set({
                 guildname: `${message.guild.name}`,
                 guildprefix: arg
-          });
+          }).catch(function(err) {
+        message.channel.send(err + "\n\n\n");
+    });
  
             message.channel.send(`prefix changed ${arg} for ${message.guild.name}`);
     }
