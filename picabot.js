@@ -158,11 +158,11 @@ bot.on("message", function(message) {
 
     if (!message.content.startsWith(prefix) && !message.content.startsWith(prefix2)) return undefined;
     if (message.content.startsWith(prefix)) {
-            args = message.content.substring(prefix.length + 1).split();
-            comarg = message.content.substring(prefix.length + 1).trim().split(/ +/g);
+            args = message.content.substring(prefix.length + 4).split();
+            comarg = message.content.slice(prefix.length).trim().split(/ +/g);
     } else {
-          args = message.content.substring(prefix2.length + 1).split();
-          comarg = message.content.substring(prefix2.length + 1).trim().split(/ +/g);
+          args = message.content.substring(prefix2.length + 4).split();
+          comarg = message.content.slice(prefix2.length).trim().split(/ +/g);
       //const args = message.content.substring((`${snapshot.val().guildprefix}`).length + 1).split();
     }
             
