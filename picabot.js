@@ -157,7 +157,7 @@ bot.on("message", function(message) {
             //.once('value',(snapshot) => {
 
     if (!message.content.startsWith(prefix) && !message.content.startsWith(prefix2)) return undefined;
-    if (!message.content.startsWith(prefix)) {
+    if (message.content.startsWith(prefix)) {
             args = message.content.substring(prefix.length + 1).split();
             comarg = message.content.slice(prefix.length).trim().split(/ +/g);
     } else {
