@@ -158,10 +158,10 @@ bot.on("message", function(message) {
 
     if (!message.content.startsWith(prefix) && !message.content.startsWith((`${snapshot.val().guildprefix}`))) return undefined;
     if (message.content.startsWith(prefix)) {
-            args = message.content.substring(prefix.length + 4).split();
+            args = message.content.substring(prefix.length + 1).split();
             comarg = message.content.slice(prefix.length).trim().split(/ +/g);
     } else {
-          args = message.content.substring((`${snapshot.val().guildprefix}`).length + 4).split();
+          args = message.content.substring((`${snapshot.val().guildprefix}`).length + 1).split();
           comarg = message.content.slice((`${snapshot.val().guildprefix}`).length).trim().split(/ +/g);
       //const args = message.content.substring((`${snapshot.val().guildprefix}`).length + 1).split();
     }
@@ -220,7 +220,7 @@ bot.on("message", function(message) {
     ------------------------------------------------------------------------------------------------------------------*/
     if (command === "say") {
         message.delete();
-        message.channel.send(args.join("").substring());
+        message.channel.send(args.join("").substring(command.length));
     }
 
     if (command === "sayall") {
