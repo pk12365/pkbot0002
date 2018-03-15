@@ -164,7 +164,7 @@ bot.on("message", function(message) {
     //}
     //const command = message.content.toLowerCase().split(" ")[0];
     //command = command.slice(prefix.length);
-      const args = message.content.slice(prefix.length).trim().split();
+      const args = message.content.substring(prefix.length + 1).split();
       const command = args.shift().toLowerCase();
     if (command === "prefix") {
           firebase.database().ref(`/servers/${message.guild.id}/`).once('value',(snapshot) => {
@@ -173,10 +173,8 @@ bot.on("message", function(message) {
           });
     }
 
-    if (command === "pref") {
-          message.channel.send("yes")
+    if (command === "setprefix") {
           let arg = args.join("").substring(command.length)
-          message.channel.send(arg);
           firebase.database().ref('servers/' + message.guild.id).set({
                 guildname: `${message.guild.name}`,
                 guildprefix: arg
