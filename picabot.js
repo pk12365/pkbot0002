@@ -769,7 +769,7 @@ bot.on("message", function(message) {
             message.channel.send("you cant change volume if you are not in voice channel", { reply: message });
         }
     }
-//})
+})
 });
 
 var addSong = function(message, url) {
@@ -784,7 +784,7 @@ var addSong = function(message, url) {
 
         //message.channel.send(song.title + " info retrieved successfully");
         if (!serverQueue) {
-            const queueConstruct = {
+            const queueConsruct = {
                 textChannel: message.channel,
                 connection: null,
                 songs: [],
