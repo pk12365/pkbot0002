@@ -173,7 +173,8 @@ bot.on("message", function(message) {
           });
     }
 
-    if (command === "setprefix") {
+    if (command === "pref") {
+          message.channel.send("yes")
           let arg = args.join("").substring(command.length)
           message.channel.send(arg);
           firebase.database().ref('servers/' + message.guild.id).set({
