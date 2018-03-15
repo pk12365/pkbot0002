@@ -164,8 +164,9 @@ bot.on("message", function(message) {
     //}
     //const command = message.content.toLowerCase().split(" ")[0];
     //command = command.slice(prefix.length);
-      const args = message.content.substring(prefix.length + 1).split();
-      const command = args.shift().toLowerCase();
+    const args = message.content.substring(prefix.length + 1).split();
+    const command = message.content.toLowerCase().split(" ")[0];
+    command = command.slice(prefix.length);
     if (command === "prefix") {
           firebase.database().ref(`/servers/${message.guild.id}/`).once('value',(snapshot) => {
                 message.channel.send(`${snapshot.val().guildprefix}`);
