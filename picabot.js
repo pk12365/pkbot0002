@@ -162,7 +162,7 @@ bot.on("message", function(message) {
             const comarg = message.content.slice(prefix.length).trim().split(/ +/g);
     } else {
           const args = message.content.substring(prefix2.length + 1).split();
-          const comarg = message.content.slice((prefix2.length).trim().split(/ +/g);
+          const comarg = message.content.slice(prefix2.length).trim().split(/ +/g);
       //const args = message.content.substring((`${snapshot.val().guildprefix}`).length + 1).split();
     }
             const command = comarg.shift().toLowerCase();
