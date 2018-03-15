@@ -151,22 +151,24 @@ bot.on('message', message => {
 bot.on("message", function(message) {
     bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.users.size} Users`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
     if (message.author.bot) return undefined;
-      //$firebase.database()
-            //.ref(`/servers/${message.guild.id}/`)
-            //.once('value',(snapshot) => {
+      const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
+      firebase.database()
+            .ref(`/servers/${message.guild.id}/`)
+            .once('value',(snapshot) => {
 
-    if (!message.content.startsWith(prefix)) return undefined;//&& !message.content.startsWith((`${snapshot.val().guildprefix}`))) return undefined;
-    //if (message.content.startsWith(prefix)) {
-        const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
-            //const args = message.content.substring(prefix.length + 1).split();
-    //} else {
+    if (!message.content.startsWith(prefix) && !message.content.startsWith((`${snapshot.val().guildprefix}`))) return undefined;
+    if (message.content.startsWith(prefix)) {
+            const args = message.content.substring(prefix.length + 1).split();
+            const comarg = message.content.slice(prefix.length).trim().split(/ +/g);
+            const command = comarg.shift().toLowerCase();
+    } else {
+          const args = message.content.substring((`${snapshot.val().guildprefix}`).length + 1).split();
+          const comarg = message.content.slice((`${snapshot.val().guildprefix}`).length).trim().split(/ +/g);
+          const command = comarg.shift().toLowerCase();
       //const args = message.content.substring((`${snapshot.val().guildprefix}`).length + 1).split();
     //}
     //const command = message.content.toLowerCase().split(" ")[0];
     //command = command.slice(prefix.length);
-    const args = message.content.substring(prefix.length + 1).split();
-    const comarg = message.content.slice(prefix.length).trim().split(/ +/g);
-    const command = comarg.shift().toLowerCase();
     if (command === "prefix") {
           firebase.database().ref(`/servers/${message.guild.id}/`).once('value',(snapshot) => {
                 message.channel.send(`${snapshot.val().guildprefix}`);
