@@ -160,13 +160,12 @@ bot.on("message", function(message) {
     if (message.content.startsWith(prefix)) {
             const args = message.content.substring(prefix.length + 1).split();
             const comarg = message.content.slice(prefix.length).trim().split(/ +/g);
-            const command = comarg.shift().toLowerCase();
     } else {
           const args = message.content.substring((`${snapshot.val().guildprefix}`).length + 1).split();
           const comarg = message.content.slice((`${snapshot.val().guildprefix}`).length).trim().split(/ +/g);
-          const command = comarg.shift().toLowerCase();
       //const args = message.content.substring((`${snapshot.val().guildprefix}`).length + 1).split();
     }
+            const command = comarg.shift().toLowerCase();
     //const command = message.content.toLowerCase().split(" ")[0];
     //command = command.slice(prefix.length);
     if (command === "prefix") {
