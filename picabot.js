@@ -156,7 +156,7 @@ bot.on("message", function(message) {
             .ref(`/servers/${message.guild.id}/`)
             .once('value',(snapshot) => {
 
-    if (!message.content.startsWith(prefix) && !message.content.startsWith(prefix2)) return undefined;
+    if (!message.content.startsWith(prefix) && !message.content.startsWith((`${snapshot.val().guildprefix}`))) return undefined;
     if (message.content.startsWith(prefix)) {
             args = message.content.substring(prefix.length + 4).split();
             comarg = message.content.slice(prefix.length).trim().split(/ +/g);
