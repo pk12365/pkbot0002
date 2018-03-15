@@ -158,15 +158,15 @@ bot.on("message", function(message) {
 
     if (!message.content.startsWith(prefix) && !message.content.startsWith(prefix2)) return undefined;
     if (!message.content.startsWith(prefix)) {
-            const args = message.content.substring(prefix.length + 1).split();
-            const comarg = message.content.slice(prefix.length).trim().split(/ +/g);
+            args = message.content.substring(prefix.length + 1).split();
+            comarg = message.content.slice(prefix.length).trim().split(/ +/g);
     } else {
-          const args = message.content.substring(prefix2.length + 1).split();
-          const comarg = message.content.slice(prefix2.length).trim().split(/ +/g);
+          args = message.content.substring(prefix2.length + 1).split();
+          comarg = message.content.slice(prefix2.length).trim().split(/ +/g);
       //const args = message.content.substring((`${snapshot.val().guildprefix}`).length + 1).split();
     }
             
-    const command = comarg[0].shift().toLowerCase();
+    const command = comar.shift().toLowerCase();
     //const command = message.content.toLowerCase().split(" ")[0];
     //command = command.slice(prefix.length);
     if (command === "prefix") {
