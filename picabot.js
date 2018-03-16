@@ -152,22 +152,22 @@ bot.on("message", function(message) {
     bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.users.size} Users`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
     if (message.author.bot) return undefined;
       const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
-    if (message.channel.type == "dm" || message.channel.type == "group") {
-          return undefined
-    } else {
-      firebase.database()
-            .ref(`/servers/${message.guild.id}/`)
-            .once('value',(snapshot) => {
-            
 
     if (!message.content.startsWith(prefix) && !message.content.startsWith((`${snapshot.val().guildprefix}`))) return undefined;
     if (message.content.startsWith(prefix)) {
-          args = message.content.substring((`${snapshot.val().guildprefix}`).length + 1).split();
-          comarg = message.content.slice((`${snapshot.val().guildprefix}`).length).trim().split(/ +/g);
-    } else {
           args = message.content.substring(prefix.length + 1).split();
           comarg = message.content.slice(prefix.length).trim().split(/ +/g);
-    }
+    } else {
+          if (message.channel.type == "dm" || message.channel.type == "group") {
+                return undefined
+          } else {
+                firebase.database()
+                      .ref(`/servers/${message.guild.id}/`)
+                      .once('value',(snapshot) => {
+                args = message.content.substring((`${snapshot.val().guildprefix}`).length + 1).split();
+                comarg = message.content.slice((`${snapshot.val().guildprefix}`).length).trim().split(/ +/g);
+                })
+          }
     }
             
     const command = comarg.shift().toLowerCase();
@@ -773,7 +773,6 @@ bot.on("message", function(message) {
             message.channel.send("you cant change volume if you are not in voice channel", { reply: message });
         }
     }
-})
 });
 
 var addSong = function(message, url) {
