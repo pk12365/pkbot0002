@@ -167,7 +167,7 @@ bot.on("message", function(message) {
     } else {
           args = message.content.substring(prefix.length + 1).split();
           comarg = message.content.slice(prefix.length).trim().split(/ +/g);
-    }})
+    }
     }
             
     const command = comarg.shift().toLowerCase();
@@ -773,6 +773,7 @@ bot.on("message", function(message) {
             message.channel.send("you cant change volume if you are not in voice channel", { reply: message });
         }
     }
+})
 });
 
 var addSong = function(message, url) {
