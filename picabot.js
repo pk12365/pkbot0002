@@ -152,7 +152,9 @@ bot.on("message", function(message) {
     bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.users.size} Users`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
     if (message.author.bot) return undefined;
       const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
-    if (!message.channel.type == "dm" || !message.channel.type == "group") {
+    if (message.channel.type == "dm" || message.channel.type == "group") {
+          return undefined
+    } else {
       firebase.database()
             .ref(`/servers/${message.guild.id}/`)
             .once('value',(snapshot) => {
@@ -167,7 +169,7 @@ bot.on("message", function(message) {
           args = message.content.substring(prefix.length + 1).split();
           comarg = message.content.slice(prefix.length).trim().split(/ +/g);
     }
-    } else { return undefined }
+    }
             
     const command = comarg.shift().toLowerCase();
     //const command = message.content.toLowerCase().split(" ")[0];
