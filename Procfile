@@ -1,1 +1,2 @@
-worker: node picabot.js -i 4
+worker: pm2 start picabot.js --attach
+ 
