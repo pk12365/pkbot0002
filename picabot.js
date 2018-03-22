@@ -137,6 +137,7 @@ bot.on("message", async(message) => {
     if (message.author.bot) return undefined;
     const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
 
+    if (!message.channel.type == "dm" || !message.channel.type == "group") return undefined;
     if (!message.content.startsWith(prefix)) return undefined;
 
     let args = message.content.substring(prefix.length + 1).split();
