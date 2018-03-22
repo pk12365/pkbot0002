@@ -328,6 +328,9 @@ bot.on("message", async(message) => {
     ---------------------------------------------------------------------------------------------*/
 
 bot.on("message", async(message) => {
+    bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.users.size} Users`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
+    if (message.author.bot) return undefined;
+    const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
 
     if (message.channel.type == "dm" || message.channel.type == "group") return undefined;
     const serverQueue = songQueue.get(message.guild.id);
@@ -335,7 +338,6 @@ bot.on("message", async(message) => {
     firebase.database()
         .ref(`/servers/${message.guild.id}/`)
         .once('value',(snapshot) => {
-
     if (!message.content.startsWith(prefix) && !message.content.startsWith((`${snapshot.val().guildprefix}`))) return undefined;
     if (message.content.startsWith(prefix)) {
         args = message.content.substring(prefix.length + 1).split();
@@ -345,13 +347,6 @@ bot.on("message", async(message) => {
         comarg = message.content.slice((`${snapshot.val().guildprefix}`).length).trim().split(/ +/g);
     }
     const command = comarg.shift().toLowerCase();
-
-    if (command === "prefix") {
-        firebase.database().ref(`/servers/${message.guild.id}/`).once('value',(snapshot) => {
-            message.channel.send(`${snapshot.val().guildprefix}`);
-            message.channel.send((`${snapshot.val().guildprefix}`).length);
-        });
-    }
 
     if (command === "restart") {
         message.channel.send("bot restarting");
@@ -530,6 +525,16 @@ bot.on("message", async(message) => {
             searchMessage.edit(`Result found!\n${googleData.q}`);
         }).catch((err) => {
             searchMessage.edit('No results found!');
+        });
+    }
+
+    if (command === "prefix") {
+        firebase.database().ref(`/servers/${message.guild.id}/`).once('value',(snapshot) => {
+            if (!`${snapshot.val().guildprefix}`) {
+                return message.channel.send(`any custom prefix not found for this server plz take a command \`\`${prefix}setprefix\`\` for set the server custom prefix`)
+            } else {
+                message.channel.send(`${snapshot.val().guildprefix}`);
+            }
         });
     }
 
