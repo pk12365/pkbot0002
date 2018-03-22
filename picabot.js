@@ -521,7 +521,7 @@ bot.on("message", async(message) => {
 
     if(command == "gsearch" || command === "google" || command === "g") {
         let search = args.join("").substring(command.length)
-        let searchMessage = await message.reply('Searching... Sec.');
+        let searchMessage = message.reply('Searching... Sec.');
         let searchUrl = `https://www.google.com/search?q=${encodeURIComponent(search)}`;
         return snekfetch.get(searchUrl).then((result) => {
             let $ = cheerio.load(result.text);
