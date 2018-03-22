@@ -516,21 +516,21 @@ bot.on("message", async(message) => {
 
     if(command == "gsearch" || command === "google" || command === "g") {
         let search = args.join("").substring(command.length)
-        let searchMessage = message.reply('Searching... Sec.');
+        message.channel.send(search)
         let searchUrl = `https://www.google.com/search?q=${encodeURIComponent(search)}`;
         return snekfetch.get(searchUrl).then((result) => {
             let $ = cheerio.load(result.text);
             let googleData = $('.r').first().find('a').first().attr('href');
             googleData = querystring.parse(googleData.replace('/url?', ''));
-            searchMessage.edit(`Result found!\n${googleData.q}`);
+            message.channel.send(`Result found!\n${googleData.q}`);
         }).catch((err) => {
-            searchMessage.edit('No results found!');
+            message.channel.send('No results found!');
         });
     }
 
     if (command === "prefix") {
         firebase.database().ref(`/servers/${message.guild.id}/`).once('value',(snapshot) => {
-            if (`${snapshot.val().guildprefix}` === null) {
+            if (`${snapshot.val().guildprefix}`) {
                 return message.channel.send(`any custom prefix not found for this server plz take a command \`\`${prefix}setprefix\`\` for set the server custom prefix`)
             } else {
                 message.channel.send(`${snapshot.val().guildprefix}`);
