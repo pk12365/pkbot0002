@@ -116,7 +116,7 @@ bot.on("message", async(message) => {
     }
 });
 
-bot.on('message', message => {
+bot.on('message', async(message) => {
     if (message.author.bot) return undefined;
     if (message.channel.type == "dm" || message.channel.type == "group") return undefined;
     if (message.content.startsWith(`<@${bot.user.id}>`) || message.content.startsWith(`icw`) || message.content.startsWith(`Icw`) || message.content.startsWith(`ICW`)) {
@@ -326,7 +326,8 @@ bot.on("message", function(message) {
     /*---------------------------------------------------------------------------------------------
                         no dm commands (only for server channels)
     ---------------------------------------------------------------------------------------------*/
-bot.on("message", function(message) {
+
+bot.on("message", async(message) => {
 
     if (message.channel.type == "dm" || message.channel.type == "group") return undefined;
     const serverQueue = songQueue.get(message.guild.id);
