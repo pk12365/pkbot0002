@@ -530,7 +530,7 @@ bot.on("message", async(message) => {
 
     if (command === "prefix") {
         firebase.database().ref(`/servers/${message.guild.id}/`).once('value',(snapshot) => {
-            if (!`${snapshot.val().guildprefix}`) {
+            if (`${snapshot.val().guildprefix}` === null) {
                 return message.channel.send(`any custom prefix not found for this server plz take a command \`\`${prefix}setprefix\`\` for set the server custom prefix`)
             } else {
                 message.channel.send(`${snapshot.val().guildprefix}`);
