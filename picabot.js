@@ -163,15 +163,15 @@ bot.on("message", function(message) {
         value = ss.val();
     })
     value
-    const gprefix = value;
+	const gprefix = value;
 
-    if (!message.content.startsWith(prefix) && !message.content.startsWith((`${gprefix}`))) return undefined;
+    if (!message.content.startsWith(prefix) && !message.content.startsWith(gprefix)) return undefined;
     if (message.content.startsWith(prefix)) {
         args = message.content.substring(prefix.length + 1).split();
         comarg = message.content.slice(prefix.length).trim().split(/ +/g);
     } else {
-        args = message.content.substring((`${gprefix}`).length + 1).split();
-        comarg = message.content.slice((`${gprefix}`).length).trim().split(/ +/g);
+        args = message.content.substring((gprefix).length + 1).split();
+        comarg = message.content.slice((gprefix).length).trim().split(/ +/g);
     }
     const command = comarg.shift().toLowerCase();
 
