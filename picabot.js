@@ -337,13 +337,13 @@ bot.on("message", async(message) => {
     const serverQueue = songQueue.get(message.guild.id);
 
     let value;
-    let gprefix = firebase.database().ref(`/servers/${message.guild.id}/guildprefix/`);
+    let configRef = firebase.database().ref(`/servers/${message.guild.id}/guildprefix/`);
     configRef.on("value", ss => {
         value = ss.val();
     })
     value
-    let configRef = gprefix();
-    message.channel.send(configRef)
+    let gprefix = configRef();
+    message.channel.send(gprefix)
 
     firebase.database()
         .ref(`/servers/${message.guild.id}/`)
