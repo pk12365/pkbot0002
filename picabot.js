@@ -342,7 +342,7 @@ bot.on("message", async(message) => {
         value = ss.val();
     })
     value
-    message.channel.send(configRef.join(''))
+    message.channel.send(configRef)
 
     firebase.database()
         .ref(`/servers/${message.guild.id}/`)
