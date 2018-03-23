@@ -161,7 +161,6 @@ bot.on("message", function(message) {
     configRef.on("value", ss => {
         value = ss.val();
     })
-    value
 
     if (!message.content.startsWith(prefix) && !message.content.startsWith(value)) return undefined;
     if (message.content.startsWith(prefix)) {
