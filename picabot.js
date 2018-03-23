@@ -162,7 +162,7 @@ bot.on("message", function(message) {
     configRef.on("value", ss => {
         value = ss.val();
     })
-    gprefix(value)
+    message.channel.send(value)
 
     if (!message.content.startsWith(prefix) && !message.content.startsWith(gprefix)) return undefined;
     if (message.content.startsWith(prefix)) {
