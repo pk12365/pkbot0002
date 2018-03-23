@@ -342,18 +342,15 @@ bot.on("message", async(message) => {
         value = ss.val();
     })
     value
-    message.channel.send(value)
+    const gprefix = value;
 
-    firebase.database()
-        .ref(`/servers/${message.guild.id}/`)
-        .once('value',(snapshot) => {
-    if (!message.content.startsWith(prefix) && !message.content.startsWith((`${snapshot.val().guildprefix}`))) return undefined;
+    if (!message.content.startsWith(prefix) && !message.content.startsWith((`${gprefix}`))) return undefined;
     if (message.content.startsWith(prefix)) {
         args = message.content.substring(prefix.length + 1).split();
         comarg = message.content.slice(prefix.length).trim().split(/ +/g);
     } else {
-        args = message.content.substring((`${snapshot.val().guildprefix}`).length + 1).split();
-        comarg = message.content.slice((`${snapshot.val().guildprefix}`).length).trim().split(/ +/g);
+        args = message.content.substring((`${gprefix}`).length + 1).split();
+        comarg = message.content.slice((`${gprefix}`).length).trim().split(/ +/g);
     }
     const command = comarg.shift().toLowerCase();
 
@@ -966,7 +963,6 @@ bot.on("message", async(message) => {
             message.channel.send("you cant change volume if you are not in voice channel", { reply: message });
         }
     }
- })
 });
 
 var addSong = function(message, url) {
