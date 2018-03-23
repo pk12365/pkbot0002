@@ -30,6 +30,7 @@ const cheerio = require('cheerio');
 const snekfetch = require('snekfetch');
 const querystring = require('querystring');
 const firebase = require("firebase");
+const gprefix = new Map();
 
 firebase.initializeApp({
     apiKey: process.env.FB_API_KEY,
@@ -161,14 +162,15 @@ bot.on("message", function(message) {
     configRef.on("value", ss => {
         value = ss.val();
     })
+    gprefix(value)
 
-    if (!message.content.startsWith(prefix) && !message.content.startsWith(value)) return undefined;
+    if (!message.content.startsWith(prefix) && !message.content.startsWith(gprefix)) return undefined;
     if (message.content.startsWith(prefix)) {
         args = message.content.substring(prefix.length + 1).split();
         comarg = message.content.slice(prefix.length).trim().split(/ +/g);
     } else {
-        args = message.content.substring(value.length + 1).split();
-        comarg = message.content.slice(value.length).trim().split(/ +/g);
+        args = message.content.substring(gprefix.length + 1).split();
+        comarg = message.content.slice(gprefix.length).trim().split(/ +/g);
     }
     const command = comarg.shift().toLowerCase();
 
@@ -346,10 +348,10 @@ bot.on("message", function(message) {
     const serverQueue = songQueue.get(message.guild.id);
 
     if (command === "prefix") {
-        if (!value) {
+        if (!gprefix) {
             return message.channel.send(`any custom prefix not found for this server plz take a command \`\`${prefix}setprefix\`\` for set the server custom prefix`)
         } else {
-            message.channel.send(`${value}`);
+            message.channel.send(`${gprefix}`);
         }
     }
 
