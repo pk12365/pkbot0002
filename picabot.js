@@ -32,13 +32,13 @@ const querystring = require('querystring');
 const firebase = require("firebase");
 
 firebase.initializeApp({
-	apiKey: process.env.FB_API_KEY,
-	authDomain: process.env.FB_AUTH_DOMAIN,
-	databaseURL: process.env.FB_DATABASE_URL,
-	projectId: process.env.FB_PROJECT_ID,
-	storageBucket: process.env.FB_STORAGE_BUCKET,
-	messagingSenderId: process.env.FB_MESSAGING_SENDER_ID
-	});
+    apiKey: process.env.FB_API_KEY,
+    authDomain: process.env.FB_AUTH_DOMAIN,
+    databaseURL: process.env.FB_DATABASE_URL,
+    projectId: process.env.FB_PROJECT_ID,
+    storageBucket: process.env.FB_STORAGE_BUCKET,
+    messagingSenderId: process.env.FB_MESSAGING_SENDER_ID
+});
 var db = firebase.database();
 firebase.auth().signInWithEmailAndPassword(process.env.FB_EMAIL, process.env.FB_PASSWORD);
 
@@ -155,12 +155,13 @@ bot.on("message", function(message) {
 
     if (!message.content.startsWith(prefix)) return undefined;
 
-	const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
+    const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
 
     let configRef = firebase.database().ref(`/servers/${message.guild.id}/guildprefix/`);
     configRef.on("value", ss => {
         value = ss.val();
     })
+    value
 
     if (!message.content.startsWith(prefix) && !message.content.startsWith(value)) return undefined;
     if (message.content.startsWith(prefix)) {
@@ -343,10 +344,10 @@ bot.on("message", function(message) {
                         no dm commands (only for server channels)
     ---------------------------------------------------------------------------------------------*/
     if (message.channel.type == "dm" || message.channel.type == "group") return undefined;
-	const serverQueue = songQueue.get(message.guild.id);
+    const serverQueue = songQueue.get(message.guild.id);
 
     if (command === "prefix") {
-		if (!value) {
+        if (!value) {
             return message.channel.send(`any custom prefix not found for this server plz take a command \`\`${prefix}setprefix\`\` for set the server custom prefix`)
         } else {
             message.channel.send(`${value}`);
@@ -359,8 +360,8 @@ bot.on("message", function(message) {
             guildname: `${message.guild.name}`,
             guildprefix: arg
         }).catch(function(err) {
-        message.channel.send(err + "\n\n\n");
-    });
+            message.channel.send(err + "\n\n\n");
+        });
         message.channel.send(`prefix changed ${arg} for ${message.guild.name}`);
     }
 
