@@ -161,7 +161,8 @@ bot.on("message", function(message) {
     let configRef = firebase.database().ref(`/servers/${message.guild.id}/guildprefix/`);
     configRef.on("value", ss => {
         value = ss.val();
-    })
+    });
+
     message.channel.send(value)
 
     if (!message.content.startsWith(prefix) && !message.content.startsWith(gprefix)) return undefined;
