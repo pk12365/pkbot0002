@@ -342,8 +342,7 @@ bot.on("message", async(message) => {
         value = ss.val();
     })
     value
-    let gprefix = configRef();
-    message.channel.send(gprefix)
+    message.channel.send(configRef.join(''))
 
     firebase.database()
         .ref(`/servers/${message.guild.id}/`)
