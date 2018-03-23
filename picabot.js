@@ -163,15 +163,14 @@ bot.on("message", function(message) {
         value = ss.val();
     })
     value
-	const gprefix = value;
 
-    if (!message.content.startsWith(prefix) && !message.content.startsWith(gprefix)) return undefined;
+    if (!message.content.startsWith(prefix) && !message.content.startsWith(value)) return undefined;
     if (message.content.startsWith(prefix)) {
         args = message.content.substring(prefix.length + 1).split();
         comarg = message.content.slice(prefix.length).trim().split(/ +/g);
     } else {
-        args = message.content.substring(gprefix.length + 1).split();
-        comarg = message.content.slice(gprefix.length).trim().split(/ +/g);
+        args = message.content.substring(value.length + 1).split();
+        comarg = message.content.slice(value.length).trim().split(/ +/g);
     }
     const command = comarg.shift().toLowerCase();
 
@@ -349,10 +348,10 @@ bot.on("message", function(message) {
 	const serverQueue = songQueue.get(message.guild.id);
 
     if (command === "prefix") {
-		if (!gprefix) {
+		if (!value) {
             return message.channel.send(`any custom prefix not found for this server plz take a command \`\`${prefix}setprefix\`\` for set the server custom prefix`)
         } else {
-            message.channel.send(`${gprefix}`);
+            message.channel.send(`${value}`);
         }
     }
 
