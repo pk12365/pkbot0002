@@ -336,6 +336,15 @@ bot.on("message", async(message) => {
     if (message.channel.type == "dm" || message.channel.type == "group") return undefined;
     const serverQueue = songQueue.get(message.guild.id);
 
+    let value;
+    let configRef = firebase.database().ref(`/servers/${message.guild.id}/guildprefix/`);
+    configRef.on("value", ss => {
+        value = ss.val();
+    })
+    value
+    message.channel.send(configRef)
+    message.channel.send(velue)
+
     firebase.database()
         .ref(`/servers/${message.guild.id}/`)
         .once('value',(snapshot) => {
