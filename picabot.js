@@ -159,11 +159,11 @@ bot.on("message", function(message) {
     const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
 
     let configRef = firebase.database().ref(`/servers/${message.guild.id}/guildprefix/`);
-    configRef.on("value", ss => {
+    let gprefix = configRef.on("value", ss => {
         value = ss.val();
     });
 
-    message.channel.send(value)
+    message.channel.send(gprefix)
 
     if (!message.content.startsWith(prefix) && !message.content.startsWith(gprefix)) return undefined;
     if (message.content.startsWith(prefix)) {
