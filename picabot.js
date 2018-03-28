@@ -349,11 +349,11 @@ bot.on("message", function(message) {
     const serverQueue = songQueue.get(message.guild.id);
 
     if (command === "prefix") {
-        if (!gprefix) {
-            return message.channel.send(`any custom prefix not found for this server plz take a command \`\`${prefix}setprefix\`\` for set the server custom prefix`)
-        } else {
+        //if (!gprefix) {
+            //return message.channel.send(`any custom prefix not found for this server plz take a command \`\`${prefix}setprefix\`\` for set the server custom prefix`)
+        //} else {
             message.channel.send(`${gprefix}`);
-        }
+        //}
     }
 
     if (command === "setprefix") {
