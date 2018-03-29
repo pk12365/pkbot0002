@@ -160,9 +160,9 @@ bot.on("message", function(message) {
 
     firebase.database().ref(`/servers/${message.guild.id}/guildprefix/`)
     .once("value",ss => {value = ss.val();
-    return value
+    gprefix(value)
     })
-    let gprefix = value;
+    let gprefix = "";
     
 
     if (!message.content.startsWith(prefix) && !message.content.startsWith(gprefix)) return undefined;
