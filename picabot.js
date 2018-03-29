@@ -157,8 +157,8 @@ bot.on("message", async(message) => {
 
     const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
 
-    //const gprefix = "**";
-    const gprefix = (await db
+    const gprefix = "**";
+    const ggprefix = (await db
     .ref(`servers/${message.guild.id}`)
     .child('guildprefix')
     .once('value')).val();
