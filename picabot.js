@@ -41,7 +41,7 @@ firebase.initializeApp({
     messagingSenderId: process.env.FB_MESSAGING_SENDER_ID
 });
 firebase.auth().signInWithEmailAndPassword(process.env.FB_EMAIL, process.env.FB_PASSWORD);
-const db = firebase.database()
+const db = firebase.database();
 
 bot.on("ready", function() {
     console.log("Bot ready");
