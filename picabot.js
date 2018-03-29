@@ -153,8 +153,6 @@ bot.on("message", async(message) => {
 
     if (message.author.bot) return undefined;
 
-    if (!message.content.startsWith(prefix)) return undefined;
-
     const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
 
     const gprefix = "&&";
@@ -163,16 +161,11 @@ bot.on("message", async(message) => {
     .child('guildprefix')
     .once('value')).val();
     
-
-    message.channel.send(`a"${message.content}"`);
     if (!message.content.startsWith(gprefix) && !message.content.startsWith(prefix)) return undefined;
-    message.channel.send(`b"${message.content}"`)
     if (message.content.startsWith(gprefix)) {
-        message.channel.send(`gprefix ${message.content}`)
         args = message.content.substring(gprefix.length + 1).split();
         comarg = message.content.slice(gprefix.length).trim().split(/ +/g);
     } else {
-        message.channel.send(`prefix ${message.content}`)
         args = message.content.substring(prefix.length + 1).split();
         comarg = message.content.slice(prefix.length).trim().split(/ +/g);
     }
