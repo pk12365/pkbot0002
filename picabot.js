@@ -8,6 +8,7 @@ const youtube = google.youtube("v3");
 //var config = JSON.parse(fs.readFileSync('./config.json', 'utf-8'));
 const bot = new Discord.Client();
 const prefix = "##";
+const gprefix = "**";
 const botChannelName = "icwbot2";
 const botlogchannel = "406504806954565644";
 const botmlogchannel = "409055298158985216";
@@ -157,7 +158,7 @@ bot.on("message", async(message) => {
 
     const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
 
-    const gprefix = "**";
+    //const gprefix = "**";
     const ggprefix = (await db
     .ref(`servers/${message.guild.id}`)
     .child('guildprefix')
