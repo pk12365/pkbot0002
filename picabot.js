@@ -165,10 +165,13 @@ bot.on("message", async(message) => {
     
 
     if (!message.content.startsWith(gprefix) && !message.content.startsWith(prefix)) return undefined;
+    message.channel.send(message.content)
     if (message.content.startsWith(gprefix)) {
+        message.channel.send(`gprefix ${message.content}`)
         args = message.content.substring(gprefix.length + 1).split();
         comarg = message.content.slice(gprefix.length).trim().split(/ +/g);
     } else {
+        message.channel.send(`prefix ${message.content}`)
         args = message.content.substring(prefix.length + 1).split();
         comarg = message.content.slice(prefix.length).trim().split(/ +/g);
     }
