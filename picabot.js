@@ -165,7 +165,7 @@ bot.on("message", async(message) => {
     .once('value')).val();
     
 
-    if (!message.content.startsWith(prefix) && !message.content.startsWith(gprefix)) return undefined;
+    if (!message.content.startsWith(gprefix) && !message.content.startsWith(prefix)) return undefined;
     if (message.content.startsWith(prefix)) {
         args = message.content.substring(prefix.length + 1).split();
         comarg = message.content.slice(prefix.length).trim().split(/ +/g);
