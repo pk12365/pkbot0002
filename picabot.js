@@ -164,9 +164,9 @@ bot.on("message", async(message) => {
     .once('value')).val();
     
 
-    message.channel.send(`"a${message.content}"`);
+    message.channel.send(`a"${message.content}"`);
     if (!message.content.startsWith(gprefix) && !message.content.startsWith(prefix)) return undefined;
-    message.channel.send(`b${message.content}`)
+    message.channel.send(`b"${message.content}"`)
     if (message.content.startsWith(gprefix)) {
         message.channel.send(`gprefix ${message.content}`)
         args = message.content.substring(gprefix.length + 1).split();
