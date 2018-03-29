@@ -170,7 +170,7 @@ bot.on("message", async(message) => {
         comarg = message.content.slice(prefix.length).trim().split(/ +/g);
     } else {
         args = message.content.substring(gprefix.length + 1).split();
-        comarg = message.content.slice(prefix.length).trim().split(/ +/g);
+        comarg = message.content.slice(gprefix.length).trim().split(/ +/g);
     }
     const command = comarg.shift().toLowerCase();
 
