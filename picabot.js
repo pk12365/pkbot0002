@@ -8,7 +8,6 @@ const youtube = google.youtube("v3");
 //var config = JSON.parse(fs.readFileSync('./config.json', 'utf-8'));
 const bot = new Discord.Client();
 const prefix = "##";
-const gprefix = "**";
 const botChannelName = "icwbot2";
 const botlogchannel = "406504806954565644";
 const botmlogchannel = "409055298158985216";
@@ -31,7 +30,6 @@ const cheerio = require('cheerio');
 const snekfetch = require('snekfetch');
 const querystring = require('querystring');
 const firebase = require("firebase");
-const gprefix = new Map();
 
 firebase.initializeApp({
     apiKey: process.env.FB_API_KEY,
@@ -160,7 +158,7 @@ bot.on("message", async(message) => {
     const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
 
     //const gprefix = "**";
-    const bprefix = (await db
+    const gprefix = (await db
     .ref(`servers/${message.guild.id}`)
     .child('guildprefix')
     .once('value')).val();
