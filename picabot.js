@@ -165,16 +165,14 @@ bot.on("message", async(message) => {
     .once('value')).val();
     
 
-    if (!message.content.startsWith(gprefix) && !message.content.startsWith(prefix)) return undefined;
-    if (message.content.startsWith(prefix)) {
-        args = message.content.substring(prefix.length + 1).split();
-        comarg = message.content.slice(prefix.length).trim().split(/ +/g);
-        message.channel.send(`prefix comarg ${comarg}`)
-    } else {
-        message.channel.send(message.content)
+    if (!message.content.startsWith(prefix) && !message.content.startsWith(gprefix)) return undefined;
+    if (message.content.startsWith(gprefix)) {
         args = message.content.substring(gprefix.length + 1).split();
         comarg = message.content.slice(gprefix.length).trim().split(/ +/g);
-        message.channel.send(`gprefix comarg ${comarg}`)
+    } else {
+        message.channel.send(message.content)
+        args = message.content.substring(prefix.length + 1).split();
+        comarg = message.content.slice(prefix.length).trim().split(/ +/g);
     }
     const command = comarg.shift().toLowerCase();
 
