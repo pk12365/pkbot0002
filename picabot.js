@@ -162,7 +162,6 @@ bot.on("message", async(message) => {
     .ref(`servers/${message.guild.id}`)
     .child('guildprefix')
     .once('value')).val();
-    )
     
 
     if (!message.content.startsWith(prefix) && !message.content.startsWith(gprefix)) return undefined;
