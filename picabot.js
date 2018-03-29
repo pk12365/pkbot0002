@@ -83,20 +83,6 @@ bot.on("message", async(message) => {
     }
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
-    if (command == "gsearch" || command === "google" || command === "g") {
-        let args3 = message.content.substring(command.length + 2);
-        let searchMessage = await message.reply('Searching... Sec.');
-        let searchUrl = `https://www.google.com/search?q=${encodeURIComponent(args3)}`;
-        return snekfetch.get(searchUrl).then((result) => {
-            let $ = cheerio.load(result.text);
-            let googleData = $('.r').first().find('a').first().attr('href');
-            googleData = querystring.parse(googleData.replace('/url?', ''));
-            searchMessage.edit(`Result found!\n${googleData.q}`);
-        }).catch((err) => {
-            searchMessage.edit('No results found!');
-        });
-    }
-
     if (command === "eval") {
         if (message.author.id !== botowner) {
             message.reply('this command is only for bot owner!!!');
@@ -152,15 +138,15 @@ bot.on("message", async(message) => {
     bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.users.size} Users`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
 
     if (message.author.bot) return undefined;
+    if (message.channel.type == "dm" || message.channel.type == "group") return undefined;
 
     const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
 
-    if (message.guild) {
-        const gprefix = (await db
-        .ref(`servers/${message.guild.id}`)
-        .child('guildprefix')
-        .once('value')).val();
-    }
+    
+    const gprefix = (await db
+    .ref(`servers/${message.guild.id}`)
+    .child('guildprefix')
+    .once('value')).val();
     
     if (!message.content.startsWith(gprefix) && !message.content.startsWith(prefix)) return undefined;
     if (message.content.startsWith(gprefix)) {
@@ -281,7 +267,20 @@ bot.on("message", async(message) => {
             //guild.leave();
             message.channel.send('Left guild.');
         }*/
-
+    if (command == "gsearch" || command === "google" || command === "g") {
+        let args3 = message.content.substring(command.length + 2);
+        let searchMessage = await message.reply('Searching... Sec.');
+        let searchUrl = `https://www.google.com/search?q=${encodeURIComponent(args3)}`;
+        return snekfetch.get(searchUrl).then((result) => {
+            let $ = cheerio.load(result.text);
+            let googleData = $('.r').first().find('a').first().attr('href');
+            googleData = querystring.parse(googleData.replace('/url?', ''));
+            searchMessage.edit(`Result found!\n${googleData.q}`);
+        }).catch((err) => {
+            searchMessage.edit('No results found!');
+        });
+    }
+    
     if (command === "discrim") {
         //let args3 = message.content.substring(prefix.length).split(' ');
         //const discrims = message.content.split(' ')[1];
