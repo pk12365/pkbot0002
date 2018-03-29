@@ -158,7 +158,7 @@ bot.on("message", async(message) => {
 
     const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
 
-    const gprefix = "..";
+    const gprefix = "**";
     const bprefix = (await db
     .ref(`servers/${message.guild.id}`)
     .child('guildprefix')
@@ -169,9 +169,12 @@ bot.on("message", async(message) => {
     if (message.content.startsWith(prefix)) {
         args = message.content.substring(prefix.length + 1).split();
         comarg = message.content.slice(prefix.length).trim().split(/ +/g);
+        message.channel.send(`prefix comarg ${comarg}`)
     } else {
+        message.channel.send(message.content)
         args = message.content.substring(gprefix.length + 1).split();
         comarg = message.content.slice(gprefix.length).trim().split(/ +/g);
+        message.channel.send(`gprefix comarg ${comarg}`)
     }
     const command = comarg.shift().toLowerCase();
 
