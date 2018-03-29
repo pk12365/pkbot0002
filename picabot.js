@@ -157,7 +157,7 @@ bot.on("message", async(message) => {
 
     const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
 
-    const gprefix = "**";
+    const gprefix = "&&";
     const ggprefix = (await db
     .ref(`servers/${message.guild.id}`)
     .child('guildprefix')
@@ -165,7 +165,7 @@ bot.on("message", async(message) => {
     
 
     if (!message.content.startsWith(gprefix) && !message.content.startsWith(prefix)) return undefined;
-    message.channel.send(message.content)
+    message.channel.send(`${message.content}`)
     if (message.content.startsWith(gprefix)) {
         message.channel.send(`gprefix ${message.content}`)
         args = message.content.substring(gprefix.length + 1).split();
