@@ -354,7 +354,7 @@ bot.on("message", async(message) => {
 
     if (command === "setprefix") {
         let arg = args.join("").substring(command.length)
-        if (!arg) return message.channel.send(`Please add a prefix after command like `\`${prefix}setprefix &&`\``);
+        if (!arg) return message.channel.send(`Please add a prefix after command like \`\`${prefix}setprefix &\`\``);
         firebase.database().ref('servers/' + message.guild.id).set({
             guildname: `${message.guild.name}`,
             guildprefix: arg
