@@ -722,6 +722,27 @@ bot.on("message", async(message) => {
             message.channel.send("No song is in the queue", { reply: message });
         }
     }
+    
+    if (command === "savelist") {
+        firebase.database().ref('playlist/' + message.author.id).set({
+            username: `${message.author.name}`,
+            playlist: `${serverQueue.songs[i].url}`
+            message.channel.send(
+        }).catch(function(err) {
+            message.channel.send(err + "\n\n\n");
+        });
+        message.channel.send("playlist saved");
+    }
+    
+    if (command === "playsaved") {
+        const savedlist = (await db
+            .ref(`playlist/${message.author.id}`)
+            .child('playlist')
+            .once('value')).val();
+        addSong(savedlist)
+        message.channel.send("done");
+    }
+        
 
     if (command === "volume" || command === "sv" || command === "setvolume") {
         if (message.member.voiceChannel !== undefined) {
