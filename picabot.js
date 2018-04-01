@@ -738,7 +738,7 @@ bot.on("message", async(message) => {
             .ref(`playlist/${message.author.id}`)
             .child('playlist')
             .once('value')).val();
-        addSong(savedlist)
+        addSong(message, savedlist)
         message.channel.send("done");
     }
         
