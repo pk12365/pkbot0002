@@ -727,7 +727,6 @@ bot.on("message", async(message) => {
         firebase.database().ref('playlist/' + message.author.id).set({
             username: `${message.author.name}`,
             playlist: `${serverQueue.songs[i].url}`
-            message.channel.send(
         }).catch(function(err) {
             message.channel.send(err + "\n\n\n");
         });
