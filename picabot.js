@@ -712,7 +712,7 @@ bot.on("message", async(message) => {
             }
             var queueembed = new Discord.RichEmbed()
                 .setColor(randomcolor)
-                .setAuthor("The song queue of " + message.guild.name + " currently has:", message.guild.iconURL.toString())
+                .setAuthor("The song queue of " + message.guild.name + " currently has:", message.guild.iconURL)
                 .setDescription(`${songList}`)
                 .setFooter("Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
                 .setTimestamp();
