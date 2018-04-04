@@ -136,357 +136,359 @@ bot.on('message', message => {
 });
 
 bot.on("message", async(message) => {
-    bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.users.size} Users`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
+            bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.users.size} Users`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
 
-    if (message.author.bot) return undefined;
-    if (message.channel.type == "dm" || message.channel.type == "group") return undefined;
+            if (message.author.bot) return undefined;
+            if (message.channel.type == "dm" || message.channel.type == "group") return undefined;
 
-    const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
+            const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
 
-    
-    const gprefix = (await db
-    .ref(`servers/${message.guild.id}`)
-    .child('guildprefix')
-    .once('value')).val();
-    
-    if (!message.content.startsWith(gprefix) && !message.content.startsWith(prefix)) return undefined;
-    if (message.content.startsWith(gprefix)) {
-        args = message.content.substring(gprefix.length + 1).split();
-        comarg = message.content.slice(gprefix.length).trim().split(/ +/g);
-    } else {
-        args = message.content.substring(prefix.length + 1).split();
-        comarg = message.content.slice(prefix.length).trim().split(/ +/g);
-    }
-    const command = comarg.shift().toLowerCase();
 
-    if (command === "restart") {
-        message.channel.send("bot restarting");
-        let alldynos = hbot.app('testicw').dynos.list;
-        message.channel.send(alldynos);
-        hbot.app('testicw').dynos.restart(console.log('Restarting due to Termination Request.'));
-    }
+            const gprefix = (await db
+                .ref(`servers/${message.guild.id}`)
+                .child('guildprefix')
+                .once('value')).val();
 
-    if (command === "help") {
-        let helpembed = new Discord.RichEmbed()
-            .setColor(randomcolor)
-            .setAuthor("Hi " + message.author.username.toString(), message.author.avatarURL)
-            .setDescription(`ICW help Section \nPrefix = ${prefix} \nvolume command is for all users \nmore commands coming soon`)
-            .addField("Bot info commands", `invite - (bot invite link)\nbotinfo - (info about the bot)\`\`info , botstatus\`\` \nuptime - (uptime of the bot)\nservers - (bots servers)`)
-            .addField("until commands", `cleverbot - (talk with bot with mention or icw \`\`example - icw hi\`\`) \`\`icw\`\` \ngoogle - (search anything) \`\`gsearch , g , \`\` \nweather - (check your city weather) \nsay - (bot saying your message) \ndiscrim - (found any discriminators) \nserverinfo - (info about server)`)
-            .addField("Modration command", `warn - (for warning a member) \n kick - (for kick a member) \n ban - (for ban a member)`)
-            .addField("Music commands", `play - (for serach and add your song in thre queue) \`\`p\`\` \npause - (pause the player) \nresume - (resume the player) \nvolume - (set your player volume) \`\`sv , setvolume\`\` \nskip - (for next song) \`\`s , next\`\` \nprev - (for previos song) \nstop - (for stop the player) \nqueue - (for check playlist) \`\`q , playlist\`\` \nsong - (view current song) \`\`np , nowplaying\`\` \nrandom - (playing randomly)`)
-            .setThumbnail("https://media.discordapp.net/attachments/406099961730564107/407455733689483265/Untitled6.png?width=300&height=300")
-            .setFooter("Bot Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
-            .addField("if you find any bug plz report it with command", `bugreport - (report for any bugs or problams) \`\`bug\`\``)
-            .addField("support server", `[link](https://discord.gg/zFDvBay)`, inline = true)
-            .addField("bot invite link", `[invite](https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot)`, inline = true)
-            .addField("please give upvote", `[vote and invite link](https://discordbots.org/bot/376292306233458688)`, inline = true)
-            .addField("help with donate", `[patreon](https://www.patreon.com/icw)`, inline = true)
-            .setTimestamp();
-        message.author.send({ embed: helpembed });
-        message.channel.send("check your dms", { replay: message }).then(sent => sent.delete({ timeout: 9999 }));
-    }
-    /*----------------------------------------------------------------------------------------------------------------
-                                                UNTIL COMMANDS
-    ------------------------------------------------------------------------------------------------------------------*/
-    if (command === "say") {
-        message.delete();
-        message.channel.send(args.join("").substring(3));
-    }
-
-    if (command === "sayall") {
-        if (message.author.id !== botowner) {
-            message.reply('this command is only for bot owner!!!');
-            return;
-        }
-        message.delete();
-        bot.users.map(u => u.send(args.join("").substring(6)));
-    }
-
-    if (command === "bugreport" || command === "bug") {
-        let args2 = args.join("").substring(command.length);
-        if (!args2) return message.channel.send(`***plz add a bug message after command***`);
-        message.channel.send(`***Report sented succesfully thank you***`);
-        bot.channels.get(botbuglogchannel).send(`report by: **${message.author.tag}** from: **${message.guild.name}** (${message.guild.id}) \nbug: ${args2}`);
-    }
-
-    if (command === "us") {
-        if (message.author.id !== botowner) {
-            message.reply('this command is only for bot owner!!!');
-            return;
-        }
-        bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.users.size} Users`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
-        message.channel.send("stream updated");
-    }
-
-    if (command === "servers") {
-        let guilds = bot.guilds.map((guild) => `**${guild.name}** members: ${guild.members.size} id: (${guild.id})`);
-        message.channel.send(`I'm in the **${bot.guilds.size} guilds**:\n${guilds.join ('\n')}`, { split: "\n" })
-    }
-
-    if (command === "weather") {
-        var cityname = args.join("").substring(7);
-        var http = require('http');
-        request({
-            url: 'http://api.openweathermap.org/data/2.5/weather?q=' + cityname + '&APPID=' + owmkey
-        }, (error, response, body) => {
-            if (error) return;
-            var data = JSON.parse(body);
-            if (data.cod == "404") {
-                message.channel.send(data.message);
-                return;
+            if (!message.content.startsWith(gprefix) && !message.content.startsWith(prefix)) return undefined;
+            if (message.content.startsWith(gprefix)) {
+                args = message.content.substring(gprefix.length + 1).split();
+                comarg = message.content.slice(gprefix.length).trim().split(/ +/g);
+            } else {
+                args = message.content.substring(prefix.length + 1).split();
+                comarg = message.content.slice(prefix.length).trim().split(/ +/g);
             }
-            var weather_main = parseFloat(data.main.temp) - 273.15;
-            var temp_max = parseFloat(data.main.temp_max) - 273.15;
-            var temp_min = parseFloat(data.main.temp_min) - 273.15;
-            const embed = new Discord.RichEmbed()
-                .setTitle(data.name + ',' + data.sys.country)
-                .setAuthor("ICW weather info", "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
-                .setColor(randomcolor)
-                .setDescription(data.weather[0].description)
-                .setThumbnail("http://openweathermap.org/img/w/" + data.weather[0].icon + ".png")
-                .setURL("https://openweathermap.org/city/" + data.name)
-                .addField("main", weather_main + " c", true)
-                .addField("pressure", data.main.pressure + " Hpz", true)
-                .addField("wind", data.wind.speed + " mph" + "/ Direction" + data.wind.deg, true)
-                .addField("visibility", data.visibility, true)
-                .setFooter("Requested by " + message.author.username.toString(), message.author.avatarURL)
-                .setTimestamp();
-            message.channel.send({ embed });
-        });
-    }
+            const command = comarg.shift().toLowerCase();
 
-    /*    if (command === "leaveserver") {
-            if(message.author.id !== botowner) {
-                message.reply('this command is only for bot owner!!!');
-                return;
+            if (command === "restart") {
+                message.channel.send("bot restarting");
+                let alldynos = hbot.app('testicw').dynos.list;
+                message.channel.send(alldynos);
+                hbot.app('testicw').dynos.restart(console.log('Restarting due to Termination Request.'));
             }
-            var args3 = message.content.substring(12);
-            let guild = bot.guilds.get(args3[0]);
-            message.channel.send(args3);
-            message.channel.send(`guild ${guild}`);
-            //guild.leave();
-            message.channel.send('Left guild.');
-        }*/
-    if (command == "gsearch" || command === "google" || command === "g") {
-        let args3 = message.content.substring(command.length + 2);
-        let searchMessage = await message.reply('Searching... Sec.');
-        let searchUrl = `https://www.google.com/search?q=${encodeURIComponent(args3)}`;
-        return snekfetch.get(searchUrl).then((result) => {
-            let $ = cheerio.load(result.text);
-            let googleData = $('.r').first().find('a').first().attr('href');
-            googleData = querystring.parse(googleData.replace('/url?', ''));
-            searchMessage.edit(`Result found!\n${googleData.q}`);
-        }).catch((err) => {
-            searchMessage.edit('No results found!');
-        });
-    }
-    
-    if (command === "discrim") {
-        //let args3 = message.content.substring(prefix.length).split(' ');
-        //const discrims = message.content.split(' ')[1];
-        const discrim = args.join("").substring(7);
-        if (!discrim) return message.reply("oops! I could not find the discriminator that you had given.");
-        if (typeof discrim !== 'integer')
-            if (discrim.size < 4) return message.reply("Don't you know that discrims are 4 numbers? -.-");
-        if (discrim.size > 4) return message.reply("Don't you know that discrims are 4 numbers? -.-");
-        let members = bot.users.filter(c => c.discriminator === discrim).map(c => c.username).join(`\n`);
-        if (!members) return message.reply("404 | No members have that discriminator!");
-        message.channel.send(`\`\`\`ICW Discrim Finder\nI found these discriminators.\n\n${members}\`\`\``);
-    }
-    /*---------------------------------------------------------------------------------------------------------------------
-                                                INFO COMMANDS
-    ----------------------------------------------------------------------------------------------------------------------*/
-    if (command === "invite") {
-        message.channel.send("Invite URL: https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot");
-        message.channel.send("please check your dms", { replay: message }).then(sent => sent.delete({ timeout: 99 }));
-    }
 
-    if (command === "botinfo" || command === "info" || command === "botstatus") {
-        let TextChannels = bot.channels.filter(e => e.type !== 'voice').size;
-        let VoiceChannels = bot.channels.filter(e => e.type === 'voice').size;
-        var infoembed = new Discord.RichEmbed()
-            .setAuthor("Hi " + message.author.username.toString(), message.author.avatarURL)
-            .setTitle("info")
-            .setColor(randomcolor)
-            .setDescription(`this bot for music with volume control and fun`)
-            .addField("Devloped by", `PK#1650`, inline = true)
-            .addField("Try with", `${prefix}help`, inline = true)
-            .addField("CPU", `${process.cpuUsage().user/1024} MHz`, inline = true)
-            .addField("Ram", `${process.memoryUsage().rss/1024} kb`, inline = true)
-            .addField("Totel Guilds", `${bot.guilds.size}`, inline = true)
-            .addField("Totel Channels", `${bot.channels.size}`, inline = true)
-            .addField("Totel Text Channels", `${TextChannels}`, inline = true)
-            .addField("Totel Voice Channels", `${VoiceChannels}`, inline = true)
-            .addField("Totel Users", `${bot.users.size}`)
-            .addField("support server", `[link](https://discord.gg/zFDvBay)`, inline = true)
-            .addField("bot invite link", `[invite](https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot)`, inline = true)
-            .setThumbnail("https://media.discordapp.net/attachments/406099961730564107/407455733689483265/Untitled6.png?width=300&height=300")
-            .setFooter("Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
-            .addField("please give me vote", `[vote and invite link](https://discordbots.org/bot/376292306233458688)`, inline = true)
-            .addField("help with donate", `[patreon](https://www.patreon.com/icw)`, inline = true)
-            .setTimestamp();
-        message.channel.send({ embed: infoembed });
-    }
+            if (command === "help") {
+                let helpembed = new Discord.RichEmbed()
+                    .setColor(randomcolor)
+                    .setAuthor("Hi " + message.author.username.toString(), message.author.avatarURL)
+                    .setDescription(`ICW help Section \nPrefix = ${prefix} \nvolume command is for all users \nmore commands coming soon`)
+                    .addField("Bot info commands", `invite - (bot invite link)\nbotinfo - (info about the bot)\`\`info , botstatus\`\` \nuptime - (uptime of the bot)\nservers - (bots servers)`)
+                    .addField("until commands", `cleverbot - (talk with bot with mention or icw \`\`example - icw hi\`\`) \`\`icw\`\` \ngoogle - (search anything) \`\`gsearch , g , \`\` \nweather - (check your city weather) \nsay - (bot saying your message) \ndiscrim - (found any discriminators) \nserverinfo - (info about server)`)
+                    .addField("Modration command", `warn - (for warning a member) \n kick - (for kick a member) \n ban - (for ban a member)`)
+                    .addField("Music commands", `play - (for serach and add your song in thre queue) \`\`p\`\` \npause - (pause the player) \nresume - (resume the player) \nvolume - (set your player volume) \`\`sv , setvolume\`\` \nskip - (for next song) \`\`s , next\`\` \nprev - (for previos song) \nstop - (for stop the player) \nqueue - (for check playlist) \`\`q , playlist\`\` \nsong - (view current song) \`\`np , nowplaying\`\` \nrandom - (playing randomly)`)
+                    .setThumbnail("https://media.discordapp.net/attachments/406099961730564107/407455733689483265/Untitled6.png?width=300&height=300")
+                    .setFooter("Bot Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
+                    .addField("if you find any bug plz report it with command", `bugreport - (report for any bugs or problams) \`\`bug\`\``)
+                    .addField("support server", `[link](https://discord.gg/zFDvBay)`, inline = true)
+                    .addField("bot invite link", `[invite](https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot)`, inline = true)
+                    .addField("please give upvote", `[vote and invite link](https://discordbots.org/bot/376292306233458688)`, inline = true)
+                    .addField("help with donate", `[patreon](https://www.patreon.com/icw)`, inline = true)
+                    .setTimestamp();
+                message.author.send({ embed: helpembed });
+                message.channel.send("check your dms", { replay: message }).then(sent => sent.delete({ timeout: 9999 }));
+            }
+            /*----------------------------------------------------------------------------------------------------------------
+                                                        UNTIL COMMANDS
+            ------------------------------------------------------------------------------------------------------------------*/
+            if (command === "say") {
+                message.delete();
+                message.channel.send(args.join("").substring(3));
+            }
 
-    if (command === "uptime") {
-        var days = Math.floor(bot.uptime / 86400000000000);
-        var hours = Math.floor(bot.uptime / 3600000);
-        var minutes = Math.floor((bot.uptime % 3600000) / 60000);
-        var seconds = Math.floor(((bot.uptime % 360000) % 60000) / 1000);
-        const uptimeembed = new Discord.RichEmbed()
-            .setColor(randomcolor)
-            .addField('Uptime', `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`);
-        message.channel.send({ embed: uptimeembed });
-    }
-    /*---------------------------------------------------------------------------------------------
-                        no dm commands (only for server channels)
-    ---------------------------------------------------------------------------------------------*/
-    if (message.channel.type == "dm" || message.channel.type == "group") return undefined;
-    const serverQueue = songQueue.get(message.guild.id);
+            if (command === "sayall") {
+                if (message.author.id !== botowner) {
+                    message.reply('this command is only for bot owner!!!');
+                    return;
+                }
+                message.delete();
+                bot.users.map(u => u.send(args.join("").substring(6)));
+            }
 
-    if (command === "prefix") {
-        if (gprefix === null) {
-            return message.channel.send(`Any custom prefix not found for this server plz take a command \`\`${prefix}setprefix\`\` for set the server custom prefix`)
-        } else {
-            message.channel.send(`${gprefix}`);
-        }
-    }
+            if (command === "bugreport" || command === "bug") {
+                let args2 = args.join("").substring(command.length);
+                if (!args2) return message.channel.send(`***plz add a bug message after command***`);
+                message.channel.send(`***Report sented succesfully thank you***`);
+                bot.channels.get(botbuglogchannel).send(`report by: **${message.author.tag}** from: **${message.guild.name}** (${message.guild.id}) \nbug: ${args2}`);
+            }
 
-    if (command === "setprefix") {
-        let arg = args.join("").substring(command.length)
-        if (!arg) return message.channel.send(`Please add a prefix after command like \`\`${prefix}setprefix &\`\``);
-        firebase.database().ref('servers/' + message.guild.id).set({
-            guildname: `${message.guild.name}`,
-            guildprefix: arg
-        }).catch(function(err) {
-            message.channel.send(err + "\n\n\n");
-        });
-        message.channel.send(`prefix changed ${arg} for ${message.guild.name}`);
-    }
+            if (command === "us") {
+                if (message.author.id !== botowner) {
+                    message.reply('this command is only for bot owner!!!');
+                    return;
+                }
+                bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.users.size} Users`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
+                message.channel.send("stream updated");
+            }
 
-    if (command === "warn") {
-        let warnUser = message.mentions.members.first();
-        if (!warnUser) return message.channel.send(`Specify a user to warn`);
-        let args2 = message.content.substring(prefix.length + command.length).split(`<@${warnUser.user.id}>`);
-        let reason = args2.join(" ").substring(3);
-        if (!reason) return message.channel.send("You did not give a reason to warn the user.");
-        if (!warnUser.id == message.author.id) return message.channel.send("You cannot warn yourself/!");
-        message.delete();
-        warnUser.send(`**you have been warned from** ${message.guild}. \n**Reason**: ${reason}`);
-        message.channel.send(`***${warnUser.user.tag} has been warned***`)
+            if (command === "servers") {
+                let guilds = bot.guilds.map((guild) => `**${guild.name}** members: ${guild.members.size} id: (${guild.id})`);
+                message.channel.send(`I'm in the **${bot.guilds.size} guilds**:\n${guilds.join ('\n')}`, { split: "\n" })
+            }
 
-    }
+            if (command === "weather") {
+                var cityname = args.join("").substring(7);
+                var http = require('http');
+                request({
+                    url: 'http://api.openweathermap.org/data/2.5/weather?q=' + cityname + '&APPID=' + owmkey
+                }, (error, response, body) => {
+                    if (error) return;
+                    var data = JSON.parse(body);
+                    if (data.cod == "404") {
+                        message.channel.send(data.message);
+                        return;
+                    }
+                    var weather_main = parseFloat(data.main.temp) - 273.15;
+                    var temp_max = parseFloat(data.main.temp_max) - 273.15;
+                    var temp_min = parseFloat(data.main.temp_min) - 273.15;
+                    const embed = new Discord.RichEmbed()
+                        .setTitle(data.name + ',' + data.sys.country)
+                        .setAuthor("ICW weather info", "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
+                        .setColor(randomcolor)
+                        .setDescription(data.weather[0].description)
+                        .setThumbnail("http://openweathermap.org/img/w/" + data.weather[0].icon + ".png")
+                        .setURL("https://openweathermap.org/city/" + data.name)
+                        .addField("main", weather_main + " c", true)
+                        .addField("pressure", data.main.pressure + " Hpz", true)
+                        .addField("wind", data.wind.speed + " mph" + "/ Direction" + data.wind.deg, true)
+                        .addField("visibility", data.visibility, true)
+                        .setFooter("Requested by " + message.author.username.toString(), message.author.avatarURL)
+                        .setTimestamp();
+                    message.channel.send({ embed });
+                });
+            }
 
-    if (command === "kick") {
-        if (!message.guild.member(bot.user).hasPermission("KICK_MEMBERS")) return message.channel.send(`I don't have permission to do that`);
-        if (!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send(`U don't have permission to do that`);
-        let kickUser = message.mentions.members.first();
-        if (!kickUser) return message.channel.send(`Specify a user to kick`);
-        let args2 = message.content.substring(prefix.length + command.length).split(`<@${kickUser.user.id}>`);
-        let reason = args2.join(" ").substring(3);
-        if (!reason) return message.channel.send("You did not give a reason to kick the user.")
-        if (!kickUser.id == message.author.id) return message.channel.send("You cannot kick yourself/!");
-        if (!kickUser.kickable) return message.channel.send("my role is either the same or lower than the user you wish to kick.");
-        kickUser.send(`**You have been kicked from** ${message.guild}. \n**Reason**: ${reason}`);
-        try {
-            message.guild.member(kickUser).kick();
-            var kickembed = new Discord.RichEmbed()
-                .setColor(randomcolor)
-                .setAuthor("Action by : " + message.author.username.toString(), message.author.avatarURL)
-                .setDescription(`**Action**: Kick \n**Mamber**: ${kickUser.user.tag} (${kickUser.id}) \n**Reason**: ${reason}`)
-                .setTimestamp();
-            message.channel.send({ embed: kickembed });
-        } catch (err) {
-            message.channel.send(`I failed to kick the user... Reason: ${err}`);
-        }
-    }
+            /*    if (command === "leaveserver") {
+                    if(message.author.id !== botowner) {
+                        message.reply('this command is only for bot owner!!!');
+                        return;
+                    }
+                    var args3 = message.content.substring(12);
+                    let guild = bot.guilds.get(args3[0]);
+                    message.channel.send(args3);
+                    message.channel.send(`guild ${guild}`);
+                    //guild.leave();
+                    message.channel.send('Left guild.');
+                }*/
+            if (command == "gsearch" || command === "google" || command === "g") {
+                let args3 = message.content.substring(command.length + 2);
+                let searchMessage = await message.reply('Searching... Sec.');
+                let searchUrl = `https://www.google.com/search?q=${encodeURIComponent(args3)}`;
+                return snekfetch.get(searchUrl).then((result) => {
+                    let $ = cheerio.load(result.text);
+                    let googleData = $('.r').first().find('a').first().attr('href');
+                    googleData = querystring.parse(googleData.replace('/url?', ''));
+                    searchMessage.edit(`Result found!\n${googleData.q}`);
+                }).catch((err) => {
+                    searchMessage.edit('No results found!');
+                });
+            }
 
-    if (command === "ban") {
-        if (!message.guild.member(bot.user).hasPermission("BAN_MEMBERS")) return message.channel.send(`I don't have permission to do that`);
-        if (!message.member.hasPermission("BAN_MEMBERS")) return message.channel.send(`You don't have permission to do that`);
-        let banUser = message.mentions.members.first();
-        if (!banUser) return message.channel.send(`Specify a user to ban`);
-        let args2 = message.content.substring(prefix.length + command.length).split(`<@${banUser.user.id}>`);
-        let reason = args2.join(" ").substring(3);
-        if (!reason) return message.channel.send("You did not give a reason to ban the user.")
-        if (!banUser.id == message.author.id) return message.channel.send("You cannot ban yourself/!");
-        if (!banUser.bannable) return message.channel.send("my role is either the same or lower than the user you wish to ban.");
-        banUser.send(`**You have been baned from** ${message.guild}. \n**Reason**: ${reason}`);
-        try {
-            message.guild.member(banUser).ban();
-            var banembed = new Discord.RichEmbed()
-                .setColor(randomcolor)
-                .setAuthor("Action by : " + message.author.username.toString(), message.author.avatarURL)
-                .setDescription(`**Action**: ban \n**Mamber**: ${banUser.user.tag} (${banUser.id}) \n**Reason**: ${reason}`)
-                .setTimestamp();
-            message.channel.send({ embed: banembed });
-        } catch (err) {
-            message.channel.send(`I failed to ban the user... Reason: ${err}`);
-        }
-    }
+            if (command === "discrim") {
+                //let args3 = message.content.substring(prefix.length).split(' ');
+                //const discrims = message.content.split(' ')[1];
+                const discrim = args.join("").substring(7);
+                if (!discrim) return message.reply("oops! I could not find the discriminator that you had given.");
+                if (typeof discrim !== 'integer')
+                    if (discrim.size < 4) return message.reply("Don't you know that discrims are 4 numbers? -.-");
+                if (discrim.size > 4) return message.reply("Don't you know that discrims are 4 numbers? -.-");
+                let members = bot.users.filter(c => c.discriminator === discrim).map(c => c.username).join(`\n`);
+                if (!members) return message.reply("404 | No members have that discriminator!");
+                message.channel.send(`\`\`\`ICW Discrim Finder\nI found these discriminators.\n\n${members}\`\`\``);
+            }
+            /*---------------------------------------------------------------------------------------------------------------------
+                                                        INFO COMMANDS
+            ----------------------------------------------------------------------------------------------------------------------*/
+            if (command === "invite") {
+                message.channel.send("Invite URL: https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot");
+                message.channel.send("please check your dms", { replay: message }).then(sent => sent.delete({ timeout: 99 }));
+            }
 
-    if (command === "serverinfo") {
-        let guildTchannels = message.guild.channels.filter(e => e.type !== 'voice').size;
-        let guildVchannels = message.guild.channels.filter(e => e.type === 'voice').size;
-        let serverowner = message.guild.owner.user.tag;
-        let serverownerid = message.guild.owner.id;
-        let servermembers = message.guild.memberCount;
-        let serveronlinemembers = message.guild.members.filter(m => m.user.presence.status !== "offline").size;
-        let serveroflinemembers = message.guild.members.filter(m => m.user.presence.status === "offline").size;
-        let serverroles = message.guild.roles.size;
-        let serverregion = message.guild.region;
-        let servercreatedat = message.guild.createdAt;
-        let sicon = message.guild.iconURL;
-        var serverinfoembed = new Discord.RichEmbed()
-            .setAuthor(message.guild.name + "info", sicon.toString())
-            .setColor(randomcolor)
-            .setDescription(`Since: ${servercreatedat}`)
-            .addField("Server Owner:", `${serverowner}`, inline = true)
-            .addField("Owner id:", `${serverownerid}`, inline = true)
-            .addField("Members:", `${serveronlinemembers}/${servermembers}`, inline = true)
-            .addField("Totel Roles:", `${serverroles}`, inline = true)
-            .addField("Text channel:", `${guildTchannels}`, inline = true)
-            .addField("Voice channels:", `${guildVchannels}`, inline = true)
-            .addField("Server Region:", `${serverregion}`)
-            .setThumbnail(`${sicon}`)
-            .setFooter("Bot Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
-            .setTimestamp();
-        message.channel.send({ embed: serverinfoembed });
-    }
-    /*------------------------------------------------------------------------------------------
-                                            MUSIC COMMANDS
-    -------------------------------------------------------------------------------------------*/
+            if (command === "botinfo" || command === "info" || command === "botstatus") {
+                let TextChannels = bot.channels.filter(e => e.type !== 'voice').size;
+                let VoiceChannels = bot.channels.filter(e => e.type === 'voice').size;
+                var infoembed = new Discord.RichEmbed()
+                    .setAuthor("Hi " + message.author.username.toString(), message.author.avatarURL)
+                    .setTitle("info")
+                    .setColor(randomcolor)
+                    .setDescription(`this bot for music with volume control and fun`)
+                    .addField("Devloped by", `PK#1650`, inline = true)
+                    .addField("Try with", `${prefix}help`, inline = true)
+                    .addField("CPU", `${process.cpuUsage().user/1024} MHz`, inline = true)
+                    .addField("Ram", `${process.memoryUsage().rss/1024} kb`, inline = true)
+                    .addField("Totel Guilds", `${bot.guilds.size}`, inline = true)
+                    .addField("Totel Channels", `${bot.channels.size}`, inline = true)
+                    .addField("Totel Text Channels", `${TextChannels}`, inline = true)
+                    .addField("Totel Voice Channels", `${VoiceChannels}`, inline = true)
+                    .addField("Totel Users", `${bot.users.size}`)
+                    .addField("support server", `[link](https://discord.gg/zFDvBay)`, inline = true)
+                    .addField("bot invite link", `[invite](https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot)`, inline = true)
+                    .setThumbnail("https://media.discordapp.net/attachments/406099961730564107/407455733689483265/Untitled6.png?width=300&height=300")
+                    .setFooter("Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
+                    .addField("please give me vote", `[vote and invite link](https://discordbots.org/bot/376292306233458688)`, inline = true)
+                    .addField("help with donate", `[patreon](https://www.patreon.com/icw)`, inline = true)
+                    .setTimestamp();
+                message.channel.send({ embed: infoembed });
+            }
 
-    if (command === "yt") {
-        const youtube = new YouTube("AIzaSyCaOtxOYSSw_zRbR0cUPQS3flCbHS2UlGE");
-        const voiceChannel = message.member.voiceChannel;
+            if (command === "uptime") {
+                var days = Math.floor(bot.uptime / 86400000000000);
+                var hours = Math.floor(bot.uptime / 3600000);
+                var minutes = Math.floor((bot.uptime % 3600000) / 60000);
+                var seconds = Math.floor(((bot.uptime % 360000) % 60000) / 1000);
+                const uptimeembed = new Discord.RichEmbed()
+                    .setColor(randomcolor)
+                    .addField('Uptime', `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`);
+                message.channel.send({ embed: uptimeembed });
+            }
+            /*---------------------------------------------------------------------------------------------
+                                no dm commands (only for server channels)
+            ---------------------------------------------------------------------------------------------*/
+            if (message.channel.type == "dm" || message.channel.type == "group") return undefined;
+            const serverQueue = songQueue.get(message.guild.id);
 
-        let searchString = args.slice(0).join(" ");
-        const url = args[0] ? args[0].replace(/<(.+)>/g, '$1') : '';
+            if (command === "prefix") {
+                if (gprefix === null) {
+                    return message.channel.send(`Any custom prefix not found for this server plz take a command \`\`${prefix}setprefix\`\` for set the server custom prefix`)
+                } else {
+                    message.channel.send(`${gprefix}`);
+                }
+            }
 
-        if (!voiceChannel) return message.channel.send("You are not in a voice channel please join a channel and use this command again");
+            if (command === "setprefix") {
+                let arg = args.join("").substring(command.length)
+                if (!arg) return message.channel.send(`Please add a prefix after command like \`\`${prefix}setprefix &\`\``);
+                firebase.database().ref('servers/' + message.guild.id).set({
+                    guildname: `${message.guild.name}`,
+                    guildprefix: arg
+                }).catch(function(err) {
+                    message.channel.send(err + "\n\n\n");
+                });
+                message.channel.send(`prefix changed ${arg} for ${message.guild.name}`);
+            }
 
-        const permissions = voiceChannel.permissionsFor(message.client.user);
-        if (!permissions.has('CONNECT')) return message.channel.send("I do not have the permissions to join that voice channel pleae give me permissions to join");
-        if (!permissions.has("SPEAK")) return message.channel.send("I do not have the permissions to speak in that voice channel pleae give me permissions to join");
+            if (command === "warn") {
+                let warnUser = message.mentions.members.first();
+                if (!warnUser) return message.channel.send(`Specify a user to warn`);
+                let args2 = message.content.substring(prefix.length + command.length).split(`<@${warnUser.user.id}>`);
+                let reason = args2.join(" ").substring(3);
+                if (!reason) return message.channel.send("You did not give a reason to warn the user.");
+                if (!warnUser.id == message.author.id) return message.channel.send("You cannot warn yourself/!");
+                message.delete();
+                warnUser.send(`**you have been warned from** ${message.guild}. \n**Reason**: ${reason}`);
+                message.channel.send(`***${warnUser.user.tag} has been warned***`)
 
-        if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
-          const playlist = await youtube.getPlaylist(url);
-          const videos = await playlist.getVideos();
-          for (const video of Object.values(videos)) {
-            const video2 = await youtube.getVideoByID(video.id);
-            await addSong(message, video2, voiceChannel, true);
-          }
-          return message.channel.send(`✅ Playlist: **${playlist.title}** has been added to the queue!`);
-        } else {
-          try {
-            var video = await youtube.getVideo(url);
-          } catch (error) {
-            try {
-              var videos = await youtube.searchVideos(searchString, 10);
-              let index = 0;
-              message.channel.send(`
+            }
+
+            if (command === "kick") {
+                if (!message.guild.member(bot.user).hasPermission("KICK_MEMBERS")) return message.channel.send(`I don't have permission to do that`);
+                if (!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send(`U don't have permission to do that`);
+                let kickUser = message.mentions.members.first();
+                if (!kickUser) return message.channel.send(`Specify a user to kick`);
+                let args2 = message.content.substring(prefix.length + command.length).split(`<@${kickUser.user.id}>`);
+                let reason = args2.join(" ").substring(3);
+                if (!reason) return message.channel.send("You did not give a reason to kick the user.")
+                if (!kickUser.id == message.author.id) return message.channel.send("You cannot kick yourself/!");
+                if (!kickUser.kickable) return message.channel.send("my role is either the same or lower than the user you wish to kick.");
+                kickUser.send(`**You have been kicked from** ${message.guild}. \n**Reason**: ${reason}`);
+                try {
+                    message.guild.member(kickUser).kick();
+                    var kickembed = new Discord.RichEmbed()
+                        .setColor(randomcolor)
+                        .setAuthor("Action by : " + message.author.username.toString(), message.author.avatarURL)
+                        .setDescription(`**Action**: Kick \n**Mamber**: ${kickUser.user.tag} (${kickUser.id}) \n**Reason**: ${reason}`)
+                        .setTimestamp();
+                    message.channel.send({ embed: kickembed });
+                } catch (err) {
+                    message.channel.send(`I failed to kick the user... Reason: ${err}`);
+                }
+            }
+
+            if (command === "ban") {
+                if (!message.guild.member(bot.user).hasPermission("BAN_MEMBERS")) return message.channel.send(`I don't have permission to do that`);
+                if (!message.member.hasPermission("BAN_MEMBERS")) return message.channel.send(`You don't have permission to do that`);
+                let banUser = message.mentions.members.first();
+                if (!banUser) return message.channel.send(`Specify a user to ban`);
+                let args2 = message.content.substring(prefix.length + command.length).split(`<@${banUser.user.id}>`);
+                let reason = args2.join(" ").substring(3);
+                if (!reason) return message.channel.send("You did not give a reason to ban the user.")
+                if (!banUser.id == message.author.id) return message.channel.send("You cannot ban yourself/!");
+                if (!banUser.bannable) return message.channel.send("my role is either the same or lower than the user you wish to ban.");
+                banUser.send(`**You have been baned from** ${message.guild}. \n**Reason**: ${reason}`);
+                try {
+                    message.guild.member(banUser).ban();
+                    var banembed = new Discord.RichEmbed()
+                        .setColor(randomcolor)
+                        .setAuthor("Action by : " + message.author.username.toString(), message.author.avatarURL)
+                        .setDescription(`**Action**: ban \n**Mamber**: ${banUser.user.tag} (${banUser.id}) \n**Reason**: ${reason}`)
+                        .setTimestamp();
+                    message.channel.send({ embed: banembed });
+                } catch (err) {
+                    message.channel.send(`I failed to ban the user... Reason: ${err}`);
+                }
+            }
+
+            if (command === "serverinfo") {
+                let guildTchannels = message.guild.channels.filter(e => e.type !== 'voice').size;
+                let guildVchannels = message.guild.channels.filter(e => e.type === 'voice').size;
+                let serverowner = message.guild.owner.user.tag;
+                let serverownerid = message.guild.owner.id;
+                let servermembers = message.guild.memberCount;
+                let serveronlinemembers = message.guild.members.filter(m => m.user.presence.status !== "offline").size;
+                let serveroflinemembers = message.guild.members.filter(m => m.user.presence.status === "offline").size;
+                let serverroles = message.guild.roles.size;
+                let serverregion = message.guild.region;
+                let servercreatedat = message.guild.createdAt;
+                let sicon = message.guild.iconURL;
+                var serverinfoembed = new Discord.RichEmbed()
+                    .setAuthor(message.guild.name + "info", sicon.toString())
+                    .setColor(randomcolor)
+                    .setDescription(`Since: ${servercreatedat}`)
+                    .addField("Server Owner:", `${serverowner}`, inline = true)
+                    .addField("Owner id:", `${serverownerid}`, inline = true)
+                    .addField("Members:", `${serveronlinemembers}/${servermembers}`, inline = true)
+                    .addField("Totel Roles:", `${serverroles}`, inline = true)
+                    .addField("Text channel:", `${guildTchannels}`, inline = true)
+                    .addField("Voice channels:", `${guildVchannels}`, inline = true)
+                    .addField("Server Region:", `${serverregion}`)
+                    .setThumbnail(`${sicon}`)
+                    .setFooter("Bot Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
+                    .setTimestamp();
+                message.channel.send({ embed: serverinfoembed });
+            }
+            /*------------------------------------------------------------------------------------------
+                                                    MUSIC COMMANDS
+            -------------------------------------------------------------------------------------------*/
+
+            if (command === "yt") {
+                const youtube = new YouTube("AIzaSyCaOtxOYSSw_zRbR0cUPQS3flCbHS2UlGE");
+                const voiceChannel = message.member.voiceChannel;
+
+                let searchString = args.slice(0).join(" ");
+                const url = args[0] ? args[0].replace(/<(.+)>/g, '$1') : '';
+                message.channel.send(searchString)
+                message.channel.send(url)
+
+                if (!voiceChannel) return message.channel.send("You are not in a voice channel please join a channel and use this command again");
+
+                const permissions = voiceChannel.permissionsFor(message.client.user);
+                if (!permissions.has('CONNECT')) return message.channel.send("I do not have the permissions to join that voice channel pleae give me permissions to join");
+                if (!permissions.has("SPEAK")) return message.channel.send("I do not have the permissions to speak in that voice channel pleae give me permissions to join");
+
+                if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
+                    const playlist = await youtube.getPlaylist(url);
+                    const videos = await playlist.getVideos();
+                    for (const video of Object.values(videos)) {
+                        const video2 = await youtube.getVideoByID(video.id);
+                        await addSong(message, video2, voiceChannel, true);
+                    }
+                    return message.channel.send(`✅ Playlist: **${playlist.title}** has been added to the queue!`);
+                } else {
+                    try {
+                        var video = await youtube.getVideo(url);
+                    } catch (error) {
+                        try {
+                            var videos = await youtube.searchVideos(searchString, 10);
+                            let index = 0;
+                            message.channel.send(`
       __**Song selection:**__
       ${videos.map(video2 => `**${++index} -** ${video2.title}`).join('\n')}
       Please provide a value to select one of the search results ranging from 1-10.
