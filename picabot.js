@@ -462,8 +462,9 @@ bot.on("message", async(message) => {
                 const youtube = new YouTube("AIzaSyCaOtxOYSSw_zRbR0cUPQS3flCbHS2UlGE");
                 const voiceChannel = message.member.voiceChannel;
 
-                let searchString = args.slice(0).join(" ");
-                const url = args[0] ? args[0].replace(/<(.+)>/g, '$1') : '';
+                let args0 = args.substring(command.length)
+                let searchString = args0.slice(0).join(" ");
+                const url = args0[0] ? args0[0].replace(/<(.+)>/g, '$1') : '';
                 message.channel.send(searchString)
                 message.channel.send(url)
 
