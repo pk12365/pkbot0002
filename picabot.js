@@ -780,7 +780,7 @@ bot.on("message", async(message) => {
             message.channel.send("No song is in the queue", { reply: message });
         }
     }
-    
+
     if (command === "savelist") {
         firebase.database().ref('playlist/' + message.author.id).set({
             username: `${message.author.name}`,
@@ -790,7 +790,7 @@ bot.on("message", async(message) => {
         });
         message.channel.send("playlist saved");
     }
-    
+
     if (command === "playsaved") {
         const savedlist = (await db
             .ref(`playlist/${message.author.id}`)
@@ -799,7 +799,6 @@ bot.on("message", async(message) => {
         addSong(message, savedlist)
         message.channel.send("done");
     }
-        
 
     if (command === "volume" || command === "sv" || command === "setvolume") {
         if (message.member.voiceChannel !== undefined) {
@@ -844,7 +843,7 @@ var addSong = function(message, video, voiceChannel, playlist = false) {
         id: video.id,
         title:/*Util.escapeMarkdown(*/video.title,
         url: `https://www.youtube.com/watch?v=${video.id}`,
-        duration: `${video.duration.hours}:${video.duration.minutes}:${video.duration.seconds}`,
+        duration: `${video.duration/*.hours}:${video.duration.minutes}:${video.duration.seconds*/}`,
         channel: video.channel.title,
         thumbnail: video.thumbnails.high.url,
         author: video.author = message.author
