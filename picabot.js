@@ -465,8 +465,6 @@ bot.on("message", async(message) => {
                 let args0 = args.join("").substring(command.length);
                 let searchString = args0.slice();
                 const url = args0 ? args0.replace(/<(.+)>/g, '$1') : '';
-                message.channel.send(`1${searchString}`)
-                message.channel.send(url)
 
                 if (!voiceChannel) return message.channel.send("You are not in a voice channel please join a channel and use this command again");
 
@@ -788,6 +786,7 @@ bot.on("message", async(message) => {
         }).catch(function(err) {
             message.channel.send(err + "\n\n\n");
         });
+        message.channel.send(`${songQueue.get(message.guild.id).songs}`)
         message.channel.send("playlist saved");
     }
 
@@ -796,6 +795,7 @@ bot.on("message", async(message) => {
             .ref(`playlist/${message.author.id}`)
             .child('playlist')
             .once('value')).val();
+            message.channel.send(savedlist)
         addSong(message, savedlist)
         message.channel.send("done");
     }
