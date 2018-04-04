@@ -464,7 +464,7 @@ bot.on("message", async(message) => {
 
                 let args0 = args.join("").substring(command.length);
                 let searchString = args0.slice();
-                const url = args0[1] ? args0[1].replace(/<(.+)>/g, '$1') : '';
+                const url = args0 ? args0.replace(/<(.+)>/g, '$1') : '';
                 message.channel.send(`1${searchString}`)
                 message.channel.send(url)
 
