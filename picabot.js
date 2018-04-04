@@ -858,10 +858,9 @@ var addSong = function(message, video, voiceChannel, playlist = false) {
                 volume: 5,
                 playing: true
             };
-            queue.set(message.guild.id, queueConstruct);
+            songQueue.set(message.guild.id, queueConstruct);
 
             queueConstruct.songs.push(song);
-
             try {
                 var connection = voiceChannel.join();
                 queueConstruct.connection = connection;
