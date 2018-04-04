@@ -837,8 +837,8 @@ bot.on("message", async(message) => {
         }
     }
 });
-async function addSong(video, msg, voiceChannel, playlist = false) {
-    const serverQueue = queue.get(msg.guild.id);
+async function addSong(video, message, voiceChannel, playlist = false) {
+    const serverQueue = queue.get(message.guild.id);
     const song = {
         id: video.id,
         title: Util.escapeMarkdown(video.title),
@@ -846,29 +846,29 @@ async function addSong(video, msg, voiceChannel, playlist = false) {
         duration: `${video.duration.hours}:${video.duration.minutes}:${video.duration.seconds}`,
         channel: video.channel.title,
         thumbnail: video.thumbnails.high.url,
-        author: video.author = msg.author
+        author: video.author = message.author
         };
         if (!serverQueue) {
             const queueConstruct = {
-                textChannel: msg.channel,
+                textChannel: message.channel,
                 voiceChannel: voiceChannel,
                 connection: null,
                 songs: [],
                 volume: 5,
                 playing: true
             };
-            queue.set(msg.guild.id, queueConstruct);
+            queue.set(message.guild.id, queueConstruct);
 
             queueConstruct.songs.push(song);
 
             try {
                 var connection = await voiceChannel.join();
                 queueConstruct.connection = connection;
-                play(msg.guild, queueConstruct.songs[0]);
+                play(message.guild, queueConstruct.songs[0]);
             } catch (error) {
                 console.error(`I could not join the voice channel: ${error}`);
-                queue.delete(msg.guild.id);
-                return msg.channel.send(`I could not join the voice channel: ${error}`);
+                queue.delete(message.guild.id);
+                return message.channel.send(`I could not join the voice channel: ${error}`);
             }
         } else {
             serverQueue.songs.push(song);
@@ -884,7 +884,7 @@ async function addSong(video, msg, voiceChannel, playlist = false) {
     .addField("Channel Name", song.channel, true)
     .addField("**Length**", song.duration, true)
     .addField("Requested by", song.author, true)
-        return msg.channel.send({ embed });
+        return message.channel.send({ embed });
         }
         return undefined;
     }
