@@ -842,7 +842,7 @@ var addSong = function(message, video, voiceChannel, playlist = false) {
     const serverQueue = songQueue.get(message.guild.id);
 	const song = {
         id: video.id,
-        title: Util.escapeMarkdown(video.title),
+        title:/*Util.escapeMarkdown(*/video.title,
         url: `https://www.youtube.com/watch?v=${video.id}`,
         duration: `${video.duration.hours}:${video.duration.minutes}:${video.duration.seconds}`,
         channel: video.channel.title,
