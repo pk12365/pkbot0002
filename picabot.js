@@ -463,9 +463,9 @@ bot.on("message", async(message) => {
                 const voiceChannel = message.member.voiceChannel;
 
                 let args0 = args.join("").substring(command.length);
-                let searchString = args0.slice(0);
+                let searchString = args0.slice();
                 const url = args0[0] ? args0[0].replace(/<(.+)>/g, '$1') : '';
-                message.channel.send(searchString)
+                message.channel.send(`1${searchString}`)
                 message.channel.send(url)
 
                 if (!voiceChannel) return message.channel.send("You are not in a voice channel please join a channel and use this command again");
