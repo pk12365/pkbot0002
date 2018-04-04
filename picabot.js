@@ -867,7 +867,7 @@ var addSong = function(message, video, voiceChannel, playlist = false) {
                 play(message.guild, queueConstruct.songs[0]);
             } catch (error) {
                 console.error(`I could not join the voice channel: ${error}`);
-                queue.delete(message.guild.id);
+                serverQueue.delete(message.guild.id);
                 return message.channel.send(`I could not join the voice channel: ${error}`);
             }
         } else {
