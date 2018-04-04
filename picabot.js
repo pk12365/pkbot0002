@@ -476,7 +476,7 @@ bot.on("message", async(message) => {
           const videos = await playlist.getVideos();
           for (const video of Object.values(videos)) {
             const video2 = await youtube.getVideoByID(video.id);
-            await index.handleVideo(video2, message, voiceChannel, true);
+            await addSong(video2, message, voiceChannel, true);
           }
           return message.channel.send(`✅ Playlist: **${playlist.title}** has been added to the queue!`);
         } else {
@@ -508,7 +508,7 @@ bot.on("message", async(message) => {
               return message.channel.send('🆘 I could not obtain any search results.');
             }
           }
-          return index.handleVideo(video, message, voiceChannel);
+          return addSong(video, message, voiceChannel);
         }
     }
 
