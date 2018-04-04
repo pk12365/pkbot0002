@@ -838,7 +838,7 @@ bot.on("message", async(message) => {
     }
 });
 
-async function addSong(video, message, voiceChannel, playlist = false) {
+var addSong = function(message, video, voiceChannel, playlist = false) {
     const serverQueue = songQueue.get(message.guild.id);
 	const song = {
         id: video.id,
