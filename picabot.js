@@ -861,17 +861,12 @@ var addSong = function(message, video, voiceChannel, playlist = false) {
             songQueue.set(message.guild.id, queueConstruct);
 
             queueConstruct.songs.push(song);
-            try {
-                if (!bot.voiceConnections.exists("channel", message.member.voiceChannel)) {
-                    message.member.voiceChannel.join().then(function(connection) {
-                        playSong(message, connection);
-                    }).catch(); //removed consol log
-                }
-            } catch (error) {
-                console.error(`I could not join the voice channel: ${error}`);
-                return message.channel.send(`I could not join the voice channel: ${error}`);
-            }
         } else {
+            if (!bot.voiceConnections.exists("channel", message.member.voiceChannel)) {
+                message.member.voiceChannel.join().then(function(connection) {
+                    playSong(message, connection);
+                }).catch(); //removed consol log
+            }
             serverQueue.songs.push(song);
             if (playlist) return undefined;
         let Discord = require('discord.js');
