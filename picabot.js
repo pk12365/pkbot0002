@@ -855,19 +855,20 @@ var addSong = function(message, video, voiceChannel, playlist = false) {
                 voiceChannel: voiceChannel,
                 connection: null,
                 songs: [],
-                volume: 5,
+                volume: [],
                 playing: true
             };
             songQueue.set(message.guild.id, queueConstruct);
 
             queueConstruct.songs.push(song);
             try {
-                var connection = voiceChannel.join();
-                queueConstruct.connection = connection;
-                play(message.guild, queueConstruct.songs[0]);
+                if (!bot.voiceConnections.exists("channel", message.member.voiceChannel)) {
+                    message.member.voiceChannel.join().then(function(connection) {
+                        playSong(message, connection);
+                    }).catch(); //removed consol log
+                }
             } catch (error) {
                 console.error(`I could not join the voice channel: ${error}`);
-                serverQueue.delete(message.guild.id);
                 return message.channel.send(`I could not join the voice channel: ${error}`);
             }
         } else {
