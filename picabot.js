@@ -837,59 +837,57 @@ bot.on("message", async(message) => {
         }
     }
 });
-
-var addSong = function(message, url) {
-    const serverQueue = songQueue.get(message.guild.id);
-    ytdl.getInfo(url).then(function(info) {
-        var song = {};
-        song.thumbnail = info.thumbnail_url;
-        song.title = info.title;
-        song.url = url;
-        song.user = message.author.username;
-        song.usravatar = message.author.avatarURL;
-
-        //message.channel.send(song.title + " info retrieved successfully");
+async function addSong(video, msg, voiceChannel, playlist = false) {
+    const serverQueue = queue.get(msg.guild.id);
+    const song = {
+        id: video.id,
+        title: Util.escapeMarkdown(video.title),
+        url: `https://www.youtube.com/watch?v=${video.id}`,
+        duration: `${video.duration.hours}:${video.duration.minutes}:${video.duration.seconds}`,
+        channel: video.channel.title,
+        thumbnail: video.thumbnails.high.url,
+        author: video.author = msg.author
+        };
         if (!serverQueue) {
             const queueConstruct = {
-                textChannel: message.channel,
+                textChannel: msg.channel,
+                voiceChannel: voiceChannel,
                 connection: null,
                 songs: [],
-                volume: [],
+                volume: 5,
                 playing: true
             };
-
-            //message.channel.send("Queue construct created successfully.");
-
-            songQueue.set(message.guild.id, queueConstruct);
-
-            //message.channel.send("songQueue set successfully");
+            queue.set(msg.guild.id, queueConstruct);
 
             queueConstruct.songs.push(song);
-        }
-        //message.channel.send("queuecontrsuct pushed successfully.");
-        else {
-            var addsongembed = new Discord.RichEmbed()
-                .setColor(randomcolor)
-                .setAuthor(`I have added \`${info.title}\` to the song queue!`, "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
-                .setDescription("link here: " + `[click](${url})`)
-                .setURL(`${url}`)
-                .setThumbnail(`${song.thumbnail}`)
-                .setFooter("Added by: " + message.author.username.toString(), message.author.avatarURL)
-                .setTimestamp();
-            message.channel.send({ embed: addsongembed });
 
+            try {
+                var connection = await voiceChannel.join();
+                queueConstruct.connection = connection;
+                play(msg.guild, queueConstruct.songs[0]);
+            } catch (error) {
+                console.error(`I could not join the voice channel: ${error}`);
+                queue.delete(msg.guild.id);
+                return msg.channel.send(`I could not join the voice channel: ${error}`);
+            }
+        } else {
             serverQueue.songs.push(song);
+            if (playlist) return undefined;
+        let Discord = require('discord.js');
+      let embed = new Discord.RichEmbed()
+    .setAuthor(`Added to queue ${song.title}`, "https://is2-ssl.mzstatic.com/image/thumb/Purple127/v4/9d/df/09/9ddf0951-fe62-8416-5b64-41a4e05d655d/source/256x256bb.jpg")
+    .setTitle(song.url)
+    .setColor(0x1D82B6)
+    .setFooter("Added to queue", song.avaURL)
+    .setThumbnail(song.thumbnail)
+    .setTimestamp()
+    .addField("Channel Name", song.channel, true)
+    .addField("**Length**", song.duration, true)
+    .addField("Requested by", song.author, true)
+        return msg.channel.send({ embed });
         }
-        if (!bot.voiceConnections.exists("channel", message.member.voiceChannel)) {
-            message.member.voiceChannel.join().then(function(connection) {
-                playSong(message, connection);
-            }).catch(); //removed consol log
-        }
-    }).catch(function(err) {
-        message.channel.send(err + "\n\n\n");
-        message.channel.send("Sorry I couldn't get info for that song :cry:", { reply: message });
-    });
-};
+        return undefined;
+    }
 
 var playSong = function(message, connection) {
     const serverQueue = songQueue.get(message.guild.id);
