@@ -863,7 +863,7 @@ var addSong = function(message, video, voiceChannel, playlist = false) {
             queueConstruct.songs.push(song);
 
             try {
-                var connection = await voiceChannel.join();
+                var connection = voiceChannel.join();
                 queueConstruct.connection = connection;
                 play(message.guild, queueConstruct.songs[0]);
             } catch (error) {
