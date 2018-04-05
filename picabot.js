@@ -779,48 +779,6 @@ bot.on("message", async(message) => {
         }
     }
 
-    if (command === "savelist") {
-        firebase.database().ref('playlist/' + message.author.id).set({
-            username: `${message.author.name}`,
-            id: `${songQueue.get(message.guild.id).songs.map(v => v.id)}`,
-            title: `${songQueue.get(message.guild.id).songs.map(v => v.title)}`,
-            url: `${songQueue.get(message.guild.id).songs.map(v => v.url)}`,
-            duration: `${songQueue.get(message.guild.id).songs.map(v => v.duration)}`,
-            thumbnail: `${songQueue.get(message.guild.id).songs.map(v => v.thumbnail)}`,
-            author: `${songQueue.get(message.guild.id).songs.map(v => v.author)}`,
-            user: `${songQueue.get(message.guild.id).songs.map(v => v.user)}`,
-            usravatar: `${songQueue.get(message.guild.id).songs.map(v => v.usravatar)}`
-        }).catch(function(err) {
-            message.channel.send(err + "\n\n\n");
-        });
-        message.channel.send("playlist saved");
-    }
-
-    if (command === "playsaved") {
-        const id = (await db.ref(`playlist/${message.author.id}`).child('id').once('value')).val();
-        const title = (await db.ref(`playlist/${message.author.id}`).child('title').once('value')).val();
-        const url = (await db.ref(`playlist/${message.author.id}`).child('url').once('value')).val();
-        const duration = (await db.ref(`playlist/${message.author.id}`).child('duration').once('value')).val();
-        const thumbnail = (await db.ref(`playlist/${message.author.id}`).child('thumbnail').once('value')).val();
-        const author = (await db.ref(`playlist/${message.author.id}`).child('author').once('value')).val();
-        const user = (await db.ref(`playlist/${message.author.id}`).child('user').once('value')).val();
-        const usravatar = (await db.ref(`playlist/${message.author.id}`).child('usravatar').once('value')).val();
-        const song = {
-            id: id,
-            title: title,
-            url: url,
-            duration: `${duration/*.hours}:${video.duration.minutes}:${video.duration.seconds*/}`,
-            /*channel: video.channel.title,*/
-            thumbnail: thumbnail,
-            author: author,
-            user: user,
-            usravatar: usravatar
-            };
-        message.channel.send(song)
-        addSong(message, song)
-        message.channel.send("done");
-    }
-
     if (command === "volume" || command === "sv" || command === "setvolume") {
         if (message.member.voiceChannel !== undefined) {
             if (!message.guild.me.voiceChannel) {
@@ -864,12 +822,12 @@ var addSong = function(message, video, voiceChannel, playlist = false) {
         id: video.id,
         title:/*Util.escapeMarkdown(*/video.title,
         url: `https://www.youtube.com/watch?v=${video.id}`,
-        duration: `${video.duration/*.hours}:${video.duration.minutes}:${video.duration.seconds*/}`,
+        duration: `${video.duration.hours}:${video.duration.minutes}:${video.duration.seconds}`,
         /*channel: video.channel.title,*/
-        //thumbnail: video.thumbnails.high.url,
-        //author: video.author = message.author,
-//user: message.author.username,
-        //usravatar: message.author.avatarURL
+        thumbnail: video.thumbnails.high.url,
+        author: video.author = message.author,
+        user: message.author.username,
+        usravatar: message.author.avatarURL
         };
         if (!serverQueue) {
             const queueConstruct = {
