@@ -485,7 +485,7 @@ bot.on("message", async(message) => {
                         var video = await youtube.getVideo(url);
                     } catch (error) {
                         try {
-                            var videos = await youtube.searchVideos(searchString, 10);
+                            var videos = await youtube.searchVideos(searchString, 1);
                             let index = 0;
                             message.channel.send(`
       __**Song selection:**__
