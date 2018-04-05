@@ -782,14 +782,14 @@ bot.on("message", async(message) => {
     if (command === "savelist") {
         firebase.database().ref('playlist/' + message.author.id).set({
             username: `${message.author.name}`,
-            id: `${songQueue.get(message.guild.id).songs(v = v.id)}`,
-            title: `${songQueue.get(message.guild.id).songs(v = v.title)}`,
-            url: `${songQueue.get(message.guild.id).songs(v = v.url)}`,
-            duration: `${songQueue.get(message.guild.id).songs(v = v.duration)}`,
-            thumbnail: `${songQueue.get(message.guild.id).songs(v = v.thumbnails.high.url)}`,
-            author: `${songQueue.get(message.guild.id).songs(v = v.message.author)}`,
-            user: `${songQueue.get(message.guild.id).songs(v = v.message.author.username)}`,
-            useravatar: `${songQueue.get(message.guild.id).songs(v = v.message.author.avatarURL)}`
+            id: `${songQueue.get(message.guild.id).songs.map(v => v.id)}`,
+            title: `${songQueue.get(message.guild.id).songs.map(v => v.title)}`,
+            url: `${songQueue.get(message.guild.id).songs.map(v => v.url)}`,
+            duration: `${songQueue.get(message.guild.id).songs.map(v => v.duration)}`,
+            thumbnail: `${songQueue.get(message.guild.id).songs.map(v => v.thumbnails.high.url)}`,
+            author: `${songQueue.get(message.guild.id).songs.map(v => v.message.author)}`,
+            user: `${songQueue.get(message.guild.id).songs.map(v => v.message.author.username)}`,
+            useravatar: `${songQueue.get(message.guild.id).songs.map(v => v.message.author.avatarURL)}`
         }).catch(function(err) {
             message.channel.send(err + "\n\n\n");
         });
