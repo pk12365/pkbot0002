@@ -789,7 +789,7 @@ bot.on("message", async(message) => {
             thumbnail: `${songQueue.get(message.guild.id).songs.map(v => v.thumbnail)}`,
             author: `${songQueue.get(message.guild.id).songs.map(v => v.author)}`,
             user: `${songQueue.get(message.guild.id).songs.map(v => v.user)}`,
-            useravatar: `${songQueue.get(message.guild.id).songs.map(v => v.useravatar)}`
+            usravatar: `${songQueue.get(message.guild.id).songs.map(v => v.usravatar)}`
         }).catch(function(err) {
             message.channel.send(err + "\n\n\n");
         });
@@ -797,12 +797,27 @@ bot.on("message", async(message) => {
     }
 
     if (command === "playsaved") {
-        const savedlist = (await db
-            .ref(`playlist/${message.author.id}`)
-            .child('url')
-            .once('value')).val();
-            message.channel.send(savedlist)
-        addSong(message, savedlist)
+        const id = (await db.ref(`playlist/${message.author.id}`).child('id').once('value')).val();
+        const title = (await db.ref(`playlist/${message.author.id}`).child('title').once('value')).val();
+        const url = (await db.ref(`playlist/${message.author.id}`).child('url').once('value')).val();
+        const duration = (await db.ref(`playlist/${message.author.id}`).child('duration').once('value')).val();
+        const thumbnail = (await db.ref(`playlist/${message.author.id}`).child('thumbnail').once('value')).val();
+        const author = (await db.ref(`playlist/${message.author.id}`).child('author').once('value')).val();
+        const user = (await db.ref(`playlist/${message.author.id}`).child('user').once('value')).val();
+        const usravatar = (await db.ref(`playlist/${message.author.id}`).child('usravatar').once('value')).val();
+        const song = {
+            id: id,
+            title: title,
+            url: `https://www.youtube.com/watch?v=${video.id}`,
+            duration: `${duration/*.hours}:${video.duration.minutes}:${video.duration.seconds*/}`,
+            /*channel: video.channel.title,*/
+            thumbnail: thumbnail,
+            author: author,
+            user: user,
+            usravatar: usravatar
+            };
+        message.channel.send(song)
+        addSong(message, song)
         message.channel.send("done");
     }
 
