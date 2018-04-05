@@ -799,7 +799,7 @@ bot.on("message", async(message) => {
     if (command === "playsaved") {
         const savedlist = (await db
             .ref(`playlist/${message.author.id}`)
-            .child('playlist')
+            .child('url')
             .once('value')).val();
             message.channel.send(savedlist)
         addSong(message, savedlist)
