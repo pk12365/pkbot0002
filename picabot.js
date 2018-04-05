@@ -786,10 +786,10 @@ bot.on("message", async(message) => {
             title: `${songQueue.get(message.guild.id).songs.map(v => v.title)}`,
             url: `${songQueue.get(message.guild.id).songs.map(v => v.url)}`,
             duration: `${songQueue.get(message.guild.id).songs.map(v => v.duration)}`,
-            //thumbnail: `${songQueue.get(message.guild.id).songs.map(v => v.thumbnails.high.url)}`,
-            author: `${songQueue.get(message.guild.id).songs.map(v => v.message.author)}`,
-            user: `${songQueue.get(message.guild.id).songs.map(v => v.message.author.username)}`,
-            useravatar: `${songQueue.get(message.guild.id).songs.map(v => v.message.author.avatarURL)}`
+            thumbnail: `${songQueue.get(message.guild.id).songs.map(v => v.thumbnail)}`,
+            author: `${songQueue.get(message.guild.id).songs.map(v => v.author)}`,
+            user: `${songQueue.get(message.guild.id).songs.map(v => v.user)}`,
+            useravatar: `${songQueue.get(message.guild.id).songs.map(v => v.useravatar)}`
         }).catch(function(err) {
             message.channel.send(err + "\n\n\n");
         });
