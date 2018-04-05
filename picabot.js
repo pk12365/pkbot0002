@@ -13,6 +13,7 @@ const botChannelName = "icwbot2";
 const botlogchannel = "406504806954565644";
 const botmlogchannel = "409055298158985216";
 const botbuglogchannel = "418642505509240836";
+const boterrorchannel = "420955154695585792";
 const botowner = "264470521788366848";
 var fortunes = ["It is certain", "It is decidedly so", "Without a doubt", "Yes definitely", "You may rely of it", "As I see it, yes", "Most likely", "Outlook good", "Yes", "Signs point to yes", "Reply hazy try again", "Ask again later", "Better not tell you now", "Cannot predict now", "Concentrate and ask again", "Dont count on it", "My reply is no", "My sources say no", "Outlook not so good", "Very doubtful"];
 var dispatcher;
@@ -302,7 +303,7 @@ bot.on("message", async(message) => {
                 message.channel.send("please check your dms", { replay: message }).then(sent => sent.delete({ timeout: 99 }));
             }
 
-            if (command === "botinfo" || command === "info" || command === "botstatus") {
+            if (command === "botinfo" || command === "info" || command === "botstatus" || command === "status") {
                 let TextChannels = bot.channels.filter(e => e.type !== 'voice').size;
                 let VoiceChannels = bot.channels.filter(e => e.type === 'voice').size;
                 var infoembed = new Discord.RichEmbed()
@@ -314,11 +315,11 @@ bot.on("message", async(message) => {
                     .addField("Try with", `${prefix}help`, inline = true)
                     .addField("CPU", `${process.cpuUsage().user/1024} MHz`, inline = true)
                     .addField("Ram", `${process.memoryUsage().rss/1024} kb`, inline = true)
-                    .addField("Totel Guilds", `${bot.guilds.size}`, inline = true)
-                    .addField("Totel Channels", `${bot.channels.size}`, inline = true)
-                    .addField("Totel Text Channels", `${TextChannels}`, inline = true)
-                    .addField("Totel Voice Channels", `${VoiceChannels}`, inline = true)
-                    .addField("Totel Users", `${bot.users.size}`)
+                    .addField("Total Guilds", `${bot.guilds.size}`, inline = true)
+                    .addField("Total Channels", `${bot.channels.size}`, inline = true)
+                    .addField("Total Text Channels", `${TextChannels}`, inline = true)
+                    .addField("Total Voice Channels", `${VoiceChannels}`, inline = true)
+                    .addField("Total Users", `${bot.users.size}`)
                     .addField("support server", `[link](https://discord.gg/zFDvBay)`, inline = true)
                     .addField("bot invite link", `[invite](https://discordapp.com/oauth2/authorize?client_id=376292306233458688&scope=bot)`, inline = true)
                     .setThumbnail("https://media.discordapp.net/attachments/406099961730564107/407455733689483265/Untitled6.png?width=300&height=300")
@@ -458,34 +459,30 @@ bot.on("message", async(message) => {
                                                     MUSIC COMMANDS
             -------------------------------------------------------------------------------------------*/
 
-            if (command === "yt") {
-                const youtube = new YouTube(process.env.GOOGLEAPIKEY);
-                const voiceChannel = message.member.voiceChannel;
-
-                let args0 = args.join("").substring(command.length);
-                let searchString = args0.slice();
-                const url = args0 ? args0.replace(/<(.+)>/g, '$1') : '';
-
-                if (!voiceChannel) return message.channel.send("You are not in a voice channel please join a channel and use this command again");
-
-                const permissions = voiceChannel.permissionsFor(message.client.user);
-                if (!permissions.has('CONNECT')) return message.channel.send("I do not have the permissions to join that voice channel pleae give me permissions to join");
-                if (!permissions.has("SPEAK")) return message.channel.send("I do not have the permissions to speak in that voice channel pleae give me permissions to join");
-
-                if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
-                    const playlist = await youtube.getPlaylist(url);
-                    const videos = await playlist.getVideos();
-                    for (const video of Object.values(videos)) {
-                        const video2 = await youtube.getVideoByID(video.id);
-                        await addSong(message, video2, voiceChannel, true);
-                    }
-                    return message.channel.send(`✅ Playlist: **${playlist.title}** has been added to the queue!`);
-                } else {
-                    try {
-                        var video = await youtube.getVideo(url);
-                    } catch (error) {
-                        try {
-                            var videos = await youtube.searchVideos(searchString, 1);
+    if (command === "play" || command === "p" || command === "yt") {
+        const youtube = new YouTube(process.env.GOOGLEAPIKEY);
+        const voiceChannel = message.member.voiceChannel;
+        let args0 = args.join("").substring(command.length);
+        let searchString = args0.slice();
+        const url = args0 ? args0.replace(/<(.+)>/g, '$1') : '';
+        if (!voiceChannel) return message.channel.send("You are not in a voice channel please join a channel and use this command again");
+        const permissions = voiceChannel.permissionsFor(message.client.user);
+        if (!permissions.has('CONNECT')) return message.channel.send("I do not have the permissions to join that voice channel pleae give me permissions to join");
+        if (!permissions.has("SPEAK")) return message.channel.send("I do not have the permissions to speak in that voice channel pleae give me permissions to join");
+        if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
+            const playlist = await youtube.getPlaylist(url);
+            const videos = await playlist.getVideos();
+            for (const video of Object.values(videos)) {
+                const video2 = await youtube.getVideoByID(video.id);
+                await addSong(message, video2, voiceChannel, true);
+            }
+            return message.channel.send(`✅ Playlist: **${playlist.title}** has been added to the queue!`);
+        } else {
+            try {
+                var video = await youtube.getVideo(url);
+            } catch (error) {
+                try {
+                    var videos = await youtube.searchVideos(searchString, 1);
                             //et index = 0;
                             /*message.channel.send(`
       __**Song selection:**__
@@ -502,50 +499,15 @@ bot.on("message", async(message) => {
                 console.error(err);
                 return message.channel.send('No or invalid value entered, cancelling video selection.');
               }*/
-              const videoIndex = 1/*parseInt(response.first().content);*/
-              var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
+            const videoIndex = 1/*parseInt(response.first().content);*/
+            var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
             } catch (err) {
-              console.error(err);
-              return message.channel.send('🆘 I could not obtain any search results.');
+                bot.channels.get(boterrorchannel).send(`${message.author.tag} from ${message.guild.name} trying to use play command but i got a error ${err}`)
+                console.error(err);
+                return message.channel.send('🆘 I could not obtain any search results.');
             }
-          }
-          return addSong(message, video, voiceChannel);
         }
-    }
-
-    if (command === "play" || command === "p") {
-        if (message.member.voiceChannel !== undefined) {
-            if (args.length > 0) {
-                //var query = "";
-                //for (var i = 0; i < args.length - 1; i++) {
-                //query += args[i] + " ";
-                //}
-                //query += " " + args[args.length - 1];
-                let query = args.join("").substring(command.length);
-                var results = youtube.search.list({
-                    "key": process.env.GOOGLEAPIKEY,
-                    "q": query,
-                    "type": "video",
-                    "maxResults": "1",
-                    "part": "snippet"
-                }, function(err, data) {
-                    if (err) {
-                        message.channel.send("There was an error searching for your song :cry:", { reply: message });
-                        console.log("Error: " + err);
-                    }
-                    if (data) {
-                        if (data.items.length === 0) {
-                            message.channel.send(`There were no results for \`${query}\``);
-                        } else {
-                            addSong(message, "https://www.youtube.com/watch?v=" + data.items[0].id.videoId);
-                        }
-                    }
-                });
-            } else {
-                message.channel.send(`You can search for a youtube song with \`${prefix}play <query>\``, { reply: message });
-            }
-        } else {
-            message.channel.send("You can't hear my music if you're not in a voice channel :cry:", { reply: message });
+        return addSong(message, video, voiceChannel);
         }
     }
 
