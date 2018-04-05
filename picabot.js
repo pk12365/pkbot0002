@@ -808,7 +808,7 @@ bot.on("message", async(message) => {
         const song = {
             id: id,
             title: title,
-            url: `https://www.youtube.com/watch?v=${video.id}`,
+            url: url,
             duration: `${duration/*.hours}:${video.duration.minutes}:${video.duration.seconds*/}`,
             /*channel: video.channel.title,*/
             thumbnail: thumbnail,
