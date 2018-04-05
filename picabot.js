@@ -439,7 +439,7 @@ bot.on("message", async(message) => {
                 let servercreatedat = message.guild.createdAt;
                 let sicon = message.guild.iconURL;
                 var serverinfoembed = new Discord.RichEmbed()
-                    .setAuthor(message.guild.name + "info", sicon.toString())
+                    .setAuthor(message.guild.name + "info", sicon)
                     .setColor(randomcolor)
                     .setDescription(`Since: ${servercreatedat}`)
                     .addField("Server Owner:", `${serverowner}`, inline = true)
@@ -853,7 +853,7 @@ var addSong = function(message, video, voiceChannel, playlist = false) {
       let embed = new Discord.RichEmbed()
         .setAuthor(`I have added \`${song.title}\` to the song queue!`, "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
         .setDescription("link here: " + `[click](${song.url})`)
-        .setColor(0x1D82B6)
+        .setColor(randomcolor--)
         .setThumbnail(song.thumbnail)
         .addField("**Length**", song.duration, true)
         .addField("Requested by", song.author, true)
@@ -885,6 +885,8 @@ var playSong = function(message, connection) {
             .setDescription("link here: " + `[click](${currentSong.url})`)
             .setURL(`${currentSong.url}`)
             .setThumbnail(`${currentSong.thumbnail}`)
+            .addField("**Length**", song.duration, true)
+            .addField("Requested by", song.author, true)
             .setFooter("Requested by: " + `${currentSong.user}`, currentSong.usravatar)
             .setTimestamp();
         message.channel.send({ embed: nowplayembed });
