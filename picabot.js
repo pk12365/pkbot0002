@@ -851,7 +851,7 @@ var addSong = function(message, video, voiceChannel, playlist = false) {
         url: `https://www.youtube.com/watch?v=${video.id}`,
         duration: `${video.duration/*.hours}:${video.duration.minutes}:${video.duration.seconds*/}`,
         /*channel: video.channel.title,*/
-        thumbnail: video.thumbnails.high.url,
+        //thumbnail: video.thumbnails.high.url,
         author: video.author = message.author,
         user: message.author.username,
         usravatar: message.author.avatarURL
