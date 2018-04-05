@@ -449,7 +449,7 @@ bot.on("message", async(message) => {
                     .addField("Text channel:", `${guildTchannels}`, inline = true)
                     .addField("Voice channels:", `${guildVchannels}`, inline = true)
                     .addField("Server Region:", `${serverregion}`)
-                    .setThumbnail(`${sicon}`)
+                    .setThumbnail(message.guild.iconURL)
                     .setFooter("Bot Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
                     .setTimestamp();
                 message.channel.send({ embed: serverinfoembed });
@@ -853,7 +853,7 @@ var addSong = function(message, video, voiceChannel, playlist = false) {
       let embed = new Discord.RichEmbed()
         .setAuthor(`I have added \`${song.title}\` to the song queue!`, "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
         .setDescription("link here: " + `[click](${song.url})`)
-        .setColor(randomcolor--)
+        .setColor(randomcolor)
         .setThumbnail(song.thumbnail)
         .addField("**Length**", song.duration, true)
         .addField("Requested by", song.author, true)
