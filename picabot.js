@@ -885,8 +885,8 @@ var playSong = function(message, connection) {
             .setDescription("link here: " + `[click](${currentSong.url})`)
             .setURL(`${currentSong.url}`)
             .setThumbnail(`${currentSong.thumbnail}`)
-            .addField("**Length**", song.duration, true)
-            .addField("Requested by", song.author, true)
+            .addField("**Length**", currentSong.duration, true)
+            .addField("Requested by", currentSong.author, true)
             .setFooter("Requested by: " + `${currentSong.user}`, currentSong.usravatar)
             .setTimestamp();
         message.channel.send({ embed: nowplayembed });
