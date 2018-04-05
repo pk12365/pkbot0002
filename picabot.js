@@ -486,8 +486,8 @@ bot.on("message", async(message) => {
                     } catch (error) {
                         try {
                             var videos = await youtube.searchVideos(searchString, 1);
-                            let index = 0;
-                            message.channel.send(`
+                            //et index = 0;
+                            /*message.channel.send(`
       __**Song selection:**__
       ${videos.map(video2 => `**${++index} -** ${video2.title}`).join('\n')}
       Please provide a value to select one of the search results ranging from 1-10.
@@ -502,8 +502,8 @@ bot.on("message", async(message) => {
                 console.error(err);
                 return message.channel.send('No or invalid value entered, cancelling video selection.');
               }
-              const videoIndex = parseInt(response.first().content);
-              var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
+              const videoIndex = parseInt(response.first().content);*/
+              var video = await youtube.getVideoByID(videos/*[videoIndex - 1]*/.id);
             } catch (err) {
               console.error(err);
               return message.channel.send('🆘 I could not obtain any search results.');
