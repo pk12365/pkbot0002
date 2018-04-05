@@ -501,9 +501,9 @@ bot.on("message", async(message) => {
               } catch (err) {
                 console.error(err);
                 return message.channel.send('No or invalid value entered, cancelling video selection.');
-              }
-              const videoIndex = parseInt(response.first().content);*/
-              var video = await youtube.getVideoByID(videos/*[videoIndex - 1]*/.id);
+              }*/
+              const videoIndex = 1/*parseInt(response.first().content);*/
+              var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
             } catch (err) {
               console.error(err);
               return message.channel.send('🆘 I could not obtain any search results.');
