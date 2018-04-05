@@ -782,11 +782,17 @@ bot.on("message", async(message) => {
     if (command === "savelist") {
         firebase.database().ref('playlist/' + message.author.id).set({
             username: `${message.author.name}`,
-            playlist: `${songQueue.get(message.guild.id).songs}`
+            id: `${songQueue.get(message.guild.id).songs(v = v.id)}`,
+            title: `${songQueue.get(message.guild.id).songs(v = v.title)}`,
+            url: `${songQueue.get(message.guild.id).songs(v = v.url)}`,
+            duration: `${songQueue.get(message.guild.id).songs(v = v.duration)}`,
+            thumbnail: `${songQueue.get(message.guild.id).songs(v = v.thumbnails.high.url)}`,
+            author: `${songQueue.get(message.guild.id).songs(v = v.message.author)}`,
+            user: `${songQueue.get(message.guild.id).songs(v = v.message.author.username)}`,
+            useravatar: `${songQueue.get(message.guild.id).songs(v = v.message.author.avatarURL)}`
         }).catch(function(err) {
             message.channel.send(err + "\n\n\n");
         });
-        message.channel.send(`${songQueue.get(message.guild.id).songs}`)
         message.channel.send("playlist saved");
     }
 
@@ -846,7 +852,9 @@ var addSong = function(message, video, voiceChannel, playlist = false) {
         duration: `${video.duration/*.hours}:${video.duration.minutes}:${video.duration.seconds*/}`,
         /*channel: video.channel.title,*/
         thumbnail: video.thumbnails.high.url,
-        author: video.author = message.author
+        author: video.author = message.author,
+        user: message.author.username,
+        usravatar: message.author.avatarURL
         };
         if (!serverQueue) {
             const queueConstruct = {
