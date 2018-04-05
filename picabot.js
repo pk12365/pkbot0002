@@ -851,15 +851,14 @@ var addSong = function(message, video, voiceChannel, playlist = false) {
             if (playlist) return undefined;
         let Discord = require('discord.js');
       let embed = new Discord.RichEmbed()
-    .setAuthor(`Added to queue ${song.title}`, "https://is2-ssl.mzstatic.com/image/thumb/Purple127/v4/9d/df/09/9ddf0951-fe62-8416-5b64-41a4e05d655d/source/256x256bb.jpg")
-    .setTitle(song.url)
-    .setColor(0x1D82B6)
-    .setFooter("Added to queue", song.avaURL)
-    .setThumbnail(song.thumbnail)
-    .setTimestamp()
-    .addField("Channel Name", song.channel, true)
-    .addField("**Length**", song.duration, true)
-    .addField("Requested by", song.author, true)
+        .setAuthor(`I have added \`${song.title}\` to the song queue!`, "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
+        .setDescription("link here: " + `[click](${url})`)
+        .setColor(0x1D82B6)
+        .setThumbnail(song.thumbnail)
+        .addField("**Length**", song.duration, true)
+        .addField("Requested by", song.author, true)
+        .setFooter("Added by: " + message.author.username.toString(), message.author.avatarURL)
+        .setTimestamp()
         return message.channel.send({ embed });
         }
         return undefined;
