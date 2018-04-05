@@ -786,7 +786,7 @@ bot.on("message", async(message) => {
             title: `${songQueue.get(message.guild.id).songs.map(v => v.title)}`,
             url: `${songQueue.get(message.guild.id).songs.map(v => v.url)}`,
             duration: `${songQueue.get(message.guild.id).songs.map(v => v.duration)}`,
-            thumbnail: `${songQueue.get(message.guild.id).songs.map(v => v.thumbnails.high.url)}`,
+            //thumbnail: `${songQueue.get(message.guild.id).songs.map(v => v.thumbnails.high.url)}`,
             author: `${songQueue.get(message.guild.id).songs.map(v => v.message.author)}`,
             user: `${songQueue.get(message.guild.id).songs.map(v => v.message.author.username)}`,
             useravatar: `${songQueue.get(message.guild.id).songs.map(v => v.message.author.avatarURL)}`
@@ -851,7 +851,7 @@ var addSong = function(message, video, voiceChannel, playlist = false) {
         url: `https://www.youtube.com/watch?v=${video.id}`,
         duration: `${video.duration/*.hours}:${video.duration.minutes}:${video.duration.seconds*/}`,
         /*channel: video.channel.title,*/
-        //thumbnail: video.thumbnails.high.url,
+        thumbnail: video.thumbnails.high.url,
         author: video.author = message.author,
         user: message.author.username,
         usravatar: message.author.avatarURL
