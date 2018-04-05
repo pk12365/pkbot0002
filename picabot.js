@@ -459,7 +459,7 @@ bot.on("message", async(message) => {
             -------------------------------------------------------------------------------------------*/
 
             if (command === "yt") {
-                const youtube = new YouTube("AIzaSyCaOtxOYSSw_zRbR0cUPQS3flCbHS2UlGE");
+                const youtube = new YouTube(process.env.GOOGLEAPIKEY);
                 const voiceChannel = message.member.voiceChannel;
 
                 let args0 = args.join("").substring(command.length);
