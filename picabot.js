@@ -541,7 +541,7 @@ bot.on("message", async(message) => {
 
     if (command === "kick") {
         if (!message.guild.member(bot.user).hasPermission("KICK_MEMBERS")) return message.channel.send(`I don't have permission to do that`);
-        if (message.author.id !== botowner || !message.member.hasPermission("KICK_MEMBERS")) return message.channel.send(`U don't have permission to do that`);
+        if (message.author.id !== botowner && !message.member.hasPermission("KICK_MEMBERS")) return message.channel.send(`U don't have permission to do that`);
         let kickUser = message.mentions.members.first();
         if (!kickUser) return message.channel.send(`Specify a user to kick`);
         let args2 = message.content.substring(prefix.length + command.length).split(`<@${kickUser.user.id}>`);
@@ -565,7 +565,7 @@ bot.on("message", async(message) => {
 
     if (command === "ban") {
         if (!message.guild.member(bot.user).hasPermission("BAN_MEMBERS")) return message.channel.send(`I don't have permission to do that`);
-        if (message.author.id !== botowner || !message.member.hasPermission("BAN_MEMBERS")) return message.channel.send(`You don't have permission to do that`);
+        if (message.author.id !== botowner && !message.member.hasPermission("BAN_MEMBERS")) return message.channel.send(`You don't have permission to do that`);
         let banUser = message.mentions.members.first();
         if (!banUser) return message.channel.send(`Specify a user to ban`);
         let args2 = message.content.substring(prefix.length + command.length).split(`<@${banUser.user.id}>`);
@@ -1046,17 +1046,10 @@ var playSong = function(message, connection) {
     }
 };
 const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
-var checkForCommand = function(message) {
-    if (!message.author.bot && message.content.startsWith(prefix)) {
-        var args = message.content.substring(1).split(' ');
-        var command = args.splice(0, 1);
-        try {
-            commands[command].process(message, args);
-        } catch (e) {}
-    }
-};
-
 
 function newFunction() {
     return queue.message.guild.id;
 }
+client.on("error", function (err) {
+    bot.channels.get(boterrorchannel).send(err);
+});
