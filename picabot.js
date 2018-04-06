@@ -125,7 +125,7 @@ bot.on('message', message => {
                 message.channel.send(response.message);
                 message.channel.stopTyping();
                 //}, Math.random() * (1 - 3) + 1 * 600);
-            });
+            }).catch(e => { bot.channels.get(boterrorchannel).send(`error from cleverbot ${e}`)})
         });
         return;
     }
@@ -510,7 +510,7 @@ bot.on("message", async(message) => {
     }
 
     if (command === "setprefix") {
-        if (message.author.id !== botowner || !message.member.hasPermission("ADMINISTRATOR")) return message.channel.send(`U don't have permission to do that`);
+        if (message.author.id !== botowner && !message.member.hasPermission("ADMINISTRATOR")) return message.channel.send(`U don't have permission to do that`);
         let arg = args.join("").substring(command.length)
         if (!arg) return message.channel.send(`Please add a prefix after command like \`\`${prefix}setprefix &\`\``);
         firebase.database().ref('servers/' + message.guild.id).set({
@@ -771,7 +771,8 @@ bot.on("message", async(message) => {
                 return;
             }
             if (serverQueue.songs.length > 0) {
-                var index = Number.parseInt(args[0]);
+                let args0 = args.join("").substring(command.length);
+                var index = Number.parseInt(args0[0]);
                 if (Number.isInteger(index)) {
                     previousSongIndex = currentSongIndex;
                     currentSongIndex = index - 1;
@@ -782,7 +783,7 @@ bot.on("message", async(message) => {
                     }
                     dispatcher.end("goto");
                 } else {
-                    message.channel.send(`\`${args[0]}\` is an invalid index`, { reply: message });
+                    message.channel.send(`\`${args0[0]}\` is an invalid index`, { reply: message });
                 }
             } else {
                 message.channel.send("There are no more songs :sob:", { reply: message });
