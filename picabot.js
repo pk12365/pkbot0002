@@ -13,6 +13,7 @@ const botlogchannel = "406504806954565644";
 const botmlogchannel = "409055298158985216";
 const botbuglogchannel = "418642505509240836";
 const boterrorchannel = "420955154695585792";
+const botleavejoinchannel = "431829603741466634";
 const botowner = "264470521788366848";
 var fortunes = ["It is certain", "It is decidedly so", "Without a doubt", "Yes definitely", "You may rely of it", "As I see it, yes", "Most likely", "Outlook good", "Yes", "Signs point to yes", "Reply hazy try again", "Ask again later", "Better not tell you now", "Cannot predict now", "Concentrate and ask again", "Dont count on it", "My reply is no", "My sources say no", "Outlook not so good", "Very doubtful"];
 var dispatcher;
@@ -242,7 +243,7 @@ bot.on("message", async(message) => {
     }
 
     if (command == "gsearch" || command === "google" || command === "g") {
-        let args3 = message.content.substring(command.length + 2);
+        let args3 = args.join("").substring(command.length);
         let searchMessage = await message.reply('Searching... Sec.');
         let searchUrl = `https://www.google.com/search?q=${encodeURIComponent(args3)}`;
         return snekfetch.get(searchUrl).then((result) => {
@@ -432,7 +433,7 @@ bot.on("message", async(message) => {
     }
 
     if (command == "gsearch" || command === "google" || command === "g") {
-        let args3 = message.content.substring(command.length + 2);
+        let args3 = args.join("").substring(command.length);
         let searchMessage = await message.reply('Searching... Sec.');
         let searchUrl = `https://www.google.com/search?q=${encodeURIComponent(args3)}`;
         return snekfetch.get(searchUrl).then((result) => {
@@ -1047,6 +1048,11 @@ const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
 function newFunction() {
     return queue.message.guild.id;
 }
+
+bot.on("guildCreate", guild => {bot.channels.get(botleavejoinchannel).send(`New server joined: ${guild.name} (id: ${guild.id}). This server has ${guild.memberCount} members! and owner is ${guild.owner.user.username} now im in ${bot.guilds.size} servers`);});
+
+bot.on('guildDelete', guild => {bot.channels.get(botleavejoinchannel).send(`Removed from ${guild.name} (id: ${guild.id}). and it was owned by ${guild.owner.user.username} (owner id: ${guild.owner.id}) now im in ${bot.guilds.size} servers`);});
+
 bot.on("error", function (err) {
     bot.channels.get(boterrorchannel).send(err);
 });
