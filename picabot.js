@@ -125,7 +125,7 @@ bot.on('message', message => {
                 message.channel.send(response.message);
                 message.channel.stopTyping();
                 //}, Math.random() * (1 - 3) + 1 * 600);
-            }).catch(e => { bot.channels.get(boterrorchannel).send(`error from cleverbot ${e}`)})
+            })
         });
         return;
     }
