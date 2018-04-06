@@ -1050,6 +1050,6 @@ const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
 function newFunction() {
     return queue.message.guild.id;
 }
-client.on("error", function (err) {
+bot.on("error", function (err) {
     bot.channels.get(boterrorchannel).send(err);
 });
