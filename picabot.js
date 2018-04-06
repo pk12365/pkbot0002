@@ -53,10 +53,6 @@ bot.on("disconnect", function() {
     process.exit(1);
 });
 
-bot.on("messageUpdate", function(oldMessage, newMessage) {
-    checkForCommand(newMessage);
-});
-
 bot.login(process.env.BOTTOKEN).then(function() {
     console.log("Bot logged in");
     bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.users.size} Users`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
