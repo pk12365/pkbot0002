@@ -243,7 +243,7 @@ bot.on("message", async(message) => {
     }
 
     if (command == "gsearch" || command === "google" || command === "g") {
-        let args3 = message.content.substring(command.length + 2);
+        let args3 = message.content.substring(command.length + 3);
         let searchMessage = await message.reply('Searching... Sec.');
         let searchUrl = `https://www.google.com/search?q=${encodeURIComponent(args3)}`;
         message.channel.send(`'${searchUrl}'`)
