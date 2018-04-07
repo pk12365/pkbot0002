@@ -531,9 +531,13 @@ bot.on("message", async(message) => {
         let reason = args2.join(" ").substring(3);
         if (!reason) return message.channel.send("You did not give a reason to warn the user.");
         if (!warnUser.id == message.author.id) return message.channel.send("You cannot warn yourself/!");
-        message.delete().catch(err => bot.channels.get(botrejectionschannel).send(`${message.author.username} from ${message.guild.name} using warn command \n${err}`))
-        warnUser.send(`**you have been warned from** ${message.guild}. \n**Reason**: ${reason}`);
-        message.channel.send(`***${warnUser.user.tag} has been warned***`)
+        message.delete().catch(err => bot.channels.get(botrejectionschannel).send(`${message.author.username} from ${message.guild.name} using warn command \n${err}`));
+        try {
+            warnUser.send(`**you have been warned from** ${message.guild}. \n**Reason**: ${reason}`);
+            message.channel.send(`***${warnUser.user.tag} has been warned***`)
+        } catch (err) {
+            bot.channels.get(botrejectionschannel).send(`${message.author.username} from ${message.guild.name} using warn command \n${err}`);
+        }
 
     }
 
