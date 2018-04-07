@@ -531,13 +531,9 @@ bot.on("message", async(message) => {
         let reason = args2.join(" ").substring(3);
         if (!reason) return message.channel.send("You did not give a reason to warn the user.");
         if (!warnUser.id == message.author.id) return message.channel.send("You cannot warn yourself/!");
-        message.delete().catch(err => bot.channels.get(botrejectionschannel).send(`${message.author.username} from ${message.guild.name} using warn command \n${err}`));
-        try {
-            warnUser.send(`**you have been warned from** ${message.guild}. \n**Reason**: ${reason}`).catch(err => {});
-            message.channel.send(`***${warnUser.user.tag} has been warned***`)
-        } catch (err) {
-            bot.channels.get(botrejectionschannel).send(`${message.author.username} from ${message.guild.name} using warn command \n${err}`);
-        }
+        message.delete().catch(err => bot.channels.get(botrejectionschannel).send(`${message.author.username} from ${message.guild.name} using warn command \n${err}`))
+        warnUser.send(`**you have been warned from** ${message.guild}. \n**Reason**: ${reason}`).catch(err => {});
+        message.channel.send(`***${warnUser.user.tag} has been warned***`)
 
     }
 
@@ -551,7 +547,7 @@ bot.on("message", async(message) => {
         if (!reason) return message.channel.send("You did not give a reason to kick the user.")
         if (!kickUser.id == message.author.id) return message.channel.send("You cannot kick yourself/!");
         if (!kickUser.kickable) return message.channel.send("my role is either the same or lower than the user you wish to kick.");
-        kickUser.send(`**You have been kicked from** ${message.guild}. \n**Reason**: ${reason}`);
+        kickUser.send(`**You have been kicked from** ${message.guild}. \n**Reason**: ${reason}`).catch(err => {});
         try {
             message.guild.member(kickUser).kick();
             var kickembed = new Discord.RichEmbed()
@@ -575,7 +571,7 @@ bot.on("message", async(message) => {
         if (!reason) return message.channel.send("You did not give a reason to ban the user.")
         if (!banUser.id == message.author.id) return message.channel.send("You cannot ban yourself/!");
         if (!banUser.bannable) return message.channel.send("my role is either the same or lower than the user you wish to ban.");
-        banUser.send(`**You have been baned from** ${message.guild}. \n**Reason**: ${reason}`);
+        banUser.send(`**You have been baned from** ${message.guild}. \n**Reason**: ${reason}`).catch(err => {});
         try {
             message.guild.member(banUser).ban();
             var banembed = new Discord.RichEmbed()
@@ -665,7 +661,6 @@ bot.on("message", async(message) => {
                     var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
                 } catch (err) {
                     bot.channels.get(boterrorchannel).send(`${message.author.tag} from ${message.guild.name} trying to use play command but i got a error ${err}`)
-                    console.error(err);
                     return message.channel.send('🆘 I could not obtain any search results.');
                 }
             }
