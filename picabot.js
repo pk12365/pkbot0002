@@ -246,7 +246,6 @@ bot.on("message", async(message) => {
         let args3 = message.content.substring(command.length + prefix.length + 1);
         let searchMessage = await message.reply('Searching... Sec.');
         let searchUrl = `https://www.google.com/search?q=${encodeURIComponent(args3)}`;
-        message.channel.send(`'${searchUrl}'`)
         return snekfetch.get(searchUrl).then((result) => {
             let $ = cheerio.load(result.text);
             let googleData = $('.r').first().find('a').first().attr('href');
@@ -437,7 +436,6 @@ bot.on("message", async(message) => {
         let args3 = args.join("").substring(command.length);
         let searchMessage = await message.reply('Searching... Sec.');
         let searchUrl = `https://www.google.com/search?q=${encodeURIComponent(args3)}`;
-        message.channel.send(`'${searchUrl}'`)
         return snekfetch.get(searchUrl).then((result) => {
             let $ = cheerio.load(result.text);
             let googleData = $('.r').first().find('a').first().attr('href');
