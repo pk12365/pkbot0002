@@ -532,7 +532,7 @@ bot.on("message", async(message) => {
         if (!reason) return message.channel.send("You did not give a reason to warn the user.");
         if (!warnUser.id == message.author.id) return message.channel.send("You cannot warn yourself/!");
         message.delete().catch(err => bot.channels.get(botrejectionschannel).send(`${message.author.username} from ${message.guild.name} using warn command \n${err}`))
-        warnUser.send(`**you have been warned from** ${message.guild}. \n**Reason**: ${reason}`).catch(err => message.channel.send(err));
+        warnUser.send(`**you have been warned from** ${message.guild}. \n**Reason**: ${reason}`);
         message.channel.send(`***${warnUser.user.tag} has been warned***`)
 
     }
@@ -547,7 +547,7 @@ bot.on("message", async(message) => {
         if (!reason) return message.channel.send("You did not give a reason to kick the user.")
         if (!kickUser.id == message.author.id) return message.channel.send("You cannot kick yourself/!");
         if (!kickUser.kickable) return message.channel.send("my role is either the same or lower than the user you wish to kick.");
-        kickUser.send(`**You have been kicked from** ${message.guild}. \n**Reason**: ${reason}`).catch(err => message.channel.send(err));
+        kickUser.send(`**You have been kicked from** ${message.guild}. \n**Reason**: ${reason}`);
         try {
             message.guild.member(kickUser).kick();
             var kickembed = new Discord.RichEmbed()
@@ -571,7 +571,7 @@ bot.on("message", async(message) => {
         if (!reason) return message.channel.send("You did not give a reason to ban the user.")
         if (!banUser.id == message.author.id) return message.channel.send("You cannot ban yourself/!");
         if (!banUser.bannable) return message.channel.send("my role is either the same or lower than the user you wish to ban.");
-        banUser.send(`**You have been baned from** ${message.guild}. \n**Reason**: ${reason}`).catch(err => message.channel.send(err));
+        banUser.send(`**You have been baned from** ${message.guild}. \n**Reason**: ${reason}`);
         try {
             message.guild.member(banUser).ban();
             var banembed = new Discord.RichEmbed()
