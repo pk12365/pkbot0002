@@ -323,8 +323,7 @@ bot.on("message", async(message) => {
     const gprefix = (await db
         .ref(`servers/${message.guild.id}`)
         .child('guildprefix')
-        .once('value')).val()
-        .catch(err => bot.channels.get(boterrorchannel).send(`prefix error in ${message.guild.name}\n${err}`));
+        .once('value')).val();
 
     if (!message.content.startsWith(gprefix) && !message.content.startsWith(prefix)) return undefined;
     if (message.content.startsWith(gprefix)) {
