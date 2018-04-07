@@ -176,8 +176,12 @@ bot.on("message", async(message) => {
     }
 
     if (command === "say") {
-        message.delete();
-        message.channel.send(args.join("").substring(3));
+        try {
+            message.delete();
+            message.channel.send(args.join("").substring(3));
+        } catch (err) {
+            message.channel.send(err);
+        }
     }
 
     if (command === "sayall") {
@@ -556,7 +560,7 @@ bot.on("message", async(message) => {
                 .setTimestamp();
             message.channel.send({ embed: kickembed });
         } catch (err) {
-            message.channel.send(`I failed to kick the user... Reason: ${err}`);
+            message.channel.send(`I failed to kick the user... Reason: ${err}e`);
         }
     }
 
