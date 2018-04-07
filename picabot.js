@@ -14,6 +14,7 @@ const botmlogchannel = "409055298158985216";
 const botbuglogchannel = "418642505509240836";
 const boterrorchannel = "420955154695585792";
 const botleavejoinchannel = "431829603741466634";
+const botrejectionschannel = "432090416834412545";
 const botowner = "264470521788366848";
 var fortunes = ["It is certain", "It is decidedly so", "Without a doubt", "Yes definitely", "You may rely of it", "As I see it, yes", "Most likely", "Outlook good", "Yes", "Signs point to yes", "Reply hazy try again", "Ask again later", "Better not tell you now", "Cannot predict now", "Concentrate and ask again", "Dont count on it", "My reply is no", "My sources say no", "Outlook not so good", "Very doubtful"];
 var dispatcher;
@@ -176,12 +177,8 @@ bot.on("message", async(message) => {
     }
 
     if (command === "say") {
-        try {
-            message.delete().catch(err => message.channel.send(`error ${err}`))
-            message.channel.send(args.join("").substring(3));
-        } catch (err) {
-            message.channel.send(err);
-        }
+        message.delete().catch(err => bot.channels.get(botrejectionschannel).send(`${message.author.username} using say command in dm \n${err}`))
+        message.channel.send(args.join("").substring(3));
     }
 
     if (command === "sayall") {
@@ -189,7 +186,6 @@ bot.on("message", async(message) => {
             message.reply('this command is only for bot owner!!!');
             return;
         }
-        message.delete();
         bot.users.map(u => u.send(args.join("").substring(6)));
     }
 
@@ -256,6 +252,7 @@ bot.on("message", async(message) => {
             googleData = querystring.parse(googleData.replace('/url?', ''));
             searchMessage.edit(`Result found!\n${googleData.q}`);
         }).catch((err) => {
+            bot.channels.get(botrejectionschannel).send(`${message.author.username} using google command in dm \n${err}`)
             searchMessage.edit('No results found!');
         });
     }
@@ -326,7 +323,8 @@ bot.on("message", async(message) => {
     const gprefix = (await db
         .ref(`servers/${message.guild.id}`)
         .child('guildprefix')
-        .once('value')).val();
+        .once('value')).val()
+        .catch(err => bot.channels.get(boterrorchannel).send(`prefix error in ${message.guild.name}\n${err}`));
 
     if (!message.content.startsWith(gprefix) && !message.content.startsWith(prefix)) return undefined;
     if (message.content.startsWith(gprefix)) {
@@ -370,7 +368,7 @@ bot.on("message", async(message) => {
     }
 
     if (command === "say") {
-        message.delete().catch(err => message.channel.send(`error ${err}`));
+        message.delete().catch(err => bot.channels.get(botrejectionschannel).send(`${message.author.username} from ${message.guild.name} using say command \n${err}`))
         message.channel.send(args.join("").substring(3));
     }
 
@@ -379,7 +377,6 @@ bot.on("message", async(message) => {
             message.reply('this command is only for bot owner!!!');
             return;
         }
-        message.delete();
         bot.users.map(u => u.send(args.join("").substring(6)));
     }
 
@@ -446,6 +443,7 @@ bot.on("message", async(message) => {
             googleData = querystring.parse(googleData.replace('/url?', ''));
             searchMessage.edit(`Result found!\n${googleData.q}`);
         }).catch((err) => {
+            bot.channels.get(botrejectionschannel).send(`${message.author.username} from ${message.guild.id} using google command \n${err}`)
             searchMessage.edit('No results found!');
         });
     }
@@ -534,8 +532,8 @@ bot.on("message", async(message) => {
         let reason = args2.join(" ").substring(3);
         if (!reason) return message.channel.send("You did not give a reason to warn the user.");
         if (!warnUser.id == message.author.id) return message.channel.send("You cannot warn yourself/!");
-        message.delete();
-        warnUser.send(`**you have been warned from** ${message.guild}. \n**Reason**: ${reason}`);
+        message.delete().catch(err => bot.channels.get(botrejectionschannel).send(`${message.author.username} from ${message.guild.name} using warn command \n${err}`))
+        warnUser.send(`**you have been warned from** ${message.guild}. \n**Reason**: ${reason}`).catch(err => message.channel.send(err));
         message.channel.send(`***${warnUser.user.tag} has been warned***`)
 
     }
@@ -550,7 +548,7 @@ bot.on("message", async(message) => {
         if (!reason) return message.channel.send("You did not give a reason to kick the user.")
         if (!kickUser.id == message.author.id) return message.channel.send("You cannot kick yourself/!");
         if (!kickUser.kickable) return message.channel.send("my role is either the same or lower than the user you wish to kick.");
-        kickUser.send(`**You have been kicked from** ${message.guild}. \n**Reason**: ${reason}`);
+        kickUser.send(`**You have been kicked from** ${message.guild}. \n**Reason**: ${reason}`).catch(err => message.channel.send(err));
         try {
             message.guild.member(kickUser).kick();
             var kickembed = new Discord.RichEmbed()
@@ -574,7 +572,7 @@ bot.on("message", async(message) => {
         if (!reason) return message.channel.send("You did not give a reason to ban the user.")
         if (!banUser.id == message.author.id) return message.channel.send("You cannot ban yourself/!");
         if (!banUser.bannable) return message.channel.send("my role is either the same or lower than the user you wish to ban.");
-        banUser.send(`**You have been baned from** ${message.guild}. \n**Reason**: ${reason}`);
+        banUser.send(`**You have been baned from** ${message.guild}. \n**Reason**: ${reason}`).catch(err => message.channel.send(err));
         try {
             message.guild.member(banUser).ban();
             var banembed = new Discord.RichEmbed()
@@ -965,7 +963,7 @@ var addSong = function(message, video, voiceChannel, playlist = false) {
         if (!bot.voiceConnections.exists("channel", message.member.voiceChannel)) {
             message.member.voiceChannel.join().then(function(connection) {
                 playSong(message, connection);
-            }).catch(); //removed consol log
+            }).catch(err => bot.channels.get(boterrorchannel).send(`${message.author.username} from ${message.guild.name} play command and error in addsong \n${err}`)); //removed consol log
         }
         serverQueue.songs.push(song);
         if (playlist) return undefined;
