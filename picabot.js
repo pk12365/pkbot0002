@@ -177,7 +177,7 @@ bot.on("message", async(message) => {
 
     if (command === "say") {
         try {
-            message.delete().catch(error).then(message.channel.send(`error ${error}`))
+            message.delete().catch(err => message.channel.send(`error ${err}`))
             message.channel.send(args.join("").substring(3));
         } catch (err) {
             message.channel.send(err);
