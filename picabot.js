@@ -370,7 +370,7 @@ bot.on("message", async(message) => {
     }
 
     if (command === "say") {
-        message.delete();
+        message.delete().catch(err => message.channel.send(`error ${err}`));
         message.channel.send(args.join("").substring(3));
     }
 
