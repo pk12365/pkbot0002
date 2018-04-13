@@ -526,7 +526,7 @@ bot.on("message", async(message) => {
 
     if (command === "setwelcome") {
         let arg = args.join("").substring(command.length)
-        let c = arg.shift().toLowerCase();
+        let c = arg.toLowerCase();
         if (c === "channel") {
             message.channel.send("set channel")
         } else if (c === "message") {
