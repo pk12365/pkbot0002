@@ -532,6 +532,7 @@ bot.on("message", async(message) => {
             message.channel.send("set welcome message")
         } else {
             message.channel.send("please use the correct command")
+            }
     }
 
     if (command === "warn") {
