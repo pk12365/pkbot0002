@@ -527,14 +527,15 @@ bot.on("message", async(message) => {
     if (command === "setwelcome") {
         let arg = args.join("").substring(command.length)
         let c = arg.toLowerCase();
+        let wc = message.mentions.channels.first()
         if (c === "channel") {
-            let arg2 = args.join("").substring(command.length + c.length)
             firebase.database().ref('servers/' + message.guild.id).set({
-                wchannel: arg2
+                wchannelname: wc.name,
+                wchannelid: wc.id
             }).catch(function(err) {
             message.channel.send(err + "\n\n\n");
         });
-            message.channel.send("set channel")
+            message.channel.send(`set channel succesfully ${wc.name}`)
         } else if (c === "message") {
             let arg2 = args.join("").substring(command.length + c.length)
             message.channel.send("set welcome message")
