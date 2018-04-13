@@ -524,6 +524,16 @@ bot.on("message", async(message) => {
         message.channel.send(`prefix updated ${arg} for ${message.guild.name}`);
     }
 
+    if (command === "setwelcome") {
+        let arg = args.join("").substring(command.length)
+        if (arg = "channel") {
+            message.channel.send("set channel")
+        } else if (arg = "message") {
+            message.channel.send("set welcome message")
+        } else {
+            message.channel.send("please use the correct command")
+    }
+
     if (command === "warn") {
         let warnUser = message.mentions.members.first();
         if (!warnUser) return message.channel.send(`Specify a user to warn`);
