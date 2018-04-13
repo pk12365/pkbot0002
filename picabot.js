@@ -553,7 +553,7 @@ bot.on("message", async(message) => {
     if (command === "testwelcome") {
         const wm = (await db.ref(`welcomemessage/${message.guild.id}`).child('wmessage').once('value')).val();
         const wc = (await db.ref(`welcomechannel/${message.guild.id}`).child('wchannelid').once('value')).val();
-        bot.channels.get(wc.toString()).send(`${wm}`);
+        bot.channels.get(wc.toString()).send(wm.text.replace('{user}', message.author.tag.toString()).replace('{members}', message.guild.memberCount)));
     }
 
     if (command === "warn") {
