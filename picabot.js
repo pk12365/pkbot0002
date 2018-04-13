@@ -543,11 +543,17 @@ bot.on("message", async(message) => {
         if (!arg) return message.channel.send(`please add a welcome message after command like \n\`\`{user} welcome to the ${message.guild.name} server now we have {members} members\`\` \n{user} is welcome member \n{members} is total members of server`)
         firebase.database().ref('welcomemessage/' + message.guild.id).set({
             guildname: message.guild.name,
-            wchannelid: arg
+            wmessage: arg
         }).catch(function(err) {
             message.channel.send(err + "\n\n\n");
         });
-            message.channel.send(`welcome message set successfully /n${arg}`)
+            message.channel.send(`welcome message set successfully \n${arg}`)
+    }
+
+    if (command === "testwelcome") {
+        const wm = (await db.ref(`welcomemessage/${message.guild.id}`).child('wmessage').once('value')).val();
+        const wc = (await db.ref(`welcomechannel/${message.guild.id}`).child('wchannelid').once('value')).val();
+        bot.channels.get(wc.toString()).send(wm);
     }
 
     if (command === "warn") {
