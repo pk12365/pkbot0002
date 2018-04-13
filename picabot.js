@@ -525,9 +525,11 @@ bot.on("message", async(message) => {
     }
 
     if (command === "setwelcomechannel") {
+        if (message.author.id !== botowner && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`U don't have permission to do that`);
         let wc = message.mentions.channels.first()
-        firebase.database().ref('servers/' + message.guild.id).set({
-            wchannelname: wc.name,
+        if (!wc) return message.channel.send(`please mention a channel after command like \`\`${prefix}setwelcomechannel #general\`\``)
+        firebase.database().ref('welcomechannel/' + message.guild.id).set({
+            guildname: message.guild.name,
             wchannelid: wc.id
         }).catch(function(err) {
             message.channel.send(err + "\n\n\n");
@@ -536,8 +538,16 @@ bot.on("message", async(message) => {
     }
 
     if (command === "setwelcomemessage") {
-            let arg2 = args.join("").substring(command.length + c.length)
-            message.channel.send("set welcome message")
+        if (message.author.id !== botowner && !message.member.hasPermission("ADMINISTRATOR")) return message.channel.send(`U don't have permission to do that`);
+        let arg = args.join("").substring(command.length)
+        if (!arg) return message.channel.send(`please add a welcome message after command like \n\`\`{user} welcome to the ${message.guild.name} server now we have {members} members\`\` \n{user} is welcome member \n{members} is total members of server`)
+        firebase.database().ref('welcomemessage/' + message.guild.id).set({
+            guildname: message.guild.name,
+            wchannelid: arg
+        }).catch(function(err) {
+            message.channel.send(err + "\n\n\n");
+        });
+            message.channel.send(`welcome message set successfully /n${arg}`)
     }
 
     if (command === "warn") {
