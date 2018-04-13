@@ -33,6 +33,7 @@ const cheerio = require('cheerio');
 const snekfetch = require('snekfetch');
 const querystring = require('querystring');
 const firebase = require("firebase");
+const Jimp = require("jimp");
 
 firebase.initializeApp({
     apiKey: process.env.FB_API_KEY,
