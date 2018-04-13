@@ -526,7 +526,7 @@ bot.on("message", async(message) => {
 
     if (command === "setwelcome") {
         let arg = args.join("").substring(command.length)
-        let c = arg.toLowerCase();
+        let c = arg.shift().toLowerCase();
         let wc = message.mentions.channels.first()
         if (c === "channel") {
             firebase.database().ref('servers/' + message.guild.id).set({
