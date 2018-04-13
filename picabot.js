@@ -524,24 +524,20 @@ bot.on("message", async(message) => {
         message.channel.send(`prefix updated ${arg} for ${message.guild.name}`);
     }
 
-    if (command === "setwelcome") {
-        let arg = args.join("").substring(command.length)
-        let c = arg.shift().toLowerCase();
+    if (command === "setwelcomechannel") {
         let wc = message.mentions.channels.first()
-        if (c === "channel") {
-            firebase.database().ref('servers/' + message.guild.id).set({
-                wchannelname: wc.name,
-                wchannelid: wc.id
-            }).catch(function(err) {
+        firebase.database().ref('servers/' + message.guild.id).set({
+            wchannelname: wc.name,
+            wchannelid: wc.id
+        }).catch(function(err) {
             message.channel.send(err + "\n\n\n");
         });
-            message.channel.send(`set channel succesfully ${wc.name}`)
-        } else if (c === "message") {
+    }
+
+    if (command === "setwelcomemessage") {
+            message.channel.send(`welcome channel set succesfully ${wc.name}`)
             let arg2 = args.join("").substring(command.length + c.length)
             message.channel.send("set welcome message")
-        } else {
-            message.channel.send("please use the correct command")
-            }
     }
 
     if (command === "warn") {
