@@ -528,13 +528,9 @@ bot.on("message", async(message) => {
     const wtextonoff = (await db.ref(`servers/${message.guild.id}`).child('wtextonoff').once('value')).val();
     const wimageonoff = (await db.ref(`servers/${message.guild.id}`).child('wimageonoff').once('value')).val();
     if (command === "welcome") {
-        message.channel.send(`args${args}`)
         let arg = args.join().substring(command.length);
-        message.channel.send(`arg${arg}`)
         let ar = arg.slice().trim().split(/ +/g);
-        message.channel.send(`ar${ar}`)
         let c = ar.shift().toLowerCase();
-        message.channel.send(`c${c}`)
         if (c === "on") {
             firebase.database().ref('servers/' + message.guild.id).update({
                 welcomeMstatus: "on"
@@ -1157,7 +1153,7 @@ bot.on('guildMemberAdd', async(member) => {
             bot.channels.get(wc.toString()).send(wm.replace('{user}', member.toString()).replace('{members}', member.guild.memberCount));
         } else { return }
         if (wimageonoff === "on") {
-            let tag = member.user.username + member.user.discriminator
+            let tag = member.user.tag
             let u = `you are the ${member.guild.memberCount}th user`
             let s = member.guild.name
             let img = member.user.avatarURL
