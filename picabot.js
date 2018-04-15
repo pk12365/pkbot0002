@@ -527,7 +527,9 @@ bot.on("message", async(message) => {
 
     if (command === "setwelcome") {
         let arg = args.join("").substring(command.length);
-        if (arg === "on") {
+        let ar = comarg.join("").substring(command.length);
+        let c = ar.toLowerCase();
+        if (c === "on") {
             firebase.database().ref('servers/' + message.guild.id).update({
                 welcomeMstatus: "on"
             }).catch(function(err) {
@@ -535,7 +537,7 @@ bot.on("message", async(message) => {
             });
             message.channel.send(`welcome message turned **on**for ${message.guild.name} server`)
         }
-        if (arg === "off") {
+        if (c === "off") {
             firebase.database().ref('servers/' + message.guild.id).update({
                 welcomeMtatus: "off"
             }).catch(function(err) {
@@ -543,9 +545,9 @@ bot.on("message", async(message) => {
             });
             message.channel.send(`welcome message turned **off** for ${message.guild.name} server`)
         }
-        if (arg === "message") {
+        if (c === "message") {
             if (message.author.id !== botowner && !message.member.hasPermission("ADMINISTRATOR")) return message.channel.send(`U don't have permission to do that`);
-            let arg2 = args.join("").substring(command.length + arg.length)
+            let arg2 = arg.join("").substring(c.length)
             if (!arg2) return message.channel.send(`please add a welcome message after command like \n\`\`{user} welcome to the ${message.guild.name} server now we have {members} members\`\` \n{user} is welcome member \n{members} is total members of server`)
             firebase.database().ref('servers/' + message.guild.id).update({
                 wmessage: arg2
