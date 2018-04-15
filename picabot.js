@@ -526,7 +526,8 @@ bot.on("message", async(message) => {
     }
 
     if (command === "setwelcome") {
-        if (args === "on") {
+        let arg = args.join("").substring(command.length);
+        if (arg === "on") {
             firebase.database().ref('welcomeonoff/' + message.guild.id).set({
                 guildname: message.guild.name,
                 welocme: "on"
@@ -534,7 +535,7 @@ bot.on("message", async(message) => {
                 message.channel.send(err + "\n\n\n");
             });
             message.channel.send(`welcome message turn on ${wc.name} for ${message.guild.name} server`)
-        } else if (args === "off") {
+        } else if (arg === "off") {
             firebase.database().ref('welcomeonoff/' + message.guild.id).set({
                 guildname: message.guild.name,
                 welocme: "on"
