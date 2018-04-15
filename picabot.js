@@ -1112,7 +1112,7 @@ bot.on('guildMemberAdd', async(member) => {
     if (wstatus === "on") {
         bot.channels.get(wc.toString()).send(wm.replace('{user}', member.toString()).replace('{members}', member.guild.memberCount));
     } else {
-        return
+        bot.channels.get(wc.toString()).send("status is off");
     }
 })
 
