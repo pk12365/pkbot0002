@@ -1148,13 +1148,33 @@ function newFunction() {
 
 bot.on('guildMemberAdd', async(member) => {
     const wmstatus = (await db.ref(`servers/${member.guild.id}`).child('welcomeMstatus').once('value')).val();
+    const wtextonoff = (await db.ref(`servers/${message.guild.id}`).child('wtextonoff').once('value')).val();
+    const wimageonoff = (await db.ref(`servers/${message.guild.id}`).child('wimageonoff').once('value')).val();
     const wm = (await db.ref(`servers/${member.guild.id}`).child('wmessage').once('value')).val();
     const wc = (await db.ref(`servers/${member.guild.id}`).child('wchannelid').once('value')).val();
     if (wmstatus === "on") {
-        bot.channels.get(wc.toString()).send(wm.replace('{user}', member.toString()).replace('{members}', member.guild.memberCount));
-    } else {
-        return
-    }
+        if (wtextonoff === "on") {
+            bot.channels.get(wc.toString()).send(wm.replace('{user}', member.toString()).replace('{members}', member.guild.memberCount));
+        } else { return }
+        if (wimageonoff === "on") {
+            let tag = member
+            let u = `you are the ${member.guild.memberCount}th user`
+            let s = member.guild.name
+            let img = member.avatarURL
+            Jimp.read(img).then(function(image) {
+            Jimp.read(`https://i.imgur.com/8YEW9b1.png`).then(function(image2) {
+            Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(function(font) {
+                image2.print(font, 150 , 155, u);
+            Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function(font) {
+                image2.print(font, 185, 120, s)
+            Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(function(font) {
+                image2.print(font, 150, 20, tag);
+                image2.print(font, 150 , 120, "to");
+                image.resize(128, 128);
+                image2.composite(image, 2, 2);
+                image2.getBuffer(Jimp.MIME_PNG,(error, buffer) => {message.channel.send({files: [{ name: 'welcome.png', attachment: buffer }] });}); });}) }) }) })
+        } else { return }
+    } else { return }
 })
 
 bot.on("guildCreate", guild => {bot.channels.get(botleavejoinchannel).send(`New server joined: ${guild.name} (id: ${guild.id}). This server has ${guild.memberCount} members! and owner is ${guild.owner.user.username} now im in ${bot.guilds.size} servers`);});
