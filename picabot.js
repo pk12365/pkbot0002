@@ -1157,10 +1157,10 @@ bot.on('guildMemberAdd', async(member) => {
             bot.channels.get(wc.toString()).send(wm.replace('{user}', member.toString()).replace('{members}', member.guild.memberCount));
         } else { return }
         if (wimageonoff === "on") {
-            let tag = member.toString()
+            let tag = `${member}`
             let u = `you are the ${member.guild.memberCount}th user`
             let s = member.guild.name
-            let img = member.avatarURL
+            let img = member.user.avatarURL
             Jimp.read(img).then(function(image) {
             Jimp.read(`https://i.imgur.com/8YEW9b1.png`).then(function(image2) {
             Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(function(font) {
