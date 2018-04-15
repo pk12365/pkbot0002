@@ -1172,7 +1172,7 @@ bot.on('guildMemberAdd', async(member) => {
                 image2.print(font, 150 , 120, "to");
                 image.resize(128, 128);
                 image2.composite(image, 2, 2);
-                image2.getBuffer(Jimp.MIME_PNG,(error, buffer) => {message.channel.send({files: [{ name: 'welcome.png', attachment: buffer }] });}); });}) }) }) })
+                image2.getBuffer(Jimp.MIME_PNG,(error, buffer) => {member.guild.channels.get(wc.toString()).send({files: [{ name: 'welcome.png', attachment: buffer }] });}); });}) }) }) })
         } else { return }
     } else { return }
 })
