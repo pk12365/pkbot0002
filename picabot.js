@@ -525,6 +525,28 @@ bot.on("message", async(message) => {
         message.channel.send(`prefix updated ${arg} for ${message.guild.name}`);
     }
 
+    if (command === "setwelcome") {
+        if (args === "on") {
+            firebase.database().ref('welcomeonoff/' + message.guild.id).set({
+                guildname: message.guild.name,
+                welocme: "on"
+            }).catch(function(err) {
+                message.channel.send(err + "\n\n\n");
+            });
+            message.channel.send(`welcome message turn on ${wc.name} for ${message.guild.name} server`)
+        } else if (args === "off") {
+            firebase.database().ref('welcomeonoff/' + message.guild.id).set({
+                guildname: message.guild.name,
+                welocme: "on"
+            }).catch(function(err) {
+                message.channel.send(err + "\n\n\n");
+            });
+            message.channel.send(`welcome message turn on ${wc.name} for ${message.guild.name} server`)
+        } else {
+            message.channel.send("incorect command")
+        }
+    }
+
     if (command === "setwelcomechannel") {
         if (message.author.id !== botowner && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`U don't have permission to do that`);
         let wc = message.mentions.channels.first()
@@ -1081,6 +1103,10 @@ const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
 function newFunction() {
     return queue.message.guild.id;
 }
+
+bot.on('guildMemberAdd',  (member) => {
+
+})
 
 bot.on("guildCreate", guild => {bot.channels.get(botleavejoinchannel).send(`New server joined: ${guild.name} (id: ${guild.id}). This server has ${guild.memberCount} members! and owner is ${guild.owner.user.username} now im in ${bot.guilds.size} servers`);});
 
