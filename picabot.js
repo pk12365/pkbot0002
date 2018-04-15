@@ -1105,7 +1105,7 @@ function newFunction() {
     return queue.message.guild.id;
 }
 
-bot.on('guildMemberAdd',  (member) => {
+bot.on('guildMemberAdd', async(member) => {
     const wstatus = (await firebase.database.ref(`welcomeonoff/${member.guild.id}`).child('welcome').once('value')).val();
     const wm = (await fairbase.database.ref(`welcomemessage/${member.guild.id}`).child('wmessage').once('value')).val();
     const wc = (await firebase.database.ref(`welcomechannel/${member.guild.id}`).child('wchannelid').once('value')).val();
