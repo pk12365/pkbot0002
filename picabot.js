@@ -530,7 +530,7 @@ bot.on("message", async(message) => {
 
         let arg = args.join("").substring(command.length);
         message.channel.send(`arg${arg}`)
-        let ar = args.slice(command.length).trim().split(/ +/g);
+        let ar = args.join("").slice(command.length).trim().split(/ +/g);
         message.channel.send(`ar${ar}`)
         let c = ar.shift().toLowerCase();
         message.channel.send(`c${c}`)
