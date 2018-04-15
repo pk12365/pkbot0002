@@ -526,9 +526,8 @@ bot.on("message", async(message) => {
     }
 
     if (command === "setwelcome") {
-        const command = comarg.shift().toLowerCase();
-
-        let arg = args.join("").substring(command.length + 8);
+        message.channel.send(`args${args}`)
+        let arg = args.join().substring(command.length + 8);
         message.channel.send(`arg${arg}`)
         let ar = arg.slice().trim().split(/ +/g);
         message.channel.send(`ar${ar}`)
