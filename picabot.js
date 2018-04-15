@@ -7,7 +7,6 @@ const google = require("googleapis");
 const youtube = google.youtube("v3");
 //var config = JSON.parse(fs.readFileSync('./config.json', 'utf-8'));
 const bot = new Discord.Client();
-var welcome = require("./welcome");
 const prefix = "##";
 const botChannelName = "icwbot2";
 const botlogchannel = "406504806954565644";
@@ -136,7 +135,6 @@ bot.on('message', message => {
 });
 
 bot.on("message", async(message) => {
-    welcome(bot);
     bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.users.size} Users`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
 
     if (message.author.bot) return undefined;
