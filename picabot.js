@@ -529,20 +529,30 @@ bot.on("message", async(message) => {
         let arg = args.join("").substring(command.length);
         if (arg === "on") {
             firebase.database().ref('servers/' + message.guild.id).update({
-                welcomestatus: "on"
+                welcomeMstatus: "on"
             }).catch(function(err) {
                 message.channel.send(err + "\n\n\n");
             });
             message.channel.send(`welcome message turned **on**for ${message.guild.name} server`)
-        } else if (arg === "off") {
+        }
+        if (arg === "off") {
             firebase.database().ref('servers/' + message.guild.id).update({
-                welcomestatus: "off"
+                welcomeMtatus: "off"
             }).catch(function(err) {
                 message.channel.send(err + "\n\n\n");
             });
             message.channel.send(`welcome message turned **off** for ${message.guild.name} server`)
-        } else {
-            message.channel.send(`incorect command please type on or off after command like \`\`setwelcome on\`\``)
+        }
+        if (arg === "message") {
+            if (message.author.id !== botowner && !message.member.hasPermission("ADMINISTRATOR")) return message.channel.send(`U don't have permission to do that`);
+            let arg2 = args.join("").substring(command.length + arg.length)
+            if (!arg2) return message.channel.send(`please add a welcome message after command like \n\`\`{user} welcome to the ${message.guild.name} server now we have {members} members\`\` \n{user} is welcome member \n{members} is total members of server`)
+            firebase.database().ref('servers/' + message.guild.id).update({
+                wmessage: arg2
+            }).catch(function(err) {
+                message.channel.send(err + "\n\n\n");
+            });
+                message.channel.send(`welcome message set successfully \n${arg2}`)
         }
     }
 
@@ -1102,18 +1112,17 @@ function newFunction() {
 }
 
 bot.on('guildMemberAdd', async(member) => {
-    const wstatus = (await db.ref(`servers/${member.guild.id}`).child('welcomestatus').once('value')).val();
+    const wmstatus = (await db.ref(`servers/${member.guild.id}`).child('welcomeMstatus').once('value')).val();
     const wm = (await db.ref(`servers/${member.guild.id}`).child('wmessage').once('value')).val();
     const wc = (await db.ref(`servers/${member.guild.id}`).child('wchannelid').once('value')).val();
-    if (wstatus === "on") {
+    if (wmstatus === "on") {
         bot.channels.get(wc.toString()).send(wm.replace('{user}', member.toString()).replace('{members}', member.guild.memberCount));
     } else {
         return
     }
 })
 
-bot.on("guildCreate", guild => {bot.channels.get(botleavejoinchannel).send(`New server joined: ${guild.name} (id: ${guild.id}). This server has ${guild.memberCount} members! and owner is ${guild.owner.user.username} now im in ${bot.guilds.size} servers`);
-firebase.database().ref('servers/' + guild.id).set({guildname: guild.name, guildprefix: "null", wmessage: "null", welcomestatus: "null", guildactive: true, wchannelid: "null"}).catch(function(err) {bot.channels.get(boterrorchannel).send(err + "on at create guild saving data on db\n\n\n");});});
+bot.on("guildCreate", guild => {bot.channels.get(botleavejoinchannel).send(`New server joined: ${guild.name} (id: ${guild.id}). This server has ${guild.memberCount} members! and owner is ${guild.owner.user.username} now im in ${bot.guilds.size} servers`);});
 
 bot.on('guildDelete', guild => {bot.channels.get(botleavejoinchannel).send(`Removed from ${guild.name} (id: ${guild.id}). and it was owned by ${guild.owner.user.username} (owner id: ${guild.owner.id}) now im in ${bot.guilds.size} servers`);});
 
