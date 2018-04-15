@@ -1148,8 +1148,8 @@ function newFunction() {
 
 bot.on('guildMemberAdd', async(member) => {
     const wmstatus = (await db.ref(`servers/${member.guild.id}`).child('welcomeMstatus').once('value')).val();
-    const wtextonoff = (await db.ref(`servers/${message.guild.id}`).child('wtextonoff').once('value')).val();
-    const wimageonoff = (await db.ref(`servers/${message.guild.id}`).child('wimageonoff').once('value')).val();
+    const wtextonoff = (await db.ref(`servers/${member.guild.id}`).child('wtextonoff').once('value')).val();
+    const wimageonoff = (await db.ref(`servers/${member.guild.id}`).child('wimageonoff').once('value')).val();
     const wm = (await db.ref(`servers/${member.guild.id}`).child('wmessage').once('value')).val();
     const wc = (await db.ref(`servers/${member.guild.id}`).child('wchannelid').once('value')).val();
     if (wmstatus === "on") {
