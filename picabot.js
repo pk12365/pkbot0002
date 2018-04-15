@@ -526,11 +526,13 @@ bot.on("message", async(message) => {
     }
 
     if (command === "setwelcome") {
+        const command = comarg.shift().toLowerCase();
+
         let arg = args.join("").substring(command.length);
         message.channel.send(`arg${arg}`)
-        let ar = comarg.join("").substring(command.length);
+        let ar = args.slice(command.length).trim().split(/ +/g);
         message.channel.send(`ar${ar}`)
-        let c = ar.toLowerCase();
+        let c = ar.shift().toLowerCase();
         message.channel.send(`c${c}`)
         if (c === "on") {
             firebase.database().ref('servers/' + message.guild.id).update({
