@@ -549,14 +549,23 @@ bot.on("message", async(message) => {
         }
         else if (c === "use-text") {
             if (wchannelid === null) return message.channel.send(`welcome channel not set`)
-            if (wtextonoff) {
+            if (wtextonoff === "null") {
+                firebase.database().ref('servers/' + message.guild.id).update({
+                    wtextonoff: "on"
+                }).catch(function(err) {
+                    message.channel.send(err + "\n\n\n");
+                });
+                message.channel.send("welcome text is now enabled");
+            }
+            if (wtextonoff === "on") {
                 firebase.database().ref('servers/' + message.guild.id).update({
                     wtextonoff: "off"
                 }).catch(function(err) {
                     message.channel.send(err + "\n\n\n");
                 });
                 message.channel.send("welcome text is now disabled");
-            } else {
+            }
+            if (wtextonoff === "off") {
                 firebase.database().ref('servers/' + message.guild.id).update({
                     wtextonoff: "on"
                 }).catch(function(err) {
@@ -567,14 +576,23 @@ bot.on("message", async(message) => {
         }
         else if (c === "use-image") {
             if (wchannelid === null) return message.channel.send(`welcome channel not set please set the channel first`)
-            if (wimageonoff) {
+            if (wimageonoff === "null") {
+                firebase.database().ref('servers/' + message.guild.id).update({
+                    wimageonoff: "on"
+                }).catch(function(err) {
+                    message.channel.send(err + "\n\n\n");
+                });
+                message.channel.send("welcome image is now enabled");
+            }
+            if (wimageonoff === "on") {
                 firebase.database().ref('servers/' + message.guild.id).update({
                     wimageonoff: "off"
                 }).catch(function(err) {
                     message.channel.send(err + "\n\n\n");
                 });
                 message.channel.send("welcome image is now disabled");
-            } else {
+            }
+            if (wimageonoff === "off") {
                 firebase.database().ref('servers/' + message.guild.id).update({
                     wimageonoff: "on"
                 }).catch(function(err) {
