@@ -551,7 +551,7 @@ bot.on("message", async(message) => {
         }
         if (c === "message") {
             if (message.author.id !== botowner && !message.member.hasPermission("ADMINISTRATOR")) return message.channel.send(`U don't have permission to do that`);
-            let arg2 = arg.join("").substring(c.length)
+            let arg2 = arg.substring(c.length)
             message.channel.send(`arg2${arg2}`)
             if (!arg2) return message.channel.send(`please add a welcome message after command like \n\`\`{user} welcome to the ${message.guild.name} server now we have {members} members\`\` \n{user} is welcome member \n{members} is total members of server`)
             firebase.database().ref('servers/' + message.guild.id).update({
