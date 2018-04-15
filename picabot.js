@@ -534,17 +534,17 @@ bot.on("message", async(message) => {
             }).catch(function(err) {
                 message.channel.send(err + "\n\n\n");
             });
-            message.channel.send(`welcome message turn on ${wc.name} for ${message.guild.name} server`)
+            message.channel.send(`welcome message turned **on**for ${message.guild.name} server`)
         } else if (arg === "off") {
             firebase.database().ref('welcomeonoff/' + message.guild.id).set({
                 guildname: message.guild.name,
-                welocme: "on"
+                welocme: "off"
             }).catch(function(err) {
                 message.channel.send(err + "\n\n\n");
             });
-            message.channel.send(`welcome message turn on ${wc.name} for ${message.guild.name} server`)
+            message.channel.send(`welcome message turned **off** for ${message.guild.name} server`)
         } else {
-            message.channel.send("incorect command")
+            message.channel.send(`incorect command please type on or off after command like \`\`setwelcome on\`\``)
         }
     }
 
