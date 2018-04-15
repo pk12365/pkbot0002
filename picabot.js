@@ -1106,9 +1106,9 @@ function newFunction() {
 }
 
 bot.on('guildMemberAdd',  (member) => {
-    const wstatus = (await db.ref(`welcomeonoff/${message.guild.id}`).child('welcome').once('value')).val();
-    const wm = (await db.ref(`welcomemessage/${message.guild.id}`).child('wmessage').once('value')).val();
-    const wc = (await db.ref(`welcomechannel/${message.guild.id}`).child('wchannelid').once('value')).val();
+    const wstatus = (await firebase.database.ref(`welcomeonoff/${message.guild.id}`).child('welcome').once('value')).val();
+    const wm = (await fairbase.database.ref(`welcomemessage/${message.guild.id}`).child('wmessage').once('value')).val();
+    const wc = (await firebase.database.ref(`welcomechannel/${message.guild.id}`).child('wchannelid').once('value')).val();
     if (wstatus === "on") {
         bot.channels.get(wc.toString()).send(wm.replace('{user}', member.toString()).replace('{members}', member.guild.memberCount));
     } else {
