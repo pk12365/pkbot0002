@@ -576,7 +576,7 @@ bot.on("message", async(message) => {
         }
         else if (c === "use-image") {
             if (wchannelid === null) return message.channel.send(`welcome channel not set please set the channel first`)
-            if (wimageonoff === "null") {
+            if (!wimageonoff) {
                 firebase.database().ref('servers/' + message.guild.id).update({
                     wimageonoff: "on"
                 }).catch(function(err) {
