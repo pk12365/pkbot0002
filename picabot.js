@@ -1157,7 +1157,7 @@ bot.on('guildMemberAdd', async(member) => {
             bot.channels.get(wc.toString()).send(wm.replace('{user}', member.toString()).replace('{members}', member.guild.memberCount));
         } else { return }
         if (wimageonoff === "on") {
-            let tag = `${member}`
+            let tag = member.toString()
             let u = `you are the ${member.guild.memberCount}th user`
             let s = member.guild.name
             let img = member.user.avatarURL
