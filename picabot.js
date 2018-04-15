@@ -530,7 +530,7 @@ bot.on("message", async(message) => {
         if (arg === "on") {
             firebase.database().ref('welcomeonoff/' + message.guild.id).set({
                 guildname: message.guild.name,
-                welocme: "on"
+                welcomestatus: "on"
             }).catch(function(err) {
                 message.channel.send(err + "\n\n\n");
             });
