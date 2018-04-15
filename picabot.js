@@ -524,8 +524,8 @@ bot.on("message", async(message) => {
         });
         message.channel.send(`prefix updated ${arg} for ${message.guild.name}`);
     }
-
-    if (command === "setwelcome") {
+    const wtextonoff = (await db.ref(`servers/${message.guild.id}`).child('wtextonoff').once('value')).val();
+    if (command === "welcome") {
         message.channel.send(`args${args}`)
         let arg = args.join().substring(command.length);
         message.channel.send(`arg${arg}`)
@@ -539,7 +539,7 @@ bot.on("message", async(message) => {
             }).catch(function(err) {
                 message.channel.send(err + "\n\n\n");
             });
-            message.channel.send(`welcome message turned **on**for ${message.guild.name} server`)
+            message.channel.send(`welcome message turned **on** for ${message.guild.name} server`)
         }
         else if (c === "off") {
             firebase.database().ref('servers/' + message.guild.id).update({
@@ -549,7 +549,24 @@ bot.on("message", async(message) => {
             });
             message.channel.send(`welcome message turned **off** for ${message.guild.name} server`)
         }
-        else if (c === "message") {
+        else if (c === "use-text") {
+            if (wtextonoff) {
+                firebase.database().ref('servers/' + message.guild.id).update({
+                    wtextonoff: "off"
+                }).catch(function(err) {
+                    message.channel.send(err + "\n\n\n");
+                });
+                message.channel.send("welcome text is now disabled");
+            } else {
+                firebase.database().ref('servers/' + message.guild.id).update({
+                    wtextonoff: "on"
+                }).catch(function(err) {
+                    message.channel.send(err + "\n\n\n");
+                });
+                message.channel.send("message text is now enabled");
+            }
+        }
+        else if (c === "set-message") {
             if (message.author.id !== botowner && !message.member.hasPermission("ADMINISTRATOR")) return message.channel.send(`U don't have permission to do that`);
             let arg2 = arg.substring(c.length)
             message.channel.send(`arg2${arg2}`)
@@ -561,7 +578,7 @@ bot.on("message", async(message) => {
             });
                 message.channel.send(`welcome message set successfully \n${arg2}`)
         }
-        else if (c === "channel") {
+        else if (c === "set-channel") {
             if (message.author.id !== botowner && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`U don't have permission to do that`)
             let wc = message.mentions.channels.first()
             if (!wc) return message.channel.send(`please mention a channel after command like \`\`${prefix}setwelcomechannel #general\`\``)
