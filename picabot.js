@@ -566,7 +566,7 @@ bot.on("message", async(message) => {
                 }).catch(function(err) {
                     message.channel.send(err + "\n\n\n");
                 });
-                message.channel.send("message text is now disabled");
+                message.channel.send("welcome text is now disabled");
             }
         }
         else if (c === "use-image") {
@@ -577,14 +577,14 @@ bot.on("message", async(message) => {
                 }).catch(function(err) {
                     message.channel.send(err + "\n\n\n");
                 });
-                message.channel.send("welcome text is now enabled");
+                message.channel.send("welcome image is now enabled");
             } else {
                 firebase.database().ref('servers/' + message.guild.id).update({
                     wimageonoff: "off"
                 }).catch(function(err) {
                     message.channel.send(err + "\n\n\n");
                 });
-                message.channel.send("message text is now disabled");
+                message.channel.send("welcome image is now disabled");
             }
         }
         else if (c === "set-message") {
