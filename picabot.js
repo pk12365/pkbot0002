@@ -538,7 +538,7 @@ bot.on("message", async(message) => {
         } else if (arg === "off") {
             firebase.database().ref('welcomeonoff/' + message.guild.id).set({
                 guildname: message.guild.name,
-                welocme: "off"
+                welcomestatus: "off"
             }).catch(function(err) {
                 message.channel.send(err + "\n\n\n");
             });
@@ -1106,7 +1106,7 @@ function newFunction() {
 }
 
 bot.on('guildMemberAdd', async(member) => {
-    const wstatus = (await db.ref(`welcomeonoff/${member.guild.id}`).child('welcome').once('value')).val();
+    const wstatus = (await db.ref(`welcomeonoff/${member.guild.id}`).child('welcomestatus').once('value')).val();
     const wm = (await db.ref(`welcomemessage/${member.guild.id}`).child('wmessage').once('value')).val();
     const wc = (await db.ref(`welcomechannel/${member.guild.id}`).child('wchannelid').once('value')).val();
     if (wstatus === "on") {
