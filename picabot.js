@@ -1106,7 +1106,14 @@ function newFunction() {
 }
 
 bot.on('guildMemberAdd',  (member) => {
-
+    const wstatus = (await db.ref(`welcomeonoff/${message.guild.id}`).child('welcome').once('value')).val();
+    const wm = (await db.ref(`welcomemessage/${message.guild.id}`).child('wmessage').once('value')).val();
+    const wc = (await db.ref(`welcomechannel/${message.guild.id}`).child('wchannelid').once('value')).val();
+    if (wstatus === "on") {
+        bot.channels.get(wc.toString()).send(wm.replace('{user}', message.author.tag.toString()).replace('{members}', message.guild.memberCount));
+    } else {
+        return
+    }
 })
 
 bot.on("guildCreate", guild => {bot.channels.get(botleavejoinchannel).send(`New server joined: ${guild.name} (id: ${guild.id}). This server has ${guild.memberCount} members! and owner is ${guild.owner.user.username} now im in ${bot.guilds.size} servers`);});
