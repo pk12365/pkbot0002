@@ -561,6 +561,17 @@ bot.on("message", async(message) => {
             });
                 message.channel.send(`welcome message set successfully \n${arg2}`)
         }
+        if (c === "channel") {
+            if (message.author.id !== botowner && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`U don't have permission to do that`)
+            let wc = message.mentions.channels.first()
+            if (!wc) return message.channel.send(`please mention a channel after command like \`\`${prefix}setwelcomechannel #general\`\``)
+            firebase.database().ref('servers/' + message.guild.id).update({
+                wchannelid: wc.id
+            }).catch(function(err) {
+                message.channel.send(err + "\n\n\n");
+            });
+            message.channel.send(`welcome channel set succesfully ${wc.name} for ${message.guild.name} server`)
+        }
     }
 
     if (command === "setwelcomechannel") {
