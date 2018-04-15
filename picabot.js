@@ -136,7 +136,7 @@ bot.on('message', message => {
 });
 
 bot.on("message", async(message) => {
-    welcome.lul();
+    welcome(bot);
     bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.users.size} Users`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
 
     if (message.author.bot) return undefined;
