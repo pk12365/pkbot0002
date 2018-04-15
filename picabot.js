@@ -549,7 +549,7 @@ bot.on("message", async(message) => {
         }
         else if (c === "use-text") {
             if (wchannelid === null) return message.channel.send(`welcome channel not set`)
-            if (wtextonoff === "null") {
+            if (!wtextonoff) {
                 firebase.database().ref('servers/' + message.guild.id).update({
                     wtextonoff: "on"
                 }).catch(function(err) {
