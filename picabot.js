@@ -1266,6 +1266,7 @@ bot.on('guildMemberAdd', async(member) => {
     const ms = bot.guilds.filter((guild) => guild.ownerID === member.user.id).filter((guild) => guild.memberCount > 200).map((guild) => guild.name);
     const mm = bot.guilds.filter((guild) => guild.ownerID === member.user.id).filter((guild) => guild.memberCount > 200).map((guild) => guild.memberCount)
     if (wmstatus === "on") {
+        if (wc === null) return;
         if (wtextonoff === "on") {
             if (wm === null) {
                 member.guild.channels.get(wc.toString()).send(`${member} welcome to ${member.guild.name} you are the ${member.guild.memberCount} user`)
@@ -1285,10 +1286,10 @@ bot.on('guildMemberAdd', async(member) => {
             Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(function(font) {
                 image2.print(font, 150 , 140, u);
             Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function(font) {
-                image2.print(font, 185, 110, s)
+                image2.print(font, 185, 105, s)
             Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(function(font) {
                 image2.print(font, 150, 20, tag);
-                image2.print(font, 150 , 110, "to");
+                image2.print(font, 150 , 105, "to");
                 image.resize(128, 128);
                 image2.composite(image, 2, 2);
                 image2.getBuffer(Jimp.MIME_PNG,(error, buffer) => {member.guild.channels.get(wc.toString()).send({files: [{ name: 'welcome.png', attachment: buffer }] });}); });}) }) }) })})
@@ -1308,6 +1309,7 @@ bot.on('guildMemberRemove', async(member) => {
     const wleavetextonoff = (await db.ref(`servers/${member.guild.id}`).child('wtextonoff').once('value')).val();
     const lm = (await db.ref(`servers/${member.guild.id}`).child('lmessage').once('value')).val();
     if (wmstatus === "on") {
+        if (wc === null) return;
         if (wleavetextonoff === "on") {
             if (lm === null) {
                 member.guild.channels.get(wc.toString()).send(`${member} is left the server now we are ${member.guild.memberCount} members`)
