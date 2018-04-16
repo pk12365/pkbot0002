@@ -528,6 +528,7 @@ bot.on("message", async(message) => {
     }
     const wchannelid = (await db.ref(`servers/${message.guild.id}`).child('wchannelid').once('value')).val();
     const wtextonoff = (await db.ref(`servers/${message.guild.id}`).child('wtextonoff').once('value')).val();
+    const wleavetextonoff = (await db.ref(`servers/${message.guild.id}`).child('wleavetextonoff').once('value')).val();
     const wimageonoff = (await db.ref(`servers/${message.guild.id}`).child('wimageonoff').once('value')).val();
     const wuinfoonoff = (await db.ref(`servers/${message.guild.id}`).child('wuinfoonoff').once('value')).val();
     const welcomeMstatus = (await db.ref(`servers/${message.guild.id}`).child('welcomeMstatus').once('value')).val();
@@ -536,14 +537,16 @@ bot.on("message", async(message) => {
         let ar = arg.slice().trim().split(/ +/g);
         let c = ar.shift().toLowerCase();
         if (c === "on") {
+            if (message.author.id !== botowner && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`U don't have permission to do that`);
             firebase.database().ref('servers/' + message.guild.id).update({
-                welcomeMstatus: "on"
+                welcomeMstatus: "on", wimageonoff: "on", wtextonoff: "on"
             }).catch(function(err) {
                 message.channel.send(err + "\n\n\n");
             });
             message.channel.send(`welcome message turned **on** for ${message.guild.name} server`)
         }
         else if (c === "off") {
+            if (message.author.id !== botowner && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`U don't have permission to do that`);
             firebase.database().ref('servers/' + message.guild.id).update({
                 welcomeMstatus: "off"
             }).catch(function(err) {
@@ -552,6 +555,7 @@ bot.on("message", async(message) => {
             message.channel.send(`welcome message turned **off** for ${message.guild.name} server`)
         }
         else if (c === "use-jointext") {
+            if (message.author.id !== botowner && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`U don't have permission to do that`);
             if (wchannelid === null) return message.channel.send(`welcome channel not set please set the channel first with \`\`${prefix}welcome set-channel <#channel>\`\``)
             if (!wtextonoff) {
                 firebase.database().ref('servers/' + message.guild.id).update({
@@ -578,7 +582,36 @@ bot.on("message", async(message) => {
                 message.channel.send("welcome join text is now enabled");
             }
         }
+        else if (c === "use-leavetext") {
+            if (message.author.id !== botowner && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`U don't have permission to do that`);
+            if (wchannelid === null) return message.channel.send(`welcome channel not set please set the channel first with \`\`${prefix}welcome set-channel <#channel>\`\``)
+            if (!wleavetextonoff) {
+                firebase.database().ref('servers/' + message.guild.id).update({
+                    wleavetextonoff: "on"
+                }).catch(function(err) {
+                    message.channel.send(err + "\n\n\n");
+                });
+                message.channel.send("leave text is now enabled");
+            }
+            if (wleavetextonoff === "on") {
+                firebase.database().ref('servers/' + message.guild.id).update({
+                    wleavetextonoff: "off"
+                }).catch(function(err) {
+                    message.channel.send(err + "\n\n\n");
+                });
+                message.channel.send("leave text is now disabled");
+            }
+            if (wleavetextonoff === "off") {
+                firebase.database().ref('servers/' + message.guild.id).update({
+                    wleavetextonoff: "on"
+                }).catch(function(err) {
+                    message.channel.send(err + "\n\n\n");
+                });
+                message.channel.send("leave text is now enabled");
+            }
+        }
         else if (c === "use-image") {
+            if (message.author.id !== botowner && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`U don't have permission to do that`);
             if (wchannelid === null) return message.channel.send(`welcome channel not set please set the channel first with \`\`${prefix}welcome set-channel <#channel>\`\``);
             if (!wimageonoff) {
                 firebase.database().ref('servers/' + message.guild.id).update({
@@ -606,6 +639,7 @@ bot.on("message", async(message) => {
             }
         }
         else if (c === "use-userinfo") {
+            if (message.author.id !== botowner && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`U don't have permission to do that`);
             if (wchannelid === null) return message.channel.send(`welcome channel not set please set the channel first with \`\`${prefix}welcome set-channel <#channel>\`\``)
             if (!wuinfoonoff) {
                 firebase.database().ref('servers/' + message.guild.id).update({
@@ -633,7 +667,7 @@ bot.on("message", async(message) => {
             }
         }
         else if (c === "set-joinmessage") {
-            if (message.author.id !== botowner && !message.member.hasPermission("ADMINISTRATOR")) return message.channel.send(`U don't have permission to do that`);
+            if (message.author.id !== botowner && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`U don't have permission to do that`);
             if (wchannelid === null) return message.channel.send(`welcome channel not set please set the channel first with \`\`${prefix}welcome set-channel <#channel>\`\``);
             let arg2 = arg.substring(c.length)
             message.channel.send(`arg2${arg2}`)
@@ -644,6 +678,19 @@ bot.on("message", async(message) => {
                 message.channel.send(err + "\n\n\n");
             });
                 message.channel.send(`welcome message set successfully \n${arg2}`)
+        }
+        else if (c === "set-leavemessage") {
+            if (message.author.id !== botowner && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`U don't have permission to do that`);
+            if (wchannelid === null) return message.channel.send(`welcome channel not set please set the channel first with \`\`${prefix}welcome set-channel <#channel>\`\``);
+            let arg2 = arg.substring(c.length)
+            message.channel.send(`arg2${arg2}`)
+            if (!arg2) return message.channel.send(`please add a leave message after command like \n\`\`{user} user is left the server now we are {members} members\`\` \n{user} is welcome member \n{members} is total members of server`)
+            firebase.database().ref('servers/' + message.guild.id).update({
+                lmessage: arg2
+            }).catch(function(err) {
+                message.channel.send(err + "\n\n\n");
+            });
+                message.channel.send(`leave message set successfully \n${arg2}`)
         }
         else if (c === "set-channel") {
             if (message.author.id !== botowner && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`U don't have permission to do that`)
@@ -1039,13 +1086,17 @@ bot.on("message", async(message) => {
                     songList += `\`${i + 1}. ${serverQueue.songs[i].title}\`\n`;
                 }
             }
-            var queueembed = new Discord.RichEmbed()
-                .setColor(randomcolor)
-                .setAuthor("The song queue of " + message.guild.name + " currently has:", message.guild.iconURL)
-                .setDescription(`${songList}`)
-                .setFooter("Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
-                .setTimestamp();
-            message.channel.send({ embed: queueembed });
+            if (songList.length < 1950) {
+                var queueembed = new Discord.RichEmbed()
+                    .setColor(randomcolor)
+                    .setAuthor("The song queue of " + message.guild.name + " currently has:", message.guild.iconURL)
+                    .setDescription(`${songList}`)
+                    .setFooter("Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
+                    .setTimestamp();
+                message.channel.send({ embed: queueembed });
+            } else {
+                message.channel.send(`${songList}`, { split: "\n" });
+            }
         } else {
             message.channel.send("No song is in the queue", { reply: message });
         }
@@ -1251,6 +1302,22 @@ bot.on('guildMemberAdd', async(member) => {
         }
     } else { return }
 })
+
+bot.on('guildMemberRemove', async(member) => {
+    const wc = (await db.ref(`servers/${member.guild.id}`).child('wchannelid').once('value')).val();
+    const wmstatus = (await db.ref(`servers/${member.guild.id}`).child('welcomeMstatus').once('value')).val();
+    const wleavetextonoff = (await db.ref(`servers/${member.guild.id}`).child('wtextonoff').once('value')).val();
+    const lm = (await db.ref(`servers/${member.guild.id}`).child('lmessage').once('value')).val();
+    if (wmstatus === "on") {
+        if (wleavetextonoff === "on") {
+            if (lm === null) {
+                member.guild.channels.get(wc.toString()).send(`${member} is left the server now we are ${member.guild.memberCount} members`)
+            } else {
+                member.guild.channels.get(wc.toString()).send(wm.replace('{user}', member.toString()).replace('{members}', member.guild.memberCount));
+            }
+        }
+    } else { return }
+  });
 
 bot.on("guildCreate", guild => {bot.channels.get(botleavejoinchannel).send(`New server joined: ${guild.name} (id: ${guild.id}). This server has ${guild.memberCount} members! and owner is ${guild.owner.user.username} now im in ${bot.guilds.size} servers`);});
 
