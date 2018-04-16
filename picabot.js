@@ -16,7 +16,7 @@ const boterrorchannel = "420955154695585792";
 const botleavejoinchannel = "431829603741466634";
 const botrejectionschannel = "432090416834412545";
 const botowner = "264470521788366848";
-var fortunes = ["It is certain", "It is decidedly so", "Without a doubt", "Yes definitely", "You may rely of it", "As I see it, yes", "Most likely", "Outlook good", "Yes", "Signs point to yes", "Reply hazy try again", "Ask again later", "Better not tell you now", "Cannot predict now", "Concentrate and ask again", "Dont count on it", "My reply is no", "My sources say no", "Outlook not so good", "Very doubtful"];
+const wfortunes = ["Hey {user} keep you`r shoes out of door", "hey {user} show your swag", "be carefull {user} is here! -_-", "{user} make the party awesome", "Hey {user} welcome to this server Take a guitar and enjoy the party", "hey everyone {user} are slide hide your dishes", "let's go {user} for chicken dinner"];
 var dispatcher;
 const songQueue = new Map();
 var currentSongIndex = 0;
@@ -35,6 +35,8 @@ const querystring = require('querystring');
 const firebase = require("firebase");
 const Jimp = require("jimp");
 
+const ord = number => {let or; const num = number.toString(); if (num.endsWith("1")) { or = "st"; } else if (num.endsWith("2")) { or = "nd"; } else if (num.endsWith("3")) { or = "rd"; } else { or = "th"; } return or; };
+const tags = {}
 firebase.initializeApp({
     apiKey: process.env.FB_API_KEY,
     authDomain: process.env.FB_AUTH_DOMAIN,
@@ -1166,27 +1168,31 @@ bot.on('guildMemberAdd', async(member) => {
     const wimageonoff = (await db.ref(`servers/${member.guild.id}`).child('wimageonoff').once('value')).val();
     const wm = (await db.ref(`servers/${member.guild.id}`).child('wmessage').once('value')).val();
     const wc = (await db.ref(`servers/${member.guild.id}`).child('wchannelid').once('value')).val();
+    const fn = Math.floor(Math.random() * wfortunes.length);
+    const fact = `${fortunes[fn]}`; const fact2 = `${fact.replace('{user}', member.user.username)}`
     if (wmstatus === "on") {
         if (wtextonoff === "on") {
-            bot.channels.get(wc.toString()).send(wm.replace('{user}', member.toString()).replace('{members}', member.guild.memberCount));
+            member.guild.channels.get(wc.toString()).send(wm.replace('{user}', member.toString()).replace('{members}', member.guild.memberCount));
         }
         if (wimageonoff === "on") {
             let tag = member.user.tag
-            let u = `you are the ${member.guild.memberCount}th user`
+            let u = `you are the ${member.guild.memberCount}${ord(member.guild.memberCount)} user`
             let s = member.guild.name
             let img = member.user.avatarURL
             Jimp.read(img).then(function(image) {
             Jimp.read(`https://i.imgur.com/8YEW9b1.png`).then(function(image2) {
+            Jimp.loadFont(jimp,FONT_SANS_16_BLACK).then(function(font) {
+                image2.print(font, 10, 170, fact2)
             Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(function(font) {
                 image2.print(font, 150 , 155, u);
             Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function(font) {
-                image2.print(font, 185, 120, s)
+                image2.print(font, 185, 100, s)
             Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(function(font) {
                 image2.print(font, 150, 20, tag);
-                image2.print(font, 150 , 120, "to");
+                image2.print(font, 150 , 100, "to");
                 image.resize(128, 128);
                 image2.composite(image, 2, 2);
-                image2.getBuffer(Jimp.MIME_PNG,(error, buffer) => {member.guild.channels.get(wc.toString()).send({files: [{ name: 'welcome.png', attachment: buffer }] });}); });}) }) }) })
+                image2.getBuffer(Jimp.MIME_PNG,(error, buffer) => {member.guild.channels.get(wc.toString()).send({files: [{ name: 'welcome.png', attachment: buffer }] });}); });}) }) }) })})
         }
     } else { return }
 })
