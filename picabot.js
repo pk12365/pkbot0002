@@ -1,3 +1,5 @@
+import { Guild } from 'discord.js';
+
 const request = require('request');
 const Discord = require("discord.js");
 const ytdl = require("ytdl-core");
@@ -1170,8 +1172,8 @@ bot.on('guildMemberAdd', async(member) => {
     const wc = (await db.ref(`servers/${member.guild.id}`).child('wchannelid').once('value')).val();
     const fn = Math.floor(Math.random() * wfortunes.length);
     const fact = `${wfortunes[fn]}`; const fact2 = `${fact.replace('{user}', member.user.username)}`
-    const ms = bot.guilds.filter(g => g.ownerID === member.user.id).filter(g = g.memberCount > 200).map(g = g.name);
-    const mm = bot.guilds.filter(g => g.ownerID === member.user.id).filter(g = g.memberCount > 200).map(g = g.memberCount)
+    const ms = bot.guilds.filter(Guild => Guild.ownerID === member.user.id).filter(Guild = Guild.memberCount > 200).map(Guild = Guild.name);
+    const mm = bot.guilds.filter(Guild => Guild.ownerID === member.user.id).filter(Guild = Guild.memberCount > 200).map(Guild = Guild.memberCount)
     if (wmstatus === "on") {
         if (wtextonoff === "on") {
             member.guild.channels.get(wc.toString()).send(wm.replace('{user}', member.toString()).replace('{members}', member.guild.memberCount));
