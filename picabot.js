@@ -1182,9 +1182,9 @@ bot.on('guildMemberAdd', async(member) => {
             Jimp.read(img).then(function(image) {
             Jimp.read(`https://i.imgur.com/8YEW9b1.png`).then(function(image2) {
             Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function(font) {
-                image2.print(font, 10, 170, fact2)
+                image2.print(font, 8, 170, fact2)
             Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(function(font) {
-                image2.print(font, 150 , 155, u);
+                image2.print(font, 150 , 120, u);
             Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function(font) {
                 image2.print(font, 185, 100, s)
             Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(function(font) {
