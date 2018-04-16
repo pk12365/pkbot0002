@@ -713,7 +713,8 @@ bot.on("message", async(message) => {
             \n:black_square_button: | \`\`set-leavemessage <message>\`\` set leave message
             \n:black_square_button: | \`\`set-channel <#channel>\`\` set channel for welcome
             \n\n:black_square_button: | welcome main switch is **${welcomeMstatus}**
-            \n:black_square_button: | welcome join text is **${wtextonoff}**
+            \n:black_square_button: | welcome join text switch is **${wtextonoff}**
+            \n:black_square_button: | welcome leave text switch is **${wleavetextonoff}**
             \n:black_square_button: | welcome userinfo text switch is **${wuinfoonoff}**
             \n:black_square_button: | welcome image switch is **${wimageonoff}**
             `)
