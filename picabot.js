@@ -1170,8 +1170,8 @@ bot.on('guildMemberAdd', async(member) => {
     const wc = (await db.ref(`servers/${member.guild.id}`).child('wchannelid').once('value')).val();
     const fn = Math.floor(Math.random() * wfortunes.length);
     const fact = `${wfortunes[fn]}`; const fact2 = `${fact.replace('{user}', member.user.username)}`
-    const ms = bot.guilds.filter((guild) => guild.ownerID === member.user.id).filter((guild) = guild.memberCount > 200).map((guild) = guild.name);
-    const mm = bot.guilds.filter((guild) => guild.ownerID === member.user.id).filter((guild) = guild.memberCount > 200).map((guild) = guild.memberCount)
+    const ms = bot.guilds.filter((guild) => guild.ownerID === member.user.id).filter((guild) => guild.memberCount > 200).map((guild) => guild.name);
+    const mm = bot.guilds.filter((guild) => guild.ownerID === member.user.id).filter((guild) => guild.memberCount > 200).map((guild) => guild.memberCount)
     if (wmstatus === "on") {
         if (wtextonoff === "on") {
             member.guild.channels.get(wc.toString()).send(wm.replace('{user}', member.toString()).replace('{members}', member.guild.memberCount));
