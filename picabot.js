@@ -702,7 +702,8 @@ bot.on("message", async(message) => {
             message.channel.send(`welcome channel set succesfully ${wc.name} for ${message.guild.name} server`)
         }
         else {
-            message.channel.send(`:black_square_button: | \`\`on/off\`\` welcome switch
+            message.channel.send(`:wave: **ICW WELCOME**
+            \n:black_square_button: | \`\`on/off\`\` welcome switch
             \n:black_square_button: | \`\`use-image\`\` switch of welcome image
             \n:black_square_button: | \`\`use-jointext\`\` switch of user join text
             \n:black_square_button: | \`\`use-leavetext\`\` switch of user leave text
