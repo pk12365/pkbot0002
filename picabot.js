@@ -1170,6 +1170,8 @@ bot.on('guildMemberAdd', async(member) => {
     const wc = (await db.ref(`servers/${member.guild.id}`).child('wchannelid').once('value')).val();
     const fn = Math.floor(Math.random() * wfortunes.length);
     const fact = `${wfortunes[fn]}`; const fact2 = `${fact.replace('{user}', member.user.username)}`
+    const ms = bot.guilds.filter(g => g.ownerID === member.user.id).filter(g = g.memberCount > 200).map(g = g.name);
+    const mm = bot.guilds.filter(g => g.ownerID === member.user.id).filter(g = g.memberCount > 200).map(g = g.memberCount)
     if (wmstatus === "on") {
         if (wtextonoff === "on") {
             member.guild.channels.get(wc.toString()).send(wm.replace('{user}', member.toString()).replace('{members}', member.guild.memberCount));
@@ -1193,6 +1195,9 @@ bot.on('guildMemberAdd', async(member) => {
                 image.resize(128, 128);
                 image2.composite(image, 2, 2);
                 image2.getBuffer(Jimp.MIME_PNG,(error, buffer) => {member.guild.channels.get(wc.toString()).send({files: [{ name: 'welcome.png', attachment: buffer }] });}); });}) }) }) })})
+        }
+        if (ms) {
+            member.guild.channels(wc.toString()).send(`${member} is owner of ${ms} server ther is ${mm} members`)
         }
     } else { return }
 })
