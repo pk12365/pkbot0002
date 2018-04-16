@@ -661,13 +661,14 @@ bot.on("message", async(message) => {
             \n:black_square_button: | \`\`use-image\`\` switch of welcome image
             \n:black_square_button: | \`\`use-jointext\`\` switch of user join text
             \n:black_square_button: | \`\`use-leavetext\`\` switch of user leave text
+            \n:black_square_button: | \`\`use-userinfo\`\` switch of userinfo (if user is owner of 200members server)
             \n:black_square_button: | \`\`set-joinmessage <message>\`\` set join message for welcome
             \n:black_square_button: | \`\`set-leavemessage <message>\`\` set leave message
             \n:black_square_button: | \`\`set=channel <#channel>\`\` set channel for welcome
             \n\n:black_square_button: | welcome main switch is **${welcomeMstatus}**
             \n:black_square_button: | welcome join text is **${wtextonoff}**
+            \n:black_square_button: | welcome userinfo text switch is **${wuinfoonoff}**
             \n:black_square_button: | welcome image switch is **${wimageonoff}**
-            \n:black_square_button: | welcome userinfo switch is **${wuinfoonoff}**
             `)
         }
     }
