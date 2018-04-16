@@ -1169,7 +1169,7 @@ bot.on('guildMemberAdd', async(member) => {
     const wm = (await db.ref(`servers/${member.guild.id}`).child('wmessage').once('value')).val();
     const wc = (await db.ref(`servers/${member.guild.id}`).child('wchannelid').once('value')).val();
     const fn = Math.floor(Math.random() * wfortunes.length);
-    const fact = `${fortunes[fn]}`; const fact2 = `${fact.replace('{user}', member.user.username)}`
+    const fact = `${wfortunes[fn]}`; const fact2 = `${fact.replace('{user}', member.user.username)}`
     if (wmstatus === "on") {
         if (wtextonoff === "on") {
             member.guild.channels.get(wc.toString()).send(wm.replace('{user}', member.toString()).replace('{members}', member.guild.memberCount));
