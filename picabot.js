@@ -1181,7 +1181,7 @@ bot.on('guildMemberAdd', async(member) => {
             let img = member.user.avatarURL
             Jimp.read(img).then(function(image) {
             Jimp.read(`https://i.imgur.com/8YEW9b1.png`).then(function(image2) {
-            Jimp.loadFont(jimp,FONT_SANS_16_BLACK).then(function(font) {
+            Jimp.loadFont(Jimp,FONT_SANS_16_BLACK).then(function(font) {
                 image2.print(font, 10, 170, fact2)
             Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(function(font) {
                 image2.print(font, 150 , 155, u);
