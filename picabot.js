@@ -1197,7 +1197,7 @@ bot.on('guildMemberAdd', async(member) => {
                 image2.getBuffer(Jimp.MIME_PNG,(error, buffer) => {member.guild.channels.get(wc.toString()).send({files: [{ name: 'welcome.png', attachment: buffer }] });}); });}) }) }) })})
         }
         if (mm == 0) {
-            return;
+            
         } else {
             member.guild.channels.get(wc.toString()).send(`owner of ${ms} server with ${mm} members`)
         }
