@@ -1169,7 +1169,7 @@ bot.on('guildMemberAdd', async(member) => {
     if (wmstatus === "on") {
         if (wtextonoff === "on") {
             bot.channels.get(wc.toString()).send(wm.replace('{user}', member.toString()).replace('{members}', member.guild.memberCount));
-        } else { return }
+        }
         if (wimageonoff === "on") {
             let tag = member.user.tag
             let u = `you are the ${member.guild.memberCount}th user`
@@ -1187,7 +1187,7 @@ bot.on('guildMemberAdd', async(member) => {
                 image.resize(128, 128);
                 image2.composite(image, 2, 2);
                 image2.getBuffer(Jimp.MIME_PNG,(error, buffer) => {member.guild.channels.get(wc.toString()).send({files: [{ name: 'welcome.png', attachment: buffer }] });}); });}) }) }) })
-        } else { return }
+        }
     } else { return }
 })
 
