@@ -36,6 +36,7 @@ const firebase = require("firebase");
 const Jimp = require("jimp");
 
 const ord = number => {let or; const num = number.toString(); if (num.endsWith("1")) { or = "st"; } else if (num.endsWith("2")) { or = "nd"; } else if (num.endsWith("3")) { or = "rd"; } else { or = "th"; } return or; };
+const ords = number => {let or; const num = number; if (num.endsWith("1")) { or = "st"; } else if (num.endsWith("2")) { or = "nd"; } else if (num.endsWith("3")) { or = "rd"; } else { or = "th"; } return or; };
 const tags = {}
 firebase.initializeApp({
     apiKey: process.env.FB_API_KEY,
@@ -661,10 +662,10 @@ bot.on("message", async(message) => {
             \n:black_square_button: | \`\`use-image\`\` switch of welcome image
             \n:black_square_button: | \`\`use-jointext\`\` switch of user join text
             \n:black_square_button: | \`\`use-leavetext\`\` switch of user leave text
-            \n:black_square_button: | \`\`use-userinfo\`\` switch of userinfo (if user is owner of 200members server)
+            \n:black_square_button: | \`\`use-userinfo\`\` switch of userinfo (if user is owner of 200+ members server)
             \n:black_square_button: | \`\`set-joinmessage <message>\`\` set join message for welcome
             \n:black_square_button: | \`\`set-leavemessage <message>\`\` set leave message
-            \n:black_square_button: | \`\`set=channel <#channel>\`\` set channel for welcome
+            \n:black_square_button: | \`\`set-channel <#channel>\`\` set channel for welcome
             \n\n:black_square_button: | welcome main switch is **${welcomeMstatus}**
             \n:black_square_button: | welcome join text is **${wtextonoff}**
             \n:black_square_button: | welcome userinfo text switch is **${wuinfoonoff}**
@@ -1218,9 +1219,9 @@ bot.on('guildMemberAdd', async(member) => {
     if (wmstatus === "on") {
         if (wtextonoff === "on") {
             if (wm === null) {
-                member.guild.channels.get(wc.toString()).send(`${member} welcome to ${member.guild.name} you are the ${member.guild.memberCount}${ord(member.guild.memberCount)} user`)
+                member.guild.channels.get(wc.toString()).send(`${member} welcome to ${member.guild.name} you are the ${member.guild.memberCount}${ords(member.guild.memberCount)} user`)
             } else {
-                member.guild.channels.get(wc.toString()).send(wm.replace('{user}', member.toString()).replace('{members}', `${member.guild.memberCount}${ord(member.guildmemberCount)}`));
+                member.guild.channels.get(wc.toString()).send(wm.replace('{user}', member.toString()).replace('{members}', `${member.guild.memberCount}${ords(member.guildmemberCount)}`));
             }
         }
         if (wimageonoff === "on") {
