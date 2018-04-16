@@ -1314,7 +1314,7 @@ bot.on('guildMemberRemove', async(member) => {
             if (lm === null) {
                 member.guild.channels.get(wc.toString()).send(`${member} is left the server now we are ${member.guild.memberCount} members`)
             } else {
-                member.guild.channels.get(wc.toString()).send(wm.replace('{user}', member.toString()).replace('{members}', member.guild.memberCount));
+                member.guild.channels.get(wc.toString()).send(lm.replace('{user}', member.toString()).replace('{members}', member.guild.memberCount));
             }
         }
     } else { return }
