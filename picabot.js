@@ -670,7 +670,6 @@ bot.on("message", async(message) => {
             if (message.author.id !== botowner && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`U don't have permission to do that`);
             if (wchannelid === null) return message.channel.send(`welcome channel not set please set the channel first with \`\`${prefix}welcome set-channel <#channel>\`\``);
             let arg2 = arg.substring(c.length)
-            message.channel.send(`arg2${arg2}`)
             if (!arg2) return message.channel.send(`please add a welcome message after command like \n\`\`{user} welcome to the ${message.guild.name} server now we have {members} members\`\` \n{user} is welcome member \n{members} is total members of server`)
             firebase.database().ref('servers/' + message.guild.id).update({
                 wmessage: arg2
@@ -683,7 +682,6 @@ bot.on("message", async(message) => {
             if (message.author.id !== botowner && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`U don't have permission to do that`);
             if (wchannelid === null) return message.channel.send(`welcome channel not set please set the channel first with \`\`${prefix}welcome set-channel <#channel>\`\``);
             let arg2 = arg.substring(c.length)
-            message.channel.send(`arg2${arg2}`)
             if (!arg2) return message.channel.send(`please add a leave message after command like \n\`\`{user} user is left the server now we are {members} members\`\` \n{user} is welcome member \n{members} is total members of server`)
             firebase.database().ref('servers/' + message.guild.id).update({
                 lmessage: arg2
@@ -1285,12 +1283,12 @@ bot.on('guildMemberAdd', async(member) => {
             Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function(font) {
                 image2.print(font, 8, 170, fact2)
             Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(function(font) {
-                image2.print(font, 150 , 130, u);
+                image2.print(font, 150 , 140, u);
             Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function(font) {
-                image2.print(font, 185, 100, s)
+                image2.print(font, 185, 110, s)
             Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(function(font) {
                 image2.print(font, 150, 20, tag);
-                image2.print(font, 150 , 100, "to");
+                image2.print(font, 150 , 110, "to");
                 image.resize(128, 128);
                 image2.composite(image, 2, 2);
                 image2.getBuffer(Jimp.MIME_PNG,(error, buffer) => {member.guild.channels.get(wc.toString()).send({files: [{ name: 'welcome.png', attachment: buffer }] });}); });}) }) }) })})
