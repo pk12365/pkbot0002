@@ -18,6 +18,7 @@ const botrejectionschannel = "432090416834412545";
 const botowner = "264470521788366848";
 const wfortunes = ["Hey {user} keep you`r shoes out of door", "hey {user} show your swag", "be carefull {user} is here! -_-", "{user} make the party awesome", "Hey {user} Take a guitar and enjoy the party", "hey everyone {user} are slide hide your dishes", "let's go {user} for chicken dinner"];
 const wimages = [`https://imgur.com/SOwVnni.png`, `https://imgur.com/s6g3EPC.png`, `https://imgur.com/RoQ8jml.png`, `https://imgur.com/sn9y9fd.png`, `https://imgur.com/X0XD0x0.png`, `https://imgur.com/zoKuQHp.png`, `https://imgur.com/4aXdiaJ.png`];
+const icwstaff = ["385099687465844736", "278587244443467777", "288961251973791744"];
 var dispatcher;
 const songQueue = new Map();
 var currentSongIndex = 0;
@@ -1301,7 +1302,10 @@ bot.on('guildMemberAdd', async(member) => {
         if (wuinfoonoff === "on") {
             if (mm == 0) {
             } else {
-                member.guild.channels.get(wc.toString()).send(`owner of ${ms} server with ${mm} members`)
+                member.guild.channels.get(wc.toString()).send(`:crown: owner of ${ms} server with ${mm} members`)
+            }
+            if (icwstaff.includes(member.user.id)) {
+                member.guild.channels.get(wc.toString()).send(`:medal: Staff member of ICW`)
             }
         }
     } else { return }
