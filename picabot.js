@@ -702,8 +702,36 @@ bot.on("message", async(message) => {
                 message.channel.send(err + "\n\n\n");
             });
             message.channel.send(`welcome channel set succesfully ${wc.name} for ${message.guild.name} server`)
+        } else if (c === "jointest") {
+            let member = message.mentions.members.first()
+            if (!member) return message.channel.send(`Please mentions someone like \`\`${prefix}welcome jointest <@${message.author.id}>`);
+            let tag = `Welcome ${member.user.tag}`
+            let m = "to"
+            let u = `you are the ${member.guild.memberCount}${ord(member.guild.memberCount)} user`
+            let s = member.guild.name
+            let img = member.user.avatarURL
+            if (wm === null) {
+                message.channel.send(`${member} welcome to ${member.guild.name} you are the ${member.guild.memberCount} user`)
+            } else {
+                message.channel.send(wm.replace('{user}', member.toString()).replace('{members}', member.guild.memberCount));
+            }
+            Jimp.read(img).then(function(image) {
+                Jimp.read(images).then(function(image2) {
+                    Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function(font) {
+                        image2.print(font, 325 , 220, fact2);
+                        Jimp.loadFont(Jimp.FONT_SANS_64_BLACK).then(function(font) {
+                            image2.print(font, 400, 80, s)
+                            Jimp.loadFont(Jimp.FONT_SANS_64_WHITE).then(function(font) {
+                                image2.print(font, 325, 20, tag);
+                                image2.print(font, 330 , 80, m);
+                                image2.print(font, 330 , 135, u);
+                                image.resize(300, 300);
+                                image2.composite(image, 2, 2);
+                                image2.getBuffer(Jimp.MIME_PNG,
+                                    (error, buffer) => { message.channel.send({files: [{ name: 'welcome.png', attachment: buffer }] }); }); });}) }) }) })
         }
         else {
+            if (wchannelid === null) { wchannel = "Not Set" } else { wchannel = `<#${wc}>` }
             message.channel.send(`:wave: **ICW WELCOME**
             \n:black_square_button: | \`\`on/off\`\` welcome switch
             \n:black_square_button: | \`\`use-image\`\` switch of welcome image
@@ -714,18 +742,13 @@ bot.on("message", async(message) => {
             \n:black_square_button: | \`\`set-leavemessage <message>\`\` set leave message
             \n:black_square_button: | \`\`set-channel <#channel>\`\` set channel for welcome
             \n\n:black_square_button: | welcome main switch is **${welcomeMstatus}**
+            \n:black_square_button: | welcome channel is **${wchannel}**
             \n:black_square_button: | welcome join text switch is **${wtextonoff}**
             \n:black_square_button: | welcome leave text switch is **${wleavetextonoff}**
             \n:black_square_button: | welcome userinfo text switch is **${wuinfoonoff}**
             \n:black_square_button: | welcome image switch is **${wimageonoff}**
             `)
         }
-    }
-
-    if (command === "testwelcome") {
-        const wm = (await db.ref(`servers/${message.guild.id}`).child('wmessage').once('value')).val();
-        const wc = (await db.ref(`servers/${message.guild.id}`).child('wchannelid').once('value')).val();
-        bot.channels.get(wc.toString()).send(wm.replace('{user}', message.author.tag.toString()).replace('{members}', message.guild.memberCount));
     }
 
     if (command === "warn") {
