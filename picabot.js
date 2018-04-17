@@ -534,6 +534,7 @@ bot.on("message", async(message) => {
     const wimageonoff = (await db.ref(`servers/${message.guild.id}`).child('wimageonoff').once('value')).val();
     const wuinfoonoff = (await db.ref(`servers/${message.guild.id}`).child('wuinfoonoff').once('value')).val();
     const welcomeMstatus = (await db.ref(`servers/${message.guild.id}`).child('welcomeMstatus').once('value')).val();
+    const wm = (await db.ref(`servers/${member.guild.id}`).child('wmessage').once('value')).val();
     if (command === "welcome") {
         let arg = args.join().substring(command.length);
         let ar = arg.slice().trim().split(/ +/g);
