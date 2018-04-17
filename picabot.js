@@ -517,7 +517,7 @@ bot.on("message", async(message) => {
     }
 
     if (command === "setprefix") {
-        if (message.author.id !== botowner && !message.member.hasPermission("ADMINISTRATOR")) return message.channel.send(`U don't have permission to do that`);
+        if (message.author.id !== botowner && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`U don't have permission to do that`);
         let arg = args.join("").substring(command.length)
         if (!arg) return message.channel.send(`Please add a prefix after command like \`\`${prefix}setprefix &\`\``);
         firebase.database().ref('servers/' + message.guild.id).update({
@@ -542,7 +542,7 @@ bot.on("message", async(message) => {
         if (c === "on") {
             if (message.author.id !== botowner && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`U don't have permission to do that`);
             firebase.database().ref('servers/' + message.guild.id).update({
-                welcomeMstatus: "on", wimageonoff: "on", wtextonoff: "on"
+                welcomeMstatus: "on", wimageonoff: "on", wtextonoff: "on", wuinfoonoff: "on"
             }).catch(function(err) {
                 message.channel.send(err + "\n\n\n");
             });
@@ -1342,7 +1342,7 @@ bot.on('guildMemberAdd', async(member) => {
 bot.on('guildMemberRemove', async(member) => {
     const wc = (await db.ref(`servers/${member.guild.id}`).child('wchannelid').once('value')).val();
     const wmstatus = (await db.ref(`servers/${member.guild.id}`).child('welcomeMstatus').once('value')).val();
-    const wleavetextonoff = (await db.ref(`servers/${member.guild.id}`).child('wtextonoff').once('value')).val();
+    const wleavetextonoff = (await db.ref(`servers/${member.guild.id}`).child('wleavetextonoff').once('value')).val();
     const lm = (await db.ref(`servers/${member.guild.id}`).child('lmessage').once('value')).val();
     if (wmstatus === "on") {
         if (wc === null) return;
