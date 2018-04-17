@@ -1302,14 +1302,13 @@ bot.on('guildMemberAdd', async(member) => {
         if (wuinfoonoff === "on") {
             if (mm == 0) {
             } else {
-                setTimeout(() => {
-                    member.guild.channels.get(wc.toString()).send(`:crown: owner of ${ms} server with ${mm} members`)
-                }, 1500);
+                member.guild.channels.get(wc.toString()).send(`:crown: Owner of ${ms} server with ${mm} members`)
+            }
+            if (member.user.id === botowner) {
+                member.guild.channels.get(wc.toString()).send(`:military_medal: Owner of ICW BOT (me)`)
             }
             if (icwstaff.includes(member.user.id)) {
-                setTimeout(() => {
-                    member.guild.channels.get(wc.toString()).send(`:medal: Staff member of ICW`)
-                }, 1500);
+                member.guild.channels.get(wc.toString()).send(`:medal: Staff member of ICW`)
             }
         }
     } else { return }
