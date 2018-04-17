@@ -704,7 +704,7 @@ bot.on("message", async(message) => {
             message.channel.send(`welcome channel set succesfully ${wc.name} for ${message.guild.name} server`)
         } else if (c === "jointest") {
             let member = message.mentions.members.first()
-            if (!member) return message.channel.send(`Please mentions someone like \`\`${prefix}welcome jointest <@${message.author.id}>`);
+            if (!member) return message.channel.send(`Please mentions someone like \`\`${prefix}welcome jointest <@${message.author.id}>\`\``);
             let tag = `Welcome ${member.user.tag}`
             let m = "to"
             let u = `you are the ${member.guild.memberCount}${ord(member.guild.memberCount)} user`
@@ -731,7 +731,7 @@ bot.on("message", async(message) => {
                                     (error, buffer) => { message.channel.send({files: [{ name: 'welcome.png', attachment: buffer }] }); }); });}) }) }) })
         }
         else {
-            if (wchannelid === null) { wchannel = "Not Set" } else { wchannel = `<#${wc}>` }
+            if (wchannelid === null) { wchannel = "Not Set" } else { wchannel = `<#${wchannelid}>` }
             message.channel.send(`:wave: **ICW WELCOME**
             \n:black_square_button: | \`\`on/off\`\` welcome switch
             \n:black_square_button: | \`\`use-image\`\` switch of welcome image
