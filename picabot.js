@@ -1265,7 +1265,7 @@ bot.on('guildMemberAdd', async(member) => {
     const wc = (await db.ref(`servers/${member.guild.id}`).child('wchannelid').once('value')).val();
     const fn = Math.floor(Math.random() * wfortunes.length);
     const fact = `${wfortunes[fn]}`; const fact2 = `${fact.replace('{user}', member.user.username)}`
-    const rn = Math.floor(Math.random() * wimages.length); const image = `${wimages[rn]}`;
+    const rn = Math.floor(Math.random() * wimages.length); const images = `${wimages[rn]}`;
     const ms = bot.guilds.filter((guild) => guild.ownerID === member.user.id).filter((guild) => guild.memberCount > 200).map((guild) => guild.name);
     const mm = bot.guilds.filter((guild) => guild.ownerID === member.user.id).filter((guild) => guild.memberCount > 200).map((guild) => guild.memberCount)
     if (wmstatus === "on") {
@@ -1284,7 +1284,7 @@ bot.on('guildMemberAdd', async(member) => {
             let s = member.guild.name
             let img = member.user.avatarURL
             Jimp.read(img).then(function(image) {
-                Jimp.read(image).then(function(image2) {
+                Jimp.read(images).then(function(image2) {
                     Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function(font) {
                         image2.print(font, 330 , 200, fact2);
                         Jimp.loadFont(Jimp.FONT_SANS_64_BLACK).then(function(font) {
