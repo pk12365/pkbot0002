@@ -17,7 +17,7 @@ const botleavejoinchannel = "431829603741466634";
 const botrejectionschannel = "432090416834412545";
 const botowner = "264470521788366848";
 const wfortunes = ["Hey {user} keep you`r shoes out of door", "hey {user} show your swag", "be carefull {user} is here! -_-", "{user} make the party awesome", "Hey {user} welcome to this server Take a guitar and enjoy the party", "hey everyone {user} are slide hide your dishes", "let's go {user} for chicken dinner"];
-const wimages = ["https://imgur.com/SOwVnni", "https://imgur.com/s6g3EPC", "https://imgur.com/RoQ8jml", "https://imgur.com/sn9y9fd", "https://imgur.com/X0XD0x0", "https://imgur.com/Ij1vImk", "https://imgur.com/zoKuQHp", "https://imgur.com/3O28zFH", "https://imgur.com/4aXdiaJ"];
+const wimages = ["https://imgur.com/SOwVnni.png", "https://imgur.com/s6g3EPC.png", "https://imgur.com/RoQ8jml.png", "https://imgur.com/sn9y9fd.png", "https://imgur.com/X0XD0x0.png", "https://imgur.com/Ij1vImk.png", "https://imgur.com/zoKuQHp.png", "https://imgur.com/3O28zFH.png", "https://imgur.com/4aXdiaJ.png"];
 var dispatcher;
 const songQueue = new Map();
 var currentSongIndex = 0;
@@ -1284,7 +1284,7 @@ bot.on('guildMemberAdd', async(member) => {
             let s = member.guild.name
             let img = member.user.avatarURL
             Jimp.read(img).then(function(image) {
-                Jimp.read(`${image}.png`).then(function(image2) {
+                Jimp.read(image).then(function(image2) {
                     Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function(font) {
                         image2.print(font, 330 , 200, fact2);
                         Jimp.loadFont(Jimp.FONT_SANS_64_BLACK).then(function(font) {
