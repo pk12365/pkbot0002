@@ -706,13 +706,15 @@ bot.on("message", async(message) => {
         } else if (c === "jointest") {
             let member = message.mentions.members.first()
             if (!member) return message.channel.send(`Please mentions someone like \`\`${prefix}welcome jointest <@${message.author.id}>\`\``);
-            let tag = `Welcome ${member.user.tag}`
-            let m = "to"
-            let u = `you are the ${member.guild.memberCount}${ord(member.guild.memberCount)} user`
-            let s = member.guild.name
-            let img = member.user.avatarURL
+            const fn = Math.floor(Math.random() * wfortunes.length);const fact = `${wfortunes[fn]}`; const fact2 = `${fact.replace('{user}', member.user.username)}`
+            const rn = Math.floor(Math.random() * wimages.length); const images = `${wimages[rn]}`;
+            let tag = `Welcome ${member.user.tag}`;
+            let m = "to";
+            let u = `you are the ${member.guild.memberCount}${ord(member.guild.memberCount)} user`;
+            let s = member.guild.name;
+            let img = member.user.avatarURL;
             if (wm === null) {
-                message.channel.send(`${member} welcome to ${member.guild.name} you are the ${member.guild.memberCount} user`)
+                message.channel.send(`${member} welcome to ${member.guild.name} you are the ${member.guild.memberCount} user`);
             } else {
                 message.channel.send(wm.replace('{user}', member.toString()).replace('{members}', member.guild.memberCount));
             }
@@ -729,7 +731,7 @@ bot.on("message", async(message) => {
                                 image.resize(300, 300);
                                 image2.composite(image, 2, 2);
                                 image2.getBuffer(Jimp.MIME_PNG,
-                                    (error, buffer) => { message.channel.send({files: [{ name: 'welcome.png', attachment: buffer }] }); }); });}) }) }) })
+                                    (error, buffer) => { message.channel.send({files: [{ name: 'welcome.png', attachment: buffer }] }); }); }); }); }); }); });
         }
         else {
             if (wchannelid === null) { wchannel = "Not Set" } else { wchannel = `<#${wchannelid}>` }
@@ -1288,8 +1290,7 @@ bot.on('guildMemberAdd', async(member) => {
     const wuinfoonoff = (await db.ref(`servers/${member.guild.id}`).child('wuinfoonoff').once('value')).val();
     const wm = (await db.ref(`servers/${member.guild.id}`).child('wmessage').once('value')).val();
     const wc = (await db.ref(`servers/${member.guild.id}`).child('wchannelid').once('value')).val();
-    const fn = Math.floor(Math.random() * wfortunes.length);
-    const fact = `${wfortunes[fn]}`; const fact2 = `${fact.replace('{user}', member.user.username)}`
+    const fn = Math.floor(Math.random() * wfortunes.length);const fact = `${wfortunes[fn]}`; const fact2 = `${fact.replace('{user}', member.user.username)}`
     const rn = Math.floor(Math.random() * wimages.length); const images = `${wimages[rn]}`;
     const ms = bot.guilds.filter((guild) => guild.ownerID === member.user.id).filter((guild) => guild.memberCount > 200).map((guild) => guild.name);
     const mm = bot.guilds.filter((guild) => guild.ownerID === member.user.id).filter((guild) => guild.memberCount > 200).map((guild) => guild.memberCount)
