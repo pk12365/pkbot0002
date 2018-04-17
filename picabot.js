@@ -1302,10 +1302,10 @@ bot.on('guildMemberAdd', async(member) => {
         if (wuinfoonoff === "on") {
             if (mm == 0) {
             } else {
-                member.guild.channels.get(wc.toString()).send(`:crown: owner of ${ms} server with ${mm} members`)
+                await member.guild.channels.get(wc.toString()).send(`:crown: owner of ${ms} server with ${mm} members`)
             }
             if (icwstaff.includes(member.user.id)) {
-                member.guild.channels.get(wc.toString()).send(`:medal: Staff member of ICW`)
+                await member.guild.channels.get(wc.toString()).send(`:medal: Staff member of ICW`)
             }
         }
     } else { return }
@@ -1320,9 +1320,9 @@ bot.on('guildMemberRemove', async(member) => {
         if (wc === null) return;
         if (wleavetextonoff === "on") {
             if (lm === null) {
-                member.guild.channels.get(wc.toString()).send(`${member.user.username} is left the server now we are ${member.guild.memberCount} members`)
+                member.guild.channels.get(wc.toString()).send(`${member.user.tag} is left the server now we are ${member.guild.memberCount} members`)
             } else {
-                member.guild.channels.get(wc.toString()).send(lm.replace('{user}', member.user.username.toString()).replace('{members}', member.guild.memberCount));
+                member.guild.channels.get(wc.toString()).send(lm.replace('{user}', member.user.tag.toString()).replace('{members}', member.guild.memberCount));
             }
         }
     } else { return }
