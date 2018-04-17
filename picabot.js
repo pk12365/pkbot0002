@@ -1286,13 +1286,13 @@ bot.on('guildMemberAdd', async(member) => {
             Jimp.read(img).then(function(image) {
                 Jimp.read(images).then(function(image2) {
                     Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function(font) {
-                        image2.print(font, 330 , 200, fact2);
+                        image2.print(font, 325 , 220, fact2);
                         Jimp.loadFont(Jimp.FONT_SANS_64_BLACK).then(function(font) {
-                            image2.print(font, 400, 70, s)
+                            image2.print(font, 400, 80, s)
                             Jimp.loadFont(Jimp.FONT_SANS_64_WHITE).then(function(font) {
-                                image2.print(font, 330, 15, tag);
-                                image2.print(font, 330 , 70, m);
-                                image2.print(font, 330 , 125, u);
+                                image2.print(font, 325, 20, tag);
+                                image2.print(font, 330 , 80, m);
+                                image2.print(font, 330 , 135, u);
                                 image.resize(300, 300);
                                 image2.composite(image, 2, 2);
                                 image2.getBuffer(Jimp.MIME_PNG,
