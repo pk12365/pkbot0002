@@ -705,7 +705,7 @@ bot.on("message", async(message) => {
             message.channel.send(`welcome channel set succesfully ${wc.name} for ${message.guild.name} server`)
         } else if (c === "jointest") {
             let member = message.mentions.members.first()
-            if (!member) return message.channel.send(`Please mentions someone like \`\`${prefix}welcome jointest <@${message.author.id}>\`\``);
+            if (!member) return message.channel.send(`Please mentions someone like \`\`${prefix}welcome jointest <@${message.author.tag}>\`\``);
             const fn = Math.floor(Math.random() * wfortunes.length);const fact = `${wfortunes[fn]}`; const fact2 = `${fact.replace('{user}', member.user.username)}`
             const rn = Math.floor(Math.random() * wimages.length); const images = `${wimages[rn]}`;
             let tag = `Welcome ${member.user.tag}`;
