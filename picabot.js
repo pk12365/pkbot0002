@@ -17,6 +17,7 @@ const botleavejoinchannel = "431829603741466634";
 const botrejectionschannel = "432090416834412545";
 const botowner = "264470521788366848";
 const wfortunes = ["Hey {user} keep you`r shoes out of door", "hey {user} show your swag", "be carefull {user} is here! -_-", "{user} make the party awesome", "Hey {user} welcome to this server Take a guitar and enjoy the party", "hey everyone {user} are slide hide your dishes", "let's go {user} for chicken dinner"];
+const wimages = ["https://imgur.com/SOwVnni", "https://imgur.com/s6g3EPC", "https://imgur.com/RoQ8jml", "https://imgur.com/sn9y9fd", "https://imgur.com/X0XD0x0", "https://imgur.com/Ij1vImk", "https://imgur.com/zoKuQHp", "https://imgur.com/3O28zFH", "https://imgur.com/4aXdiaJ"];
 var dispatcher;
 const songQueue = new Map();
 var currentSongIndex = 0;
@@ -1264,6 +1265,7 @@ bot.on('guildMemberAdd', async(member) => {
     const wc = (await db.ref(`servers/${member.guild.id}`).child('wchannelid').once('value')).val();
     const fn = Math.floor(Math.random() * wfortunes.length);
     const fact = `${wfortunes[fn]}`; const fact2 = `${fact.replace('{user}', member.user.username)}`
+    const rn = Math.floor(Math.random() * wimages.length); const image = `${wimages[rn]}`;
     const ms = bot.guilds.filter((guild) => guild.ownerID === member.user.id).filter((guild) => guild.memberCount > 200).map((guild) => guild.name);
     const mm = bot.guilds.filter((guild) => guild.ownerID === member.user.id).filter((guild) => guild.memberCount > 200).map((guild) => guild.memberCount)
     if (wmstatus === "on") {
@@ -1276,24 +1278,25 @@ bot.on('guildMemberAdd', async(member) => {
             }
         }
         if (wimageonoff === "on") {
-            let tag = member.user.tag
+            let tag = `Welcome ${member.user.tag}`
+            let m = "to"
             let u = `you are the ${member.guild.memberCount}${ord(member.guild.memberCount)} user`
             let s = member.guild.name
             let img = member.user.avatarURL
             Jimp.read(img).then(function(image) {
-            Jimp.read(`https://i.imgur.com/8YEW9b1.png`).then(function(image2) {
-            Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function(font) {
-                image2.print(font, 8, 170, fact2)
-            Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(function(font) {
-                image2.print(font, 150 , 140, u);
-            Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function(font) {
-                image2.print(font, 185, 105, s)
-            Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(function(font) {
-                image2.print(font, 150, 20, tag);
-                image2.print(font, 150 , 105, "to");
-                image.resize(128, 128);
-                image2.composite(image, 2, 2);
-                image2.getBuffer(Jimp.MIME_PNG,(error, buffer) => {member.guild.channels.get(wc.toString()).send({files: [{ name: 'welcome.png', attachment: buffer }] });}); });}) }) }) })})
+                Jimp.read(`${image}.png`).then(function(image2) {
+                    Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function(font) {
+                        image2.print(font, 330 , 200, fact2);
+                        Jimp.loadFont(Jimp.FONT_SANS_64_BLACK).then(function(font) {
+                            image2.print(font, 400, 70, s)
+                            Jimp.loadFont(Jimp.FONT_SANS_64_WHITE).then(function(font) {
+                                image2.print(font, 330, 15, tag);
+                                image2.print(font, 330 , 70, m);
+                                image2.print(font, 330 , 125, u);
+                                image.resize(300, 300);
+                                image2.composite(image, 2, 2);
+                                image2.getBuffer(Jimp.MIME_PNG,
+                                    (error, buffer) => { member.guild.channels.get(wc.toString()).send({files: [{ name: 'welcome.png', attachment: buffer }] }); }); });}) }) }) })
         }
         if (wuinfoonoff === "on") {
             if (mm == 0) {
@@ -1313,9 +1316,9 @@ bot.on('guildMemberRemove', async(member) => {
         if (wc === null) return;
         if (wleavetextonoff === "on") {
             if (lm === null) {
-                member.guild.channels.get(wc.toString()).send(`${member} is left the server now we are ${member.guild.memberCount} members`)
+                member.guild.channels.get(wc.toString()).send(`${member.user.username} is left the server now we are ${member.guild.memberCount} members`)
             } else {
-                member.guild.channels.get(wc.toString()).send(lm.replace('{user}', member.toString()).replace('{members}', member.guild.memberCount));
+                member.guild.channels.get(wc.toString()).send(lm.replace('{user}', member.user.username.toString()).replace('{members}', member.guild.memberCount));
             }
         }
     } else { return }
