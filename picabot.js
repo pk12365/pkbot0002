@@ -1011,7 +1011,7 @@ bot.on("message", async(message) => {
                 return;
             }
             if (serverQueue.songs.length > 0) {
-                let args = args.join("").substring(command.length);
+                let arg = args.join("").substring(command.length);
                 var index = Number.parseInt(arg);
                 if (Number.isInteger(index)) {
                     previousSongIndex = currentSongIndex;
@@ -1023,7 +1023,7 @@ bot.on("message", async(message) => {
                     }
                     dispatcher.end("goto");
                 } else {
-                    message.channel.send(`\`${args}\` is an invalid index`, { reply: message });
+                    message.channel.send(`\`${arg}\` is an invalid index`, { reply: message });
                 }
             } else {
                 message.channel.send("There are no more songs :sob:", { reply: message });
