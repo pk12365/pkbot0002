@@ -1314,8 +1314,8 @@ bot.on('guildMemberAdd', async(member) => {
         }
         if (wimageonoff === "on") {
             let tag = `Welcome ${member.user.tag}`
-            let m = "to"
-            let to = `you are the ${member.guild.memberCount}${ord(member.guild.memberCount)} user`
+            let to = "to"
+            let u = `you are the ${member.guild.memberCount}${ord(member.guild.memberCount)} user`
             let s = member.guild.name
             let img = member.user.avatarURL
             Jimp.read(img).then(function(image) {
