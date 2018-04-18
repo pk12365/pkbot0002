@@ -727,8 +727,8 @@ bot.on("message", async(message) => {
             }
             Jimp.read(img).then(function(image) {
                 Jimp.read(images).then(function(image2) {
-                    Jimp.loadFont(Jimp.FONT_SANS_8_BLACK).then(function(font) {
-                        image2.print(font, 130, 85, fact2)
+                    Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function(font) {
+                        image2.print(font, 125, 90, fact2)
                         Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(function(font) {
                             image2.print(font, 130 , 60, u);
                             Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function(font) {
@@ -736,7 +736,7 @@ bot.on("message", async(message) => {
                                 Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(function(font) {
                                     image2.print(font, 130, 10, tag);
                                     image2.print(font, 130, 35, to);
-                                    image2.resize(400, 120);
+                                    image2.resize(450, 120);
                                     image.resize(120, 120);
                                     image2.composite(image, 0, 0);
                                     image2.getBuffer(Jimp.MIME_PNG,
@@ -1320,8 +1320,8 @@ bot.on('guildMemberAdd', async(member) => {
             let img = member.user.avatarURL
             Jimp.read(img).then(function(image) {
                 Jimp.read(images).then(function(image2) {
-                    Jimp.loadFont(Jimp.FONT_SANS_8_BLACK).then(function(font) {
-                        image2.print(font, 130, 85, fact2)
+                    Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function(font) {
+                        image2.print(font, 125, 90, fact2)
                         Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(function(font) {
                             image2.print(font, 130 , 60, u);
                             Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function(font) {
@@ -1329,7 +1329,7 @@ bot.on('guildMemberAdd', async(member) => {
                                 Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(function(font) {
                                     image2.print(font, 130, 10, tag);
                                     image2.print(font, 130, 35, to);
-                                    image2.resize(400, 120);
+                                    image2.resize(450, 120);
                                     image.resize(120, 120);
                                     image2.composite(image, 0, 0);
                                     image2.getBuffer(Jimp.MIME_PNG,
