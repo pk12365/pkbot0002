@@ -4,10 +4,9 @@ const ytdl = require("ytdl-core");
 const YouTube = require("simple-youtube-api");
 const fs = require("fs");
 const google = require("googleapis");
-const youtube = google.youtube("v3");
-//var config = JSON.parse(fs.readFileSync('./config.json', 'utf-8'));
+const youtube = google.youtube("v3"); //var config = JSON.parse(fs.readFileSync('./config.json', 'utf-8'));
 const bot = new Discord.Client();
-const prefix = "##";
+const prefix = "$";
 const botChannelName = "icwbot2";
 const botlogchannel = "406504806954565644";
 const botmlogchannel = "409055298158985216";
@@ -17,7 +16,7 @@ const botleavejoinchannel = "431829603741466634";
 const botrejectionschannel = "432090416834412545";
 const botowner = "264470521788366848";
 const wfortunes = ["Hey {user} keep you`r shoes out of door", "hey {user} show your swag", "be carefull {user} is here! -_-", "{user} make the party awesome", "Hey {user} Take a guitar and enjoy the party", "hey everyone {user} are slide hide your dishes", "let's go {user} for chicken dinner"];
-const wimages = [`https://imgur.com/SOwVnni.png`, `https://imgur.com/RoQ8jml.png`, `https://imgur.com/sn9y9fd.png`, `https://imgur.com/X0XD0x0.png`, `https://imgur.com/zoKuQHp.png`, `https://imgur.com/4aXdiaJ.png`];
+const wimages = [`https://imgur.com/IET51bP.png`, `https://imgur.com/Z2fpFVi.png`, `https://imgur.com/G29egX4.png`, `https://imgur.com/LHdn5I8.png`, `https://imgur.com/GziAP26.png`, `https://imgur.com/GjI5Vpk.png`, `https://imgur.com/WqTnmM0.png`, `https://imgur.com/qknRCM7`];
 const icwstaff = ["385099687465844736", "278587244443467777", "288961251973791744"];
 var dispatcher;
 const songQueue = new Map();
@@ -127,11 +126,9 @@ bot.on('message', message => {
         clbot.configure({ botapi: process.env.CLEVERBOT_KEY });
         Cleverbot.prepare(() => {
             clbot.write(message.content, (response) => {
-                message.channel.startTyping();
-                //setTimeout(() => {
+                message.channel.startTyping();//setTimeout(() => {
                 message.channel.send(response.message);
-                message.channel.stopTyping();
-                //}, Math.random() * (1 - 3) + 1 * 600);
+                message.channel.stopTyping();//}, Math.random() * (1 - 3) + 1 * 600);
             })
         });
         return;
@@ -149,6 +146,11 @@ bot.on("message", async(message) => {
     args = message.content.substring(prefix.length + 1).split();
     comarg = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = comarg.shift().toLowerCase();
+
+    if (command === "ping") {
+        let pingembed = new Discord.RichEmbed().setColor(randomcolor).addField("Pong! Websocket Latency:", `${bot.ping}`);
+        message.channel.send({ embed: pingembed})
+    }
 
     if (command === "restart") {
         if (message.author.id !== botowner) {
@@ -339,6 +341,11 @@ bot.on("message", async(message) => {
         comarg = message.content.slice(prefix.length).trim().split(/ +/g);
     }
     const command = comarg.shift().toLowerCase();
+
+    if (command === "ping") {
+        let pingembed = new Discord.RichEmbed().setColor(randomcolor).addField("Pong! Websocket Latency:", `${bot.ping}`);
+        message.channel.send({ embed: pingembed})
+    }
 
     if (command === "restart") {
         if (message.author.id !== botowner) {
@@ -709,7 +716,7 @@ bot.on("message", async(message) => {
             const fn = Math.floor(Math.random() * wfortunes.length);const fact = `${wfortunes[fn]}`; const fact2 = `${fact.replace('{user}', member.user.username)}`
             const rn = Math.floor(Math.random() * wimages.length); const images = `${wimages[rn]}`;
             let tag = `Welcome ${member.user.tag}`;
-            let m = "to";
+            let to = "to";
             let u = `you are the ${member.guild.memberCount}${ord(member.guild.memberCount)} user`;
             let s = member.guild.name;
             let img = member.user.avatarURL;
@@ -720,18 +727,20 @@ bot.on("message", async(message) => {
             }
             Jimp.read(img).then(function(image) {
                 Jimp.read(images).then(function(image2) {
-                    Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function(font) {
-                        image2.print(font, 325 , 220, fact2);
-                        Jimp.loadFont(Jimp.FONT_SANS_64_BLACK).then(function(font) {
-                            image2.print(font, 400, 80, s)
-                            Jimp.loadFont(Jimp.FONT_SANS_64_WHITE).then(function(font) {
-                                image2.print(font, 315, 20, tag);
-                                image2.print(font, 330 , 80, m);
-                                image2.print(font, 330 , 135, u);
-                                image.resize(300, 300);
-                                image2.composite(image, 2, 2);
-                                image2.getBuffer(Jimp.MIME_PNG,
-                                    (error, buffer) => { message.channel.send({files: [{ name: 'welcome.png', attachment: buffer }] }); }); }); }); }); }); });
+                    Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function(font) {
+                        image2.print(font, 130, 80, fact2)
+                        Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(function(font) {
+                            image2.print(font, 130 , 60, u);
+                            Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function(font) {
+                                image2.print(font, 150, 35, s)
+                                Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(function(font) {
+                                    image2.print(font, 130, 10, tag);
+                                    image2.print(font, 130, 35, to);
+                                    image2.resize(400, 120);
+                                    image.resize(120, 120);
+                                    image2.composite(image, 0, 0);
+                                    image2.getBuffer(Jimp.MIME_PNG,
+                                        (error, buffer) => { message.channel.send({files: [{ name: 'welcome.png', attachment: buffer }] }); }); }); }); }); }); }); });
         }
         else {
             if (wchannelid === null) { wchannel = "Not Set" } else { wchannel = `<#${wchannelid}>` }
@@ -1306,23 +1315,25 @@ bot.on('guildMemberAdd', async(member) => {
         if (wimageonoff === "on") {
             let tag = `Welcome ${member.user.tag}`
             let m = "to"
-            let u = `you are the ${member.guild.memberCount}${ord(member.guild.memberCount)} user`
+            let to = `you are the ${member.guild.memberCount}${ord(member.guild.memberCount)} user`
             let s = member.guild.name
             let img = member.user.avatarURL
             Jimp.read(img).then(function(image) {
                 Jimp.read(images).then(function(image2) {
-                    Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function(font) {
-                        image2.print(font, 315 , 220, fact2);
-                        Jimp.loadFont(Jimp.FONT_SANS_64_BLACK).then(function(font) {
-                            image2.print(font, 400, 80, s)
-                            Jimp.loadFont(Jimp.FONT_SANS_64_WHITE).then(function(font) {
-                                image2.print(font, 325, 20, tag);
-                                image2.print(font, 330 , 80, m);
-                                image2.print(font, 330 , 135, u);
-                                image.resize(300, 300);
-                                image2.composite(image, 2, 2);
-                                image2.getBuffer(Jimp.MIME_PNG,
-                                    (error, buffer) => { member.guild.channels.get(wc.toString()).send({files: [{ name: 'welcome.png', attachment: buffer }] }); }); });}) }) }) })
+                    Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function(font) {
+                        image2.print(font, 130, 80, fact2)
+                        Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(function(font) {
+                            image2.print(font, 130 , 60, u);
+                            Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function(font) {
+                                image2.print(font, 150, 35, s)
+                                Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(function(font) {
+                                    image2.print(font, 130, 10, tag);
+                                    image2.print(font, 130, 35, to);
+                                    image2.resize(400, 120);
+                                    image.resize(120, 120);
+                                    image2.composite(image, 0, 0);
+                                    image2.getBuffer(Jimp.MIME_PNG,
+                                        (error, buffer) => { message.channel.send({files: [{ name: 'welcome.png', attachment: buffer }] }); }); }); }); }); }); }); });
         }
         if (wuinfoonoff === "on") {
             if (mm == 0) {
