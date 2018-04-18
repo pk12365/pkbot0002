@@ -16,7 +16,7 @@ const botleavejoinchannel = "431829603741466634";
 const botrejectionschannel = "432090416834412545";
 const botowner = "264470521788366848";
 const wfortunes = ["{user} keep you`r shoes out of door", "hey {user} show your swag", "be carefull {user} is here! -_-", "{user} make the party awesome", "Hi {user} Take guitar & enjoy party", "hehe {user} are slide hide your dishes", "let's go {user} for chicken dinner"];
-const wimages = [`https://imgur.com/IET51bP.png`, `https://imgur.com/Z2fpFVi.png`, `https://imgur.com/G29egX4.png`, `https://imgur.com/LHdn5I8.png`, `https://imgur.com/GziAP26.png`, `https://imgur.com/GjI5Vpk.png`, `https://imgur.com/WqTnmM0.png`, `https://imgur.com/qknRCM7`];
+const wimages = [`https://imgur.com/Z2fpFVi.png`, `https://imgur.com/G29egX4.png`, `https://imgur.com/LHdn5I8.png`, `https://imgur.com/GziAP26.png`, `https://imgur.com/GjI5Vpk.png`, `https://imgur.com/WqTnmM0.png`, `https://imgur.com/qknRCM7.png`];
 const icwstaff = ["385099687465844736", "278587244443467777", "288961251973791744"];
 var dispatcher;
 const songQueue = new Map();
