@@ -1333,7 +1333,7 @@ bot.on('guildMemberAdd', async(member) => {
                                     image.resize(120, 120);
                                     image2.composite(image, 0, 0);
                                     image2.getBuffer(Jimp.MIME_PNG,
-                                        (error, buffer) => { message.channel.send({files: [{ name: 'welcome.png', attachment: buffer }] }); }); }); }); }); }); }); });
+                                        (error, buffer) => { member.guild.channels.get(wc.toString()).send({files: [{ name: 'welcome.png', attachment: buffer }] }); }); }); }); }); }); }); });
         }
         if (wuinfoonoff === "on") {
             if (mm == 0) {
