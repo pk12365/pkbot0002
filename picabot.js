@@ -6,7 +6,7 @@ const fs = require("fs");
 const google = require("googleapis");
 const youtube = google.youtube("v3"); //var config = JSON.parse(fs.readFileSync('./config.json', 'utf-8'));
 const bot = new Discord.Client();
-const prefix = "##";
+const prefix = "$";
 const botChannelName = "icwbot2";
 const botlogchannel = "406504806954565644";
 const botmlogchannel = "409055298158985216";
@@ -727,8 +727,8 @@ bot.on("message", async(message) => {
             }
             Jimp.read(img).then(function(image) {
                 Jimp.read(images).then(function(image2) {
-                    Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function(font) {
-                        image2.print(font, 130, 80, fact2)
+                    Jimp.loadFont(Jimp.FONT_SANS_8_BLACK).then(function(font) {
+                        image2.print(font, 130, 85, fact2)
                         Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(function(font) {
                             image2.print(font, 130 , 60, u);
                             Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function(font) {
@@ -1320,8 +1320,8 @@ bot.on('guildMemberAdd', async(member) => {
             let img = member.user.avatarURL
             Jimp.read(img).then(function(image) {
                 Jimp.read(images).then(function(image2) {
-                    Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function(font) {
-                        image2.print(font, 130, 80, fact2)
+                    Jimp.loadFont(Jimp.FONT_SANS_8_BLACK).then(function(font) {
+                        image2.print(font, 130, 85, fact2)
                         Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(function(font) {
                             image2.print(font, 130 , 60, u);
                             Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function(font) {
