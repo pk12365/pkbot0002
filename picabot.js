@@ -6,7 +6,7 @@ const fs = require("fs");
 const google = require("googleapis");
 const youtube = google.youtube("v3"); //var config = JSON.parse(fs.readFileSync('./config.json', 'utf-8'));
 const bot = new Discord.Client();
-const prefix = "##";
+const prefix = "$";
 const botChannelName = "icwbot2";
 const botlogchannel = "406504806954565644";
 const botmlogchannel = "409055298158985216";
@@ -1011,8 +1011,8 @@ bot.on("message", async(message) => {
                 return;
             }
             if (serverQueue.songs.length > 0) {
-                let args0 = args.join("").substring(command.length);
-                var index = Number.parseInt(args0[0]);
+                let args = args.join("").substring(command.length);
+                var index = Number.parseInt(arg);
                 if (Number.isInteger(index)) {
                     previousSongIndex = currentSongIndex;
                     currentSongIndex = index - 1;
@@ -1023,7 +1023,7 @@ bot.on("message", async(message) => {
                     }
                     dispatcher.end("goto");
                 } else {
-                    message.channel.send(`\`${args0[0]}\` is an invalid index`, { reply: message });
+                    message.channel.send(`\`${args}\` is an invalid index`, { reply: message });
                 }
             } else {
                 message.channel.send("There are no more songs :sob:", { reply: message });
@@ -1341,7 +1341,7 @@ bot.on('guildMemberAdd', async(member) => {
                 member.guild.channels.get(wc.toString()).send(`:crown: Owner of ${ms} server with ${mm} members`)
             }
             if (member.user.id === botowner) {
-                member.guild.channels.get(wc.toString()).send(`:military_medal: Owner of ICW BOT (me)`)
+                member.guild.channels.get(wc.toString()).send(`:military_medal: Owner of ICW BOT`)
             }
             if (icwstaff.includes(member.user.id)) {
                 member.guild.channels.get(wc.toString()).send(`:medal: Staff member of ICW`)
