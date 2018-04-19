@@ -721,7 +721,7 @@ bot.on("message", async(message) => {
             let s = member.guild.name;
             let img = member.user.displayAvatarURL;
             if (wm === null) {
-                message.channel.send(`${member} welcome to ${member.guild.name} you are the ${member.guild.memberCount} user`);
+                message.channel.send(`${member} welcome to ${member.guild.name} you are the ${member.guild.memberCount}${ord(member.guild.memberCount)} user`);
             } else {
                 message.channel.send(wm.replace('{user}', member.toString()).replace('{members}', member.guild.memberCount));
             }
