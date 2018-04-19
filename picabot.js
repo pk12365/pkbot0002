@@ -180,7 +180,6 @@ bot.on("message", async(message) => {
             .addField("help with donate", `[patreon](https://www.patreon.com/icw)`, inline = true)
             .setTimestamp();
         message.author.send({ embed: helpembed });
-        message.channel.send("check your dms", { replay: message }).then(sent => sent.delete({ timeout: 9999 }));
     }
 
     if (command === "say") {
@@ -277,7 +276,6 @@ bot.on("message", async(message) => {
 
     if (command === "invite") {
         message.channel.send("Invite URL: https://discordapp.com/oauth2/authorize?client_id=376292306233458688&permissions=8&scope=bot");
-        message.channel.send("please check your dms", { replay: message }).then(sent => sent.delete({ timeout: 99 }));
     }
 
     if (command === "botinfo" || command === "info" || command === "botstatus" || command === "status") {
@@ -472,7 +470,6 @@ bot.on("message", async(message) => {
 
     if (command === "invite") {
         message.channel.send("Invite URL: https://discordapp.com/oauth2/authorize?client_id=376292306233458688&permissions=8&scope=bot");
-        message.channel.send("please check your dms", { replay: message }).then(sent => sent.delete({ timeout: 99 }));
     }
 
     if (command === "botinfo" || command === "info" || command === "botstatus" || command === "status") {
