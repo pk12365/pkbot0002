@@ -719,7 +719,7 @@ bot.on("message", async(message) => {
             let to = "to";
             let u = `you are the ${member.guild.memberCount}${ord(member.guild.memberCount)} user`;
             let s = member.guild.name;
-            let img = member.user.avatarURL;
+            let img = member.user.displayAvatarURL;
             if (wm === null) {
                 message.channel.send(`${member} welcome to ${member.guild.name} you are the ${member.guild.memberCount} user`);
             } else {
@@ -1317,7 +1317,7 @@ bot.on('guildMemberAdd', async(member) => {
             let to = "to"
             let u = `you are the ${member.guild.memberCount}${ord(member.guild.memberCount)} user`
             let s = member.guild.name
-            let img = member.user.avatarURL
+            let img = member.user.displayAvatarURL
             Jimp.read(img).then(function(image) {
                 Jimp.read(images).then(function(image2) {
                     Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function(font) {
