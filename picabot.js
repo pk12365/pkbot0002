@@ -35,7 +35,7 @@ const snekfetch = require('snekfetch');
 const querystring = require('querystring');
 const firebase = require("firebase");
 const Jimp = require("jimp");
-const Canvas = require('canvas');
+const Canvas = require('canvas-prebuilt');
 Canvas.registerFont('./data/28dayslater.ttf', {family: '28 Days Later'})
 
 const ord = number => {let or; const num = number.toString(); if (num.endsWith("1")) { or = "st"; } else if (num.endsWith("2")) { or = "nd"; } else if (num.endsWith("3")) { or = "rd"; } else { or = "th"; } return or; };
