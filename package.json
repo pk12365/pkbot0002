@@ -32,7 +32,6 @@
     "firebase": "^4.11.0",
     "ytdl-core": "^0.20.1",
     "simple-youtube-api": "^5.0.1",
-    "jimp": "^0.2.28",
-    "canvas-prebuilt": "^2.0.0-alpha.12"
+    "jimp": "^0.2.28"
   }
 }
