@@ -6,7 +6,7 @@ const fs = require("fs");
 const google = require("googleapis");
 const youtube = google.youtube("v3"); //var config = JSON.parse(fs.readFileSync('./config.json', 'utf-8'));
 const bot = new Discord.Client();
-const prefix = "##";
+const prefix = "$";
 const botChannelName = "icwbot2";
 const botlogchannel = "406504806954565644";
 const botmlogchannel = "409055298158985216";
@@ -1194,7 +1194,6 @@ var addSong = function(message, video, voiceChannel, playlist = false) {
         user: message.author.username,
         usravatar: message.author.avatarURL
     };
-    if (!serverQueue) {
         const queueConstruct = {
             textChannel: message.channel,
             voiceChannel: voiceChannel,
@@ -1205,7 +1204,8 @@ var addSong = function(message, video, voiceChannel, playlist = false) {
         };
         songQueue.set(message.guild.id, queueConstruct);
 
-        queueConstruct.songs.push(song);
+        //queueConstruct.songs.push(song);
+        serverQueue.songs.push(song);
     try {
         if (!bot.voiceConnections.exists("channel", message.member.voiceChannel)) {
             message.member.voiceChannel.join().then(function(connection) {
@@ -1215,8 +1215,7 @@ var addSong = function(message, video, voiceChannel, playlist = false) {
     } catch (error) {
         message.channel.send(`err ${error}`)
     }
-    } else {
-        serverQueue.songs.push(song);
+        //serverQueue.songs.push(song);
         if (playlist) return undefined;
         let Discord = require('discord.js');
         let embed = new Discord.RichEmbed()
@@ -1229,8 +1228,6 @@ var addSong = function(message, video, voiceChannel, playlist = false) {
             .setFooter("Added by: " + message.author.username.toString(), message.author.avatarURL)
             .setTimestamp()
         return message.channel.send({ embed });
-    }
-    return undefined;
 }
 
 var playSong = function(message, connection) {
