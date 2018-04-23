@@ -6,7 +6,7 @@ const fs = require("fs");
 const google = require("googleapis");
 const youtube = google.youtube("v3"); //var config = JSON.parse(fs.readFileSync('./config.json', 'utf-8'));
 const bot = new Discord.Client();
-const prefix = "";
+const prefix = "##";
 const botChannelName = "icwbot2";
 const botlogchannel = "406504806954565644";
 const botmlogchannel = "409055298158985216";
@@ -736,9 +736,9 @@ bot.on("message", async(message) => {
                         image2.print(font, 102 , 78, u);
                         image2.print(font, 102, 3, "Welcome");
                     Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function(font) {
-                        image2.print(font,104, 20, message.author.tag);
+                        image2.print(font,104, 20, member.user.tag);
                     Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(function(font) {
-                        image2.print(font, 102, 18, message.author.tag)
+                        image2.print(font, 102, 18, member.user.tag)
                         image2.resize(400, 120);
                         image.resize(90, 90);
                         mask.resize(90, 90);
@@ -1347,7 +1347,7 @@ bot.on('guildMemberAdd', async(member) => {
                         image2.print(font, 102, 18, member.user.tag)
                         image2.resize(400, 120);
                         image.resize(90, 90);
-                        mask.resize(640, 640);
+                        mask.resize(90, 90);
                         image.mask(mask, 0, 0);
                         image2.composite(image, 5, 5);
                         image2.getBuffer(Jimp.MIME_PNG,
