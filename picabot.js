@@ -1210,6 +1210,11 @@ var addSong = function(message, video, voiceChannel, playlist = false) {
         serverQueue.songs.push(song);
         let Discord = require('discord.js');
         if (playlist) {
+            if (!bot.voiceConnections.exists("channel", message.member.voiceChannel)) {
+                message.member.voiceChannel.join().then(function(connection) {
+                    playSong(message, connection);
+                }).catch(err => bot.channels.get(boterrorchannel).send(`${message.author.username} from ${message.guild.name} play command and error in addsong \n${err}`)); //removed consol log
+            }
             return
         } else {
         let embed = new Discord.RichEmbed()
