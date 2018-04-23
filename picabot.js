@@ -1387,7 +1387,8 @@ bot.on('guildMemberRemove', async(member) => {
 
 bot.on("guildCreate", guild => {bot.channels.get(botleavejoinchannel).send(`New server joined: ${guild.name} (id: ${guild.id}). This server has ${guild.memberCount} members! and owner is ${guild.owner.user.username} now im in ${bot.guilds.size} servers`);});
 
-bot.on('guildDelete', guild => {bot.channels.get(botleavejoinchannel).send(`Removed from ${guild.name} (id: ${guild.id}). and it was owned by ${guild.owner.user.username} (owner id: ${guild.owner.id}) now im in ${bot.guilds.size} servers`);});
+bot.on('guildDelete', guild => {bot.channels.get(botleavejoinchannel).send(`Removed from ${guild.name} (id: ${guild.id}). and it was owned by ${guild.owner.user.username} (owner id: ${guild.owner.id}) now im in ${bot.guilds.size} servers`);
+firebase.database().ref('servers/' + message.guild.id).set({ guildname: message.guild.name, guilddeleted: true }).catch(function(err) {bot.channles.get(boterrorchannel).send(err + "\n\n\n");});});
 
 bot.on("error", function (err) {
     bot.channels.get(boterrorchannel).send(err);
