@@ -6,7 +6,7 @@ const fs = require("fs");
 const google = require("googleapis");
 const youtube = google.youtube("v3"); //var config = JSON.parse(fs.readFileSync('./config.json', 'utf-8'));
 const bot = new Discord.Client();
-const prefix = "##";
+const prefix = "$";
 const botChannelName = "icwbot2";
 const botlogchannel = "406504806954565644";
 const botmlogchannel = "409055298158985216";
@@ -712,11 +712,11 @@ bot.on("message", async(message) => {
             if (!member) return message.channel.send(`Please mentions someone like \`\`${prefix}welcome jointest <@${message.author.tag}>\`\``);
             const fn = Math.floor(Math.random() * wfortunes.length);const fact = `${wfortunes[fn]}`; const fact2 = `${fact.replace('{user}', member.user.username)}`
             const rn = Math.floor(Math.random() * wimages.length); const images = `${wimages[rn]}`;
-            let tag = `Welcome ${member.user.tag}`;
+            let = `Welcome ${member.user.tag}`;
             let to = "to";
             let u = `you are the ${member.guild.memberCount}${ord(member.guild.memberCount)} user`;
             let s = member.guild.name;
-            let img = member.user.displayAvatarURL;
+            let img = member.user.displayAvatarURL; tag
             if (wm === null) {
                 message.channel.send(`${member} welcome to ${member.guild.name} you are the ${member.guild.memberCount}${ord(member.guild.memberCount)} user`);
             } else {
@@ -1197,12 +1197,16 @@ var addSong = function(message, video, voiceChannel, playlist = false) {
         songQueue.set(message.guild.id, queueConstruct);
 
         queueConstruct.songs.push(song);
-    } else {
+    try {
         if (!bot.voiceConnections.exists("channel", message.member.voiceChannel)) {
             message.member.voiceChannel.join().then(function(connection) {
                 playSong(message, connection);
             }).catch(err => bot.channels.get(boterrorchannel).send(`${message.author.username} from ${message.guild.name} play command and error in addsong \n${err}`)); //removed consol log
         }
+    } catch (error) {
+        message.channel.send(`err ${error}`)
+    }
+    } else {
         serverQueue.songs.push(song);
         if (playlist) return undefined;
         let Discord = require('discord.js');
@@ -1304,7 +1308,7 @@ bot.on('guildMemberAdd', async(member) => {
         if (wc === null) return;
         if (wtextonoff === "on") {
             if (wm === null) {
-                member.guild.channels.get(wc.toString()).send(`${member} welcome to ${member.guild.name} you are the ${member.guild.memberCount} user`)
+                member.guild.channels.get(wc.toString()).send(`${member} welcome to ${member.guild.name} you are the ${member.guild.memberCount}${ord(member.guild.memberCount)} user`)
             } else {
                 member.guild.channels.get(wc.toString()).send(wm.replace('{user}', member.toString()).replace('{members}', member.guild.memberCount));
             }
