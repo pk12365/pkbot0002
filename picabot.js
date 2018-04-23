@@ -167,7 +167,7 @@ bot.on("message", async(message) => {
             .setAuthor("Hi " + message.author.username.toString(), message.author.avatarURL)
             .setDescription(`ICW help Section \nDefault Prefix = ${prefix} \nvolume command is for all users \nmore commands coming soon`)
             .addField("Custom Prefix", `setprefix - (for set the custom prefix for server) \nprefix - (for check the server prefix)`)
-            .addField("Bot info commands", `invite - (bot invite link)\nbotinfo - (info about the bot)\`\`info , botstatus\`\` \nuptime - (uptime of the bot)\nservers - (bots servers)`)
+            .addField("Bot info commands", `ping - (bot ping) \ninvite - (bot invite link)\nbotinfo - (info about the bot)\`\`info , botstatus\`\` \nuptime - (uptime of the bot)\nservers - (bots servers)`)
             .addField("until commands", `cleverbot - (talk with bot with mention or icw \`\`example - icw hi\`\`) \`\`icw\`\` \ngoogle - (search anything) \`\`gsearch , g , \`\` \nweather - (check your city weather) \nsay - (bot saying your message) \ndiscrim - (found any discriminators) \nserverinfo - (info about server)`)
             .addField("Modration command", ` welcome - (welcoming the member) \n warn - (for warning a member) \n kick - (for kick a member) \n ban - (for ban a member)`)
             .addField("Music commands", `play - (for serach and add your song in thre queue) \`\`p\`\` \npause - (pause the player) \nresume - (resume the player) \nvolume - (set your player volume) \`\`sv , setvolume\`\` \nskip - (for next song) \`\`s , next\`\` \nprev - (for previos song) \nstop - (for stop the player) \nqueue - (for check playlist) \`\`q , playlist\`\` \nsong - (view current song) \`\`np , nowplaying\`\` \nrandom - (playing randomly)`)
@@ -360,7 +360,7 @@ bot.on("message", async(message) => {
         .setAuthor("Hi " + message.author.username.toString(), message.author.avatarURL)
         .setDescription(`ICW help Section \nDefault Prefix = ${prefix} \nvolume command is for all users \nmore commands coming soon`)
         .addField("Custom Prefix", `setprefix - (for set the custom prefix for server) \nprefix - (for check the server prefix)`)
-        .addField("Bot info commands", `invite - (bot invite link)\nbotinfo - (info about the bot)\`\`info , botstatus\`\` \nuptime - (uptime of the bot)\nservers - (bots servers)`)
+        .addField("Bot info commands", `ping - (bot ping) \ninvite - (bot invite link)\nbotinfo - (info about the bot)\`\`info , botstatus\`\` \nuptime - (uptime of the bot)\nservers - (bots servers)`)
         .addField("until commands", `cleverbot - (talk with bot with mention or icw \`\`example - icw hi\`\`) \`\`icw\`\` \ngoogle - (search anything) \`\`gsearch , g , \`\` \nweather - (check your city weather) \nsay - (bot saying your message) \ndiscrim - (found any discriminators) \nserverinfo - (info about server)`)
         .addField("Modration command", ` welcome - (welcoming the member) \n warn - (for warning a member) \n kick - (for kick a member) \n ban - (for ban a member)`)
         .addField("Music commands", `play - (for serach and add your song in thre queue) \`\`p\`\` \npause - (pause the player) \nresume - (resume the player) \nvolume - (set your player volume) \`\`sv , setvolume\`\` \nskip - (for next song) \`\`s , next\`\` \nprev - (for previos song) \nstop - (for stop the player) \nqueue - (for check playlist) \`\`q , playlist\`\` \nsong - (view current song) \`\`np , nowplaying\`\` \nrandom - (playing randomly)`)
@@ -712,8 +712,6 @@ bot.on("message", async(message) => {
             if (!member) return message.channel.send(`Please mentions someone like \`\`${prefix}welcome jointest <@${message.author.tag}>\`\``);
             const fn = Math.floor(Math.random() * wfortunes.length);const fact = `${wfortunes[fn]}`; const fact2 = `${fact.replace('{user}', member.user.username)}`
             const rn = Math.floor(Math.random() * wimages.length); const images = `${wimages[rn]}`;
-            let = `Welcome ${member.user.tag}`;
-            let to = "to";
             let u = `you are the ${member.guild.memberCount}${ord(member.guild.memberCount)} user`;
             let s = member.guild.name;
             let img = member.user.displayAvatarURL; tag
@@ -722,23 +720,33 @@ bot.on("message", async(message) => {
             } else {
                 message.channel.send(wm.replace('{user}', member.toString()).replace('{members}', member.guild.memberCount));
             }
+            Jimp.read(`https://cloud.githubusercontent.com/assets/414918/11165709/051d10b0-8b0f-11e5-864a-20ef0bada8d6.png`).then(function(mask) {
             Jimp.read(img).then(function(image) {
                 Jimp.read(images).then(function(image2) {
                     Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function(font) {
-                        image2.print(font, 125, 87, fact2)
-                        Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(function(font) {
-                            image2.print(font, 130 , 60, u);
-                            Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function(font) {
-                                image2.print(font, 150, 35, s)
-                                Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(function(font) {
-                                    image2.print(font, 130, 10, tag);
-                                    image2.print(font, 130, 35, to);
-                                    image2.resize(400, 120);
-                                    image.resize(120, 120);
-                                    image2.composite(image, 0, 0);
-                                    image2.getBuffer(Jimp.MIME_PNG,
-                                        (error, buffer) => { message.channel.send({files: [{ name: 'welcome.png', attachment: buffer }] }); }); }); }); }); }); }); });
-        }
+                        image2.print(font, 121, 57, s);
+                        image2.print(font, 103 , 79, u);
+                        image2.print(font, 103, 57, "to");
+                        image2.print(font, 11, 101, fact2)
+                        image2.print(font, 103, 4, "Welcome");
+                    Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(function(font) {
+                        image2.print(font, 120, 56, s);
+                        image2.print(font, 102, 56, "to")
+                        image2.print(font, 10, 100, fact2)
+                        image2.print(font, 102 , 78, u);
+                        image2.print(font, 102, 3, "Welcome");
+                    Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function(font) {
+                        image2.print(font,104, 20, message.author.tag);
+                    Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(function(font) {
+                        image2.print(font, 102, 18, message.author.tag)
+                        image2.resize(400, 120);
+                        mask.resize(640, 640);
+                        image.mask(mask, 0, 0);
+                        image.resize(90, 90);
+                        image2.composite(image, 5, 5);
+                        image2.getBuffer(Jimp.MIME_PNG,
+                        (error, buffer) => { message.channel.send({files: [{ name: 'welcome.png', attachment: buffer }] }); }); }); }); }); }); }); }) });
+                    }
         else {
             if (wchannelid === null) { wchannel = "Not Set" } else { wchannel = `<#${wchannelid}>` }
             message.channel.send(`:wave: **ICW WELCOME**
@@ -750,6 +758,7 @@ bot.on("message", async(message) => {
             \n:black_square_button: | \`\`set-joinmessage <message>\`\` set join message for welcome
             \n:black_square_button: | \`\`set-leavemessage <message>\`\` set leave message
             \n:black_square_button: | \`\`set-channel <#channel>\`\` set channel for welcome
+            \n:black_square_button: | \`\`jointest <@${message.author.tag}>\`\` test the welcome
             \n\n:black_square_button: | welcome main switch is **${welcomeMstatus}**
             \n:black_square_button: | welcome channel is **${wchannel}**
             \n:black_square_button: | welcome join text switch is **${wtextonoff}**
@@ -1254,7 +1263,7 @@ var playSong = function(message, connection) {
         dispatcher.once("end", function(reason) {//bot.channels.get(botlogchannel).send("Song ended because: " + reason);
             if (reason === "user" || reason === "Stream is not generating quickly enough.") {
                 if (autoremove) {
-                    serverQueue.splice(currentSongIndex, 1);
+                    serverQueue.splice(curre1ntSongIndex, 1);
                     if (serverQueue.songs.length === 0) {
                         message.member.voiceChannel.leave();
                     } else {
@@ -1314,27 +1323,35 @@ bot.on('guildMemberAdd', async(member) => {
             }
         }
         if (wimageonoff === "on") {
-            let tag = `Welcome ${member.user.tag}`
-            let to = "to"
-            let u = `you are the ${member.guild.memberCount}${ord(member.guild.memberCount)} user`
-            let s = member.guild.name
-            let img = member.user.displayAvatarURL
+            let u = `you are the ${member.guild.memberCount}${ord(member.guild.memberCount)} user`;
+            let s = member.guild.name;
+            let img = member.user.displayAvatarURL;
+            Jimp.read(`https://cloud.githubusercontent.com/assets/414918/11165709/051d10b0-8b0f-11e5-864a-20ef0bada8d6.png`).then(function(mask) {
             Jimp.read(img).then(function(image) {
                 Jimp.read(images).then(function(image2) {
                     Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function(font) {
-                        image2.print(font, 125, 87, fact2)
-                        Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(function(font) {
-                            image2.print(font, 130 , 60, u);
-                            Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function(font) {
-                                image2.print(font, 150, 35, s)
-                                Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(function(font) {
-                                    image2.print(font, 130, 10, tag);
-                                    image2.print(font, 130, 35, to);
-                                    image2.resize(400, 120);
-                                    image.resize(120, 120);
-                                    image2.composite(image, 0, 0);
-                                    image2.getBuffer(Jimp.MIME_PNG,
-                                        (error, buffer) => { member.guild.channels.get(wc.toString()).send({files: [{ name: 'welcome.png', attachment: buffer }] }); }); }); }); }); }); }); });
+                        image2.print(font, 121, 57, s);
+                        image2.print(font, 103 , 79, u);
+                        image2.print(font, 103, 57, "to");
+                        image2.print(font, 11, 101, fact2)
+                        image2.print(font, 103, 4, "Welcome");
+                    Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(function(font) {
+                        image2.print(font, 120, 56, s);
+                        image2.print(font, 102, 56, "to")
+                        image2.print(font, 10, 100, fact2)
+                        image2.print(font, 102 , 78, u);
+                        image2.print(font, 102, 3, "Welcome");
+                    Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function(font) {
+                        image2.print(font,104, 20, message.author.tag);
+                    Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(function(font) {
+                        image2.print(font, 102, 18, message.author.tag)
+                        image2.resize(400, 120);
+                        mask.resize(640, 640);
+                        image.mask(mask, 0, 0);
+                        image.resize(90, 90);
+                        image2.composite(image, 5, 5);
+                        image2.getBuffer(Jimp.MIME_PNG,
+                        (error, buffer) => { message.channel.send({files: [{ name: 'welcome.png', attachment: buffer }] }); }); }); }); }); }); }); }) });
         }
         if (wuinfoonoff === "on") {
             if (mm == 0) {
