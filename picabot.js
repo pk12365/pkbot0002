@@ -1342,9 +1342,9 @@ bot.on('guildMemberAdd', async(member) => {
                         image2.print(font, 102 , 78, u);
                         image2.print(font, 102, 3, "Welcome");
                     Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function(font) {
-                        image2.print(font,104, 20, message.author.tag);
+                        image2.print(font,104, 20, member.user.tag);
                     Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(function(font) {
-                        image2.print(font, 102, 18, message.author.tag)
+                        image2.print(font, 102, 18, member.user.tag)
                         image2.resize(400, 120);
                         mask.resize(640, 640);
                         image.mask(mask, 0, 0);
