@@ -1209,6 +1209,7 @@ var addSong = function(message, video, voiceChannel, playlist = false) {
     } else {
         serverQueue.songs.push(song);
         let Discord = require('discord.js');
+        if (playlist) return
         let embed = new Discord.RichEmbed()
             .setAuthor(`I have added \`${song.title}\` to the song queue!`, "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
             .setDescription("link here: " + `[click](${song.url})`)
