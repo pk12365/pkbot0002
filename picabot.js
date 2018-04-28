@@ -1376,7 +1376,7 @@ bot.on('guildMemberAdd', async(member) => {
             if (icwstaff.includes(member.user.id)) {
                 member.guild.channels.get(wc.toString()).send(`:medal: Staff member of ICW`)
             }
-            if (member.user.displayAvatarURL.slice(-4) === "2048") {
+            if (member.user.displayAvatarURL.slice(-4) === ".gif") {
                 member.guild.channels.get(wc.toString()).send(nemoji + " nitro user")
             }
             if (member.user.bot === true) {
