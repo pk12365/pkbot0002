@@ -1381,7 +1381,7 @@ bot.on('guildMemberAdd', async(member) => {
             }
             if (member.user.bot === true) {
                 if (time < 432000000) {
-                    message.channel.send("bot created " + days + minutes + " ago")
+                    member.guild.channels.get(wc.toString()).send(":no_entry_sign: bot created " + `${days} ${minutes}` + " ago")
                 }
             }
         }
