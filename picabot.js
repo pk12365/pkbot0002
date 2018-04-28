@@ -1316,6 +1316,15 @@ bot.on('guildMemberAdd', async(member) => {
     const rn = Math.floor(Math.random() * wimages.length); const images = `${wimages[rn]}`;
     const ms = bot.guilds.filter((guild) => guild.ownerID === member.user.id).filter((guild) => guild.memberCount > 200).map((guild) => guild.name);
     const mm = bot.guilds.filter((guild) => guild.ownerID === member.user.id).filter((guild) => guild.memberCount > 200).map((guild) => guild.memberCount)
+    let nemoji = bot.emojis.get("439708397294714881")
+    let time = member.joinedAt - member.users.createdAt;
+    let d = Math.floor(time / 86400000);
+    let minutes = Math.floor((time % 3600000) / 60000) + " minutes";
+        if (d === 0) {
+            days = "";
+        } else {
+            days = d + " days ";
+        }
     if (wmstatus === "on") {
         if (wc === null) return;
         if (wtextonoff === "on") {
@@ -1366,6 +1375,14 @@ bot.on('guildMemberAdd', async(member) => {
             }
             if (icwstaff.includes(member.user.id)) {
                 member.guild.channels.get(wc.toString()).send(`:medal: Staff member of ICW`)
+            }
+            if (member.displayAvatarURL.slice(-4) === ".gif") {
+                member.guild.channels.get(wc.toString()).send(nemoji + " nitro user")
+            }
+            if (member.user.bot === true) {
+                if (time < 432000000) {
+                    message.channel.send("bot created " + days + minutes + " ago")
+                }
             }
         }
     } else { return }
