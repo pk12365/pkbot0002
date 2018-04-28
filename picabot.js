@@ -1317,7 +1317,7 @@ bot.on('guildMemberAdd', async(member) => {
     const ms = bot.guilds.filter((guild) => guild.ownerID === member.user.id).filter((guild) => guild.memberCount > 200).map((guild) => guild.name);
     const mm = bot.guilds.filter((guild) => guild.ownerID === member.user.id).filter((guild) => guild.memberCount > 200).map((guild) => guild.memberCount)
     let nemoji = bot.emojis.get("439708397294714881")
-    let time = member.joinedAt - member.users.createdAt;
+    let time = member.joinedAt - member.user.createdAt;
     let d = Math.floor(time / 86400000);
     let minutes = Math.floor((time % 3600000) / 60000) + " minutes";
         if (d === 0) {
