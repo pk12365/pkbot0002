@@ -1319,12 +1319,18 @@ bot.on('guildMemberAdd', async(member) => {
     let nemoji = bot.emojis.get("439708397294714881")
     let time = member.joinedAt - member.user.createdAt;
     let d = Math.floor(time / 86400000);
-    let minutes = Math.floor((time % 3600000) / 60000) + " minutes";
         if (d === 0) {
             days = "";
         } else {
             days = d + " days ";
         }
+    let h = Math.floor(time / 3600000);
+    if (h === 0) {
+        hours = "";
+     } else {
+         hours = h + " hours ";
+     }
+    let minutes = Math.floor((time % 3600000) / 60000) + " minutes";
     if (wmstatus === "on") {
         if (wc === null) return;
         if (wtextonoff === "on") {
@@ -1381,7 +1387,7 @@ bot.on('guildMemberAdd', async(member) => {
             }
             if (member.user.bot === true) {
                 if (time < 432000000) {
-                    member.guild.channels.get(wc.toString()).send(":no_entry_sign: bot created " + `${days} ${minutes}` + " ago")
+                    member.guild.channels.get(wc.toString()).send(":no_entry_sign: bot created " + `${days} ${hours} ${minutes}` + " ago")
                 }
             }
         }
