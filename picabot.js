@@ -1,5 +1,6 @@
 const request = require('request');
 const Discord = require("discord.js");
+const dbl = require("discord-ban-list");
 const ytdl = require("ytdl-core");
 const YouTube = require("simple-youtube-api");
 const fs = require("fs");
