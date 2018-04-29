@@ -1239,7 +1239,7 @@ var addSong = function(message, video, voiceChannel, playlist = false) {
             playSong(message, connection);
         }).catch(err => bot.channels.get(boterrorchannel).send(`${message.author.username} from ${message.guild.name} play command and error in addsong \n${err}`)); //removed consol log
     }
-    if (!dispatche && message.guild.me.voiceChannel) {
+    if (!dispatcher && message.guild.me.voiceChannel) {
         message.member.voiceChannel.leave();
         message.member.voiceChannel.join().then(function(connection) {
             playSong(message, connection);
