@@ -1239,9 +1239,9 @@ var addSong = function(message, video, voiceChannel, playlist = false) {
             playSong(message, connection);
         }).catch(err => bot.channels.get(boterrorchannel).send(`${message.author.username} from ${message.guild.name} play command and error in addsong \n${err}`)); //removed consol log
     }
-    if (!dispatcher || dispatcher.paused === true && message.guild.me.voiceChannel) {
-        message.member.voiceChannel(function(connection) {
-        playSong(message, connection); })
+    if (!dispatcher || dispatcher.speaking === false && message.guild.me.voiceChannel) {
+        let connection = message.member.voiceChannel.connection;
+        playSong(message, connection);
     }
 }
 
