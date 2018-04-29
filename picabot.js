@@ -36,7 +36,7 @@ const querystring = require('querystring');
 const firebase = require("firebase");
 const Jimp = require("jimp");
 
-const ord = number => {let or; const num = number.toString(); if (num.endsWith("1")) { or = "st"; } else if (num.endsWith("2")) { or = "nd"; } else if (num.endsWith("3")) { or = "rd"; } else { or = "th"; } return or; };
+const ord = number => { let or; const num = number.toString(); if (num.endsWith("1")) { or = "st"; } else if (num.endsWith("2")) { or = "nd"; } else if (num.endsWith("3")) { or = "rd"; } else { or = "th"; } return or; };
 
 firebase.initializeApp({
     apiKey: process.env.FB_API_KEY,
@@ -126,9 +126,9 @@ bot.on('message', message => {
         clbot.configure({ botapi: process.env.CLEVERBOT_KEY });
         Cleverbot.prepare(() => {
             clbot.write(message.content, (response) => {
-                message.channel.startTyping();//setTimeout(() => {
+                message.channel.startTyping(); //setTimeout(() => {
                 message.channel.send(response.message);
-                message.channel.stopTyping();//}, Math.random() * (1 - 3) + 1 * 600);
+                message.channel.stopTyping(); //}, Math.random() * (1 - 3) + 1 * 600);
             })
         });
         return;
@@ -149,7 +149,7 @@ bot.on("message", async(message) => {
 
     if (command === "ping") {
         let pingembed = new Discord.RichEmbed().setColor(randomcolor).addField("Pong! Websocket Latency:", `${bot.ping}`);
-        message.channel.send({ embed: pingembed})
+        message.channel.send({ embed: pingembed })
     }
 
     if (command === "restart") {
@@ -342,7 +342,7 @@ bot.on("message", async(message) => {
 
     if (command === "ping") {
         let pingembed = new Discord.RichEmbed().setColor(randomcolor).addField("Pong! Websocket Latency:", `${bot.ping}`);
-        message.channel.send({ embed: pingembed})
+        message.channel.send({ embed: pingembed })
     }
 
     if (command === "restart") {
@@ -356,22 +356,22 @@ bot.on("message", async(message) => {
 
     if (command === "help") {
         let helpembed = new Discord.RichEmbed()
-        .setColor(randomcolor)
-        .setAuthor("Hi " + message.author.username.toString(), message.author.avatarURL)
-        .setDescription(`ICW help Section \nDefault Prefix = ${prefix} \nvolume command is for all users \nmore commands coming soon`)
-        .addField("Custom Prefix", `setprefix - (for set the custom prefix for server) \nprefix - (for check the server prefix)`)
-        .addField("Bot info commands", `ping - (bot ping) \ninvite - (bot invite link)\nbotinfo - (info about the bot)\`\`info , botstatus\`\` \nuptime - (uptime of the bot)\nservers - (bots servers)`)
-        .addField("until commands", `cleverbot - (talk with bot with mention or icw \`\`example - icw hi\`\`) \`\`icw\`\` \ngoogle - (search anything) \`\`gsearch , g , \`\` \nweather - (check your city weather) \nsay - (bot saying your message) \ndiscrim - (found any discriminators) \nserverinfo - (info about server)`)
-        .addField("Modration command", ` welcome - (welcoming the member) \n warn - (for warning a member) \n kick - (for kick a member) \n ban - (for ban a member)`)
-        .addField("Music commands", `play - (for serach and add your song in thre queue) \`\`p\`\` \npause - (pause the player) \nresume - (resume the player) \nvolume - (set your player volume) \`\`sv , setvolume\`\` \nskip - (for next song) \`\`s , next\`\` \nprev - (for previos song) \nstop - (for stop the player) \nqueue - (for check playlist) \`\`q , playlist\`\` \nsong - (view current song) \`\`np , nowplaying\`\` \nrandom - (playing randomly)`)
-        .setThumbnail("https://media.discordapp.net/attachments/406099961730564107/407455733689483265/Untitled6.png?width=300&height=300")
-        .setFooter("Bot Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
-        .addField("if you find any bug plz report it with command", `bugreport - (report for any bugs or problams) \`\`bug\`\``)
-        .addField("support server", `[link](https://discord.gg/zFDvBay)`, inline = true)
-        .addField("bot invite link", `[invite](https://discordapp.com/oauth2/authorize?client_id=376292306233458688&permissions=8&scope=bot)`, inline = true)
-        .addField("please give upvote", `[vote and invite link](https://discordbots.org/bot/376292306233458688)`, inline = true)
-        .addField("help with donate", `[patreon](https://www.patreon.com/icw)`, inline = true)
-        .setTimestamp();
+            .setColor(randomcolor)
+            .setAuthor("Hi " + message.author.username.toString(), message.author.avatarURL)
+            .setDescription(`ICW help Section \nDefault Prefix = ${prefix} \nvolume command is for all users \nmore commands coming soon`)
+            .addField("Custom Prefix", `setprefix - (for set the custom prefix for server) \nprefix - (for check the server prefix)`)
+            .addField("Bot info commands", `ping - (bot ping) \ninvite - (bot invite link)\nbotinfo - (info about the bot)\`\`info , botstatus\`\` \nuptime - (uptime of the bot)\nservers - (bots servers)`)
+            .addField("until commands", `cleverbot - (talk with bot with mention or icw \`\`example - icw hi\`\`) \`\`icw\`\` \ngoogle - (search anything) \`\`gsearch , g , \`\` \nweather - (check your city weather) \nsay - (bot saying your message) \ndiscrim - (found any discriminators) \nserverinfo - (info about server)`)
+            .addField("Modration command", ` welcome - (welcoming the member) \n warn - (for warning a member) \n kick - (for kick a member) \n ban - (for ban a member)`)
+            .addField("Music commands", `play - (for serach and add your song in thre queue) \`\`p\`\` \npause - (pause the player) \nresume - (resume the player) \nvolume - (set your player volume) \`\`sv , setvolume\`\` \nskip - (for next song) \`\`s , next\`\` \nprev - (for previos song) \nstop - (for stop the player) \nqueue - (for check playlist) \`\`q , playlist\`\` \nsong - (view current song) \`\`np , nowplaying\`\` \nrandom - (playing randomly)`)
+            .setThumbnail("https://media.discordapp.net/attachments/406099961730564107/407455733689483265/Untitled6.png?width=300&height=300")
+            .setFooter("Bot Developed by: PK#1650 ", "https://cdn.discordapp.com/attachments/399064303170224131/405585474988802058/videotogif_2018.01.24_10.14.40.gif")
+            .addField("if you find any bug plz report it with command", `bugreport - (report for any bugs or problams) \`\`bug\`\``)
+            .addField("support server", `[link](https://discord.gg/zFDvBay)`, inline = true)
+            .addField("bot invite link", `[invite](https://discordapp.com/oauth2/authorize?client_id=376292306233458688&permissions=8&scope=bot)`, inline = true)
+            .addField("please give upvote", `[vote and invite link](https://discordbots.org/bot/376292306233458688)`, inline = true)
+            .addField("help with donate", `[patreon](https://www.patreon.com/icw)`, inline = true)
+            .setTimestamp();
         message.author.send({ embed: helpembed });
         message.channel.send("check your dms", { replay: message }).then(sent => sent.delete({ timeout: 9999 }));
     }
@@ -509,7 +509,7 @@ bot.on("message", async(message) => {
             .addField('Uptime', `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`);
         message.channel.send({ embed: uptimeembed });
     }
-/*----------------------------------------------------------------------------------------------------------------------------------------------------------*/
+    /*----------------------------------------------------------------------------------------------------------------------------------------------------------*/
     const serverQueue = songQueue.get(message.guild.id);
 
     if (command === "prefix") {
@@ -546,13 +546,15 @@ bot.on("message", async(message) => {
         if (c === "on") {
             if (message.author.id !== botowner && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`U don't have permission to do that`);
             firebase.database().ref('servers/' + message.guild.id).update({
-                welcomeMstatus: "on", wimageonoff: "on", wtextonoff: "on", wuinfoonoff: "on"
+                welcomeMstatus: "on",
+                wimageonoff: "on",
+                wtextonoff: "on",
+                wuinfoonoff: "on"
             }).catch(function(err) {
                 message.channel.send(err + "\n\n\n");
             });
             message.channel.send(`welcome message turned **on** for ${message.guild.name} server`)
-        }
-        else if (c === "off") {
+        } else if (c === "off") {
             if (message.author.id !== botowner && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`U don't have permission to do that`);
             firebase.database().ref('servers/' + message.guild.id).update({
                 welcomeMstatus: "off"
@@ -560,8 +562,7 @@ bot.on("message", async(message) => {
                 message.channel.send(err + "\n\n\n");
             });
             message.channel.send(`welcome message turned **off** for ${message.guild.name} server`)
-        }
-        else if (c === "use-jointext") {
+        } else if (c === "use-jointext") {
             if (message.author.id !== botowner && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`U don't have permission to do that`);
             if (wchannelid === null) return message.channel.send(`welcome channel not set please set the channel first with \`\`${prefix}welcome set-channel <#channel>\`\``)
             if (!wtextonoff) {
@@ -588,8 +589,7 @@ bot.on("message", async(message) => {
                 });
                 message.channel.send("welcome join text is now enabled");
             }
-        }
-        else if (c === "use-leavetext") {
+        } else if (c === "use-leavetext") {
             if (message.author.id !== botowner && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`U don't have permission to do that`);
             if (wchannelid === null) return message.channel.send(`welcome channel not set please set the channel first with \`\`${prefix}welcome set-channel <#channel>\`\``)
             if (!wleavetextonoff) {
@@ -616,8 +616,7 @@ bot.on("message", async(message) => {
                 });
                 message.channel.send("leave text is now enabled");
             }
-        }
-        else if (c === "use-image") {
+        } else if (c === "use-image") {
             if (message.author.id !== botowner && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`U don't have permission to do that`);
             if (wchannelid === null) return message.channel.send(`welcome channel not set please set the channel first with \`\`${prefix}welcome set-channel <#channel>\`\``);
             if (!wimageonoff) {
@@ -644,8 +643,7 @@ bot.on("message", async(message) => {
                 });
                 message.channel.send("welcome image is now enabled");
             }
-        }
-        else if (c === "use-userinfo") {
+        } else if (c === "use-userinfo") {
             if (message.author.id !== botowner && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`U don't have permission to do that`);
             if (wchannelid === null) return message.channel.send(`welcome channel not set please set the channel first with \`\`${prefix}welcome set-channel <#channel>\`\``)
             if (!wuinfoonoff) {
@@ -672,8 +670,7 @@ bot.on("message", async(message) => {
                 });
                 message.channel.send("welcome userinfo is now enabled");
             }
-        }
-        else if (c === "set-joinmessage") {
+        } else if (c === "set-joinmessage") {
             if (message.author.id !== botowner && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`U don't have permission to do that`);
             if (wchannelid === null) return message.channel.send(`welcome channel not set please set the channel first with \`\`${prefix}welcome set-channel <#channel>\`\``);
             let arg2 = arg.substring(c.length)
@@ -683,9 +680,8 @@ bot.on("message", async(message) => {
             }).catch(function(err) {
                 message.channel.send(err + "\n\n\n");
             });
-                message.channel.send(`welcome message set successfully \n${arg2}`)
-        }
-        else if (c === "set-leavemessage") {
+            message.channel.send(`welcome message set successfully \n${arg2}`)
+        } else if (c === "set-leavemessage") {
             if (message.author.id !== botowner && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`U don't have permission to do that`);
             if (wchannelid === null) return message.channel.send(`welcome channel not set please set the channel first with \`\`${prefix}welcome set-channel <#channel>\`\``);
             let arg2 = arg.substring(c.length)
@@ -695,9 +691,8 @@ bot.on("message", async(message) => {
             }).catch(function(err) {
                 message.channel.send(err + "\n\n\n");
             });
-                message.channel.send(`leave message set successfully \n${arg2}`)
-        }
-        else if (c === "set-channel") {
+            message.channel.send(`leave message set successfully \n${arg2}`)
+        } else if (c === "set-channel") {
             if (message.author.id !== botowner && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`U don't have permission to do that`)
             let wc = message.mentions.channels.first()
             if (!wc) return message.channel.send(`please mention a channel after command like \`\`${prefix}setwelcomechannel #general\`\``)
@@ -710,8 +705,11 @@ bot.on("message", async(message) => {
         } else if (c === "jointest") {
             let member = message.mentions.members.first()
             if (!member) return message.channel.send(`Please mentions someone like \`\`${prefix}welcome jointest <@${message.author.tag}>\`\``);
-            const fn = Math.floor(Math.random() * wfortunes.length);const fact = `${wfortunes[fn]}`; const fact2 = `${fact.replace('{user}', member.user.username)}`
-            const rn = Math.floor(Math.random() * wimages.length); const images = `${wimages[rn]}`;
+            const fn = Math.floor(Math.random() * wfortunes.length);
+            const fact = `${wfortunes[fn]}`;
+            const fact2 = `${fact.replace('{user}', member.user.username)}`
+            const rn = Math.floor(Math.random() * wimages.length);
+            const images = `${wimages[rn]}`;
             let u = `you are the ${member.guild.memberCount}${ord(member.guild.memberCount)} user`;
             let s = member.guild.name;
             let img = member.user.displayAvatarURL;
@@ -721,33 +719,39 @@ bot.on("message", async(message) => {
                 message.channel.send(wm.replace('{user}', member.toString()).replace('{members}', member.guild.memberCount));
             }
             Jimp.read(`https://cloud.githubusercontent.com/assets/414918/11165709/051d10b0-8b0f-11e5-864a-20ef0bada8d6.png`).then(function(mask) {
-            Jimp.read(img).then(function(image) {
-                Jimp.read(images).then(function(image2) {
-                    Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function(font) {
-                        image2.print(font, 121, 57, s);
-                        image2.print(font, 103 , 79, u);
-                        image2.print(font, 103, 57, "to");
-                        image2.print(font, 11, 101, fact2)
-                        image2.print(font, 103, 4, "Welcome");
-                    Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(function(font) {
-                        image2.print(font, 120, 56, s);
-                        image2.print(font, 102, 56, "to")
-                        image2.print(font, 10, 100, fact2)
-                        image2.print(font, 102 , 78, u);
-                        image2.print(font, 102, 3, "Welcome");
-                    Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function(font) {
-                        image2.print(font,104, 20, member.user.tag);
-                    Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(function(font) {
-                        image2.print(font, 102, 18, member.user.tag)
-                        image2.resize(400, 120);
-                        image.resize(90, 90);
-                        mask.resize(90, 90);
-                        image.mask(mask, 0, 0);
-                        image2.composite(image, 5, 5);
-                        image2.getBuffer(Jimp.MIME_PNG,
-                        (error, buffer) => { message.channel.send({files: [{ name: 'welcome.png', attachment: buffer }] }); }); }); }); }); }); }); }) });
-                    }
-        else {
+                Jimp.read(img).then(function(image) {
+                    Jimp.read(images).then(function(image2) {
+                        Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function(font) {
+                            image2.print(font, 121, 57, s);
+                            image2.print(font, 103, 79, u);
+                            image2.print(font, 103, 57, "to");
+                            image2.print(font, 11, 101, fact2)
+                            image2.print(font, 103, 4, "Welcome");
+                            Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(function(font) {
+                                image2.print(font, 120, 56, s);
+                                image2.print(font, 102, 56, "to")
+                                image2.print(font, 10, 100, fact2)
+                                image2.print(font, 102, 78, u);
+                                image2.print(font, 102, 3, "Welcome");
+                                Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function(font) {
+                                    image2.print(font, 104, 20, member.user.tag);
+                                    Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(function(font) {
+                                        image2.print(font, 102, 18, member.user.tag)
+                                        image2.resize(400, 120);
+                                        image.resize(90, 90);
+                                        mask.resize(90, 90);
+                                        image.mask(mask, 0, 0);
+                                        image2.composite(image, 5, 5);
+                                        image2.getBuffer(Jimp.MIME_PNG,
+                                            (error, buffer) => { message.channel.send({ files: [{ name: 'welcome.png', attachment: buffer }] }); });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                })
+            });
+        } else {
             if (wchannelid === null) { wchannel = "Not Set" } else { wchannel = `<#${wchannelid}>` }
             message.channel.send(`:wave: **ICW WELCOME**
             \n:black_square_button: | \`\`on/off\`\` welcome switch
@@ -1063,7 +1067,8 @@ bot.on("message", async(message) => {
                 return;
             }
             if (serverQueue.songs.length === 0) {
-                message.channel.send("There are no songs to clear", { reply: message });
+                message.member.voiceChannel.leave();
+                message.channel.send("There are no songs to clear and im leaving the voice", { reply: message });
             } else {
                 dispatcher.end("stopping");
                 currentSongIndex = 0;
@@ -1217,23 +1222,27 @@ var addSong = function(message, video, voiceChannel, playlist = false) {
             }
             return
         } else {
-        let embed = new Discord.RichEmbed()
-            .setAuthor(`I have added \`${song.title}\` to the song queue!`, "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
-            .setDescription("link here: " + `[click](${song.url})`)
-            .setColor(randomcolor)
-            .setThumbnail(song.thumbnail)
-            .addField("**Length**", song.duration, true)
-            .addField("Requested by", song.author, true)
-            .setFooter("Added by: " + message.author.username.toString(), message.author.avatarURL)
-            .setTimestamp()
-        message.channel.send({ embed });
+            let embed = new Discord.RichEmbed()
+                .setAuthor(`I have added \`${song.title}\` to the song queue!`, "https://cdn.discordapp.com/attachments/398789265900830760/405592021579989003/videotogif_2018.01.24_10.46.57.gif")
+                .setDescription("link here: " + `[click](${song.url})`)
+                .setColor(randomcolor)
+                .setThumbnail(song.thumbnail)
+                .addField("**Length**", song.duration, true)
+                .addField("Requested by", song.author, true)
+                .setFooter("Added by: " + message.author.username.toString(), message.author.avatarURL)
+                .setTimestamp()
+            message.channel.send({ embed });
         }
     }
-        if (!bot.voiceConnections.exists("channel", message.member.voiceChannel)) {
-            message.member.voiceChannel.join().then(function(connection) {
-                playSong(message, connection);
-            }).catch(err => bot.channels.get(boterrorchannel).send(`${message.author.username} from ${message.guild.name} play command and error in addsong \n${err}`)); //removed consol log
-        }
+    if (!bot.voiceConnections.exists("channel", message.member.voiceChannel)) {
+        message.member.voiceChannel.join().then(function(connection) {
+            playSong(message, connection);
+        }).catch(err => bot.channels.get(boterrorchannel).send(`${message.author.username} from ${message.guild.name} play command and error in addsong \n${err}`)); //removed consol log
+    }
+    if (dispatcher.paused === true && message.guild.me.voiceChannel) {
+        message.member.voiceChannel(function(connection) {
+        playSong(message, connection); })
+    }
 }
 
 var playSong = function(message, connection) {
@@ -1263,7 +1272,7 @@ var playSong = function(message, connection) {
         dispatcher.player.on("warn", console.warn);
         dispatcher.on("warn", console.warn);
         dispatcher.on("error", console.error);
-        dispatcher.once("end", function(reason) {//bot.channels.get(botlogchannel).send("Song ended because: " + reason);
+        dispatcher.once("end", function(reason) { //bot.channels.get(botlogchannel).send("Song ended because: " + reason);
             if (reason === "user" || reason === "Stream is not generating quickly enough.") {
                 if (autoremove) {
                     serverQueue.splice(curre1ntSongIndex, 1);
@@ -1312,24 +1321,27 @@ bot.on('guildMemberAdd', async(member) => {
     const wuinfoonoff = (await db.ref(`servers/${member.guild.id}`).child('wuinfoonoff').once('value')).val();
     const wm = (await db.ref(`servers/${member.guild.id}`).child('wmessage').once('value')).val();
     const wc = (await db.ref(`servers/${member.guild.id}`).child('wchannelid').once('value')).val();
-    const fn = Math.floor(Math.random() * wfortunes.length);const fact = `${wfortunes[fn]}`; const fact2 = `${fact.replace('{user}', member.user.username)}`
-    const rn = Math.floor(Math.random() * wimages.length); const images = `${wimages[rn]}`;
+    const fn = Math.floor(Math.random() * wfortunes.length);
+    const fact = `${wfortunes[fn]}`;
+    const fact2 = `${fact.replace('{user}', member.user.username)}`
+    const rn = Math.floor(Math.random() * wimages.length);
+    const images = `${wimages[rn]}`;
     const ms = bot.guilds.filter((guild) => guild.ownerID === member.user.id).filter((guild) => guild.memberCount > 200).map((guild) => guild.name);
     const mm = bot.guilds.filter((guild) => guild.ownerID === member.user.id).filter((guild) => guild.memberCount > 200).map((guild) => guild.memberCount)
     let nemoji = bot.emojis.get("439708397294714881")
     let time = member.joinedAt - member.user.createdAt;
     let d = Math.floor(time / 86400000);
-        if (d === 0) {
-            days = "";
-        } else {
-            days = d + " days ";
-        }
+    if (d === 0) {
+        days = "";
+    } else {
+        days = d + " days ";
+    }
     let h = Math.floor(time / 3600000);
     if (h === 0) {
         hours = "";
-     } else {
-         hours = h + " hours ";
-     }
+    } else {
+        hours = h + " hours ";
+    }
     let minutes = Math.floor((time % 3600000) / 60000) + " minutes";
     if (wmstatus === "on") {
         if (wc === null) return;
@@ -1345,35 +1357,41 @@ bot.on('guildMemberAdd', async(member) => {
             let s = member.guild.name;
             let img = member.user.displayAvatarURL;
             Jimp.read(`https://cloud.githubusercontent.com/assets/414918/11165709/051d10b0-8b0f-11e5-864a-20ef0bada8d6.png`).then(function(mask) {
-            Jimp.read(img).then(function(image) {
-                Jimp.read(images).then(function(image2) {
-                    Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function(font) {
-                        image2.print(font, 121, 57, s);
-                        image2.print(font, 103 , 79, u);
-                        image2.print(font, 103, 57, "to");
-                        image2.print(font, 11, 101, fact2)
-                        image2.print(font, 103, 4, "Welcome");
-                    Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(function(font) {
-                        image2.print(font, 120, 56, s);
-                        image2.print(font, 102, 56, "to")
-                        image2.print(font, 10, 100, fact2)
-                        image2.print(font, 102 , 78, u);
-                        image2.print(font, 102, 3, "Welcome");
-                    Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function(font) {
-                        image2.print(font,104, 20, member.user.tag);
-                    Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(function(font) {
-                        image2.print(font, 102, 18, member.user.tag)
-                        image2.resize(400, 120);
-                        image.resize(90, 90);
-                        mask.resize(90, 90);
-                        image.mask(mask, 0, 0);
-                        image2.composite(image, 5, 5);
-                        image2.getBuffer(Jimp.MIME_PNG,
-                        (error, buffer) => { member.guild.channels.get(wc.toString()).send({files: [{ name: 'welcome.png', attachment: buffer }] }); }); }); }); }); }); }); }) });
+                Jimp.read(img).then(function(image) {
+                    Jimp.read(images).then(function(image2) {
+                        Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function(font) {
+                            image2.print(font, 121, 57, s);
+                            image2.print(font, 103, 79, u);
+                            image2.print(font, 103, 57, "to");
+                            image2.print(font, 11, 101, fact2)
+                            image2.print(font, 103, 4, "Welcome");
+                            Jimp.loadFont(Jimp.FONT_SANS_16_WHITE).then(function(font) {
+                                image2.print(font, 120, 56, s);
+                                image2.print(font, 102, 56, "to")
+                                image2.print(font, 10, 100, fact2)
+                                image2.print(font, 102, 78, u);
+                                image2.print(font, 102, 3, "Welcome");
+                                Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(function(font) {
+                                    image2.print(font, 104, 20, member.user.tag);
+                                    Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then(function(font) {
+                                        image2.print(font, 102, 18, member.user.tag)
+                                        image2.resize(400, 120);
+                                        image.resize(90, 90);
+                                        mask.resize(90, 90);
+                                        image.mask(mask, 0, 0);
+                                        image2.composite(image, 5, 5);
+                                        image2.getBuffer(Jimp.MIME_PNG,
+                                            (error, buffer) => { member.guild.channels.get(wc.toString()).send({ files: [{ name: 'welcome.png', attachment: buffer }] }); });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                })
+            });
         }
         if (wuinfoonoff === "on") {
-            if (mm == 0) {
-            } else {
+            if (mm == 0) {} else {
                 member.guild.channels.get(wc.toString()).send(`:crown: Owner of ${ms} server with ${mm} members`)
             }
             if (member.user.id === botowner) {
@@ -1409,13 +1427,15 @@ bot.on('guildMemberRemove', async(member) => {
             }
         }
     } else { return }
-  });
+});
 
-bot.on("guildCreate", guild => {bot.channels.get(botleavejoinchannel).send(`New server joined: ${guild.name} (id: ${guild.id}). This server has ${guild.memberCount} members! and owner is ${guild.owner.user.username} now im in ${bot.guilds.size} servers`);});
+bot.on("guildCreate", guild => { bot.channels.get(botleavejoinchannel).send(`New server joined: ${guild.name} (id: ${guild.id}). This server has ${guild.memberCount} members! and owner is ${guild.owner.user.username} now im in ${bot.guilds.size} servers`); });
 
-bot.on('guildDelete', guild => {bot.channels.get(botleavejoinchannel).send(`Removed from ${guild.name} (id: ${guild.id}). and it was owned by ${guild.owner.user.username} (owner id: ${guild.owner.id}) now im in ${bot.guilds.size} servers`);
-firebase.database().ref('servers/' + guild.id).set({ guildname: guild.name, guilddeleted: true }).catch(function(err) {bot.channles.get(boterrorchannel).send(err + "\n\n\n");});});
+bot.on('guildDelete', guild => {
+    bot.channels.get(botleavejoinchannel).send(`Removed from ${guild.name} (id: ${guild.id}). and it was owned by ${guild.owner.user.username} (owner id: ${guild.owner.id}) now im in ${bot.guilds.size} servers`);
+    firebase.database().ref('servers/' + guild.id).set({ guildname: guild.name, guilddeleted: true }).catch(function(err) { bot.channles.get(boterrorchannel).send(err + "\n\n\n"); });
+});
 
-bot.on("error", function (err) {
+bot.on("error", function(err) {
     bot.channels.get(boterrorchannel).send(err);
 });
