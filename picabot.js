@@ -1239,16 +1239,18 @@ var addSong = function(message, video, voiceChannel, playlist = false) {
             playSong(message, connection);
         }).catch(err => bot.channels.get(boterrorchannel).send(`${message.author.username} from ${message.guild.name} play command and error in addsong \n${err}`)); //removed consol log
     }
-    if (dispatcher === undefined && message.guild.me.voiceChannel) {
+    if (!dispatche && message.guild.me.voiceChannel) {
         message.member.voiceChannel.leave();
         message.member.voiceChannel.join().then(function(connection) {
             playSong(message, connection);
         }).catch(err => bot.channels.get(boterrorchannel).send(`${message.author.username} from ${message.guild.name} play command and error in addsong \n${err}`)); //removed consol log
 
     }
-    if (dispatcher.speaking === false && message.guild.me.voiceChannel) {
-        let connection = message.member.voiceChannel.connection;
-        playSong(message, connection);
+    if (dispatcher && message.guild.me.voiceChannel) {
+        if (dispatcher.speaking === false) {
+            let connection = message.member.voiceChannel.connection;
+            playSong(message, connection);
+        }
     }
 }
 
