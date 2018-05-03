@@ -61,7 +61,7 @@ bot.on("disconnect", function() {
 
 bot.login(process.env.BOTTOKEN).then(function() {
     console.log("Bot logged in");
-    bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.users.size} Users`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
+    bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.guilds.size} Guilds`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
     bot.channels.get(botlogchannel).send("bot logged in");
 }).catch(console.log);
 
@@ -136,7 +136,7 @@ bot.on('message', message => {
 });
 
 bot.on("message", async(message) => {
-    bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.users.size} Users`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
+    bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.guilds.size} Guilds`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
 
     if (message.author.bot) return undefined;
     const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
@@ -200,15 +200,6 @@ bot.on("message", async(message) => {
         if (!args2) return message.channel.send(`***plz add a bug message after command***`);
         message.channel.send(`***Report sented succesfully thank you***`);
         bot.channels.get(botbuglogchannel).send(`report by: **${message.author.tag}** from: **${message.guild.name}** (${message.guild.id}) \nbug: ${args2}`);
-    }
-
-    if (command === "us") {
-        if (message.author.id !== botowner) {
-            message.reply('this command is only for bot owner!!!');
-            return;
-        }
-        bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.users.size} Users`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
-        message.channel.send("stream updated");
     }
 
     if (command === "servers") {
@@ -319,7 +310,7 @@ bot.on("message", async(message) => {
 })
 
 bot.on("message", async(message) => {
-    bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.users.size} Users`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
+    bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.guilds.size} Guilds`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
 
     if (message.author.bot) return undefined;
     const randomcolor = '0x' + Math.floor(Math.random() * 16777215).toString(16);
@@ -394,15 +385,6 @@ bot.on("message", async(message) => {
         if (!args2) return message.channel.send(`***plz add a bug message after command***`);
         message.channel.send(`***Report sented succesfully thank you***`);
         bot.channels.get(botbuglogchannel).send(`report by: **${message.author.tag}** from: **${message.guild.name}** (${message.guild.id}) \nbug: ${args2}`);
-    }
-
-    if (command === "us") {
-        if (message.author.id !== botowner) {
-            message.reply('this command is only for bot owner!!!');
-            return;
-        }
-        bot.user.setPresence({ status: `streaming`, game: { name: `${prefix}help | ${bot.users.size} Users`, type: `STREAMING`, url: `https://www.twitch.tv/pardeepsingh12365` } });
-        message.channel.send("stream updated");
     }
 
     if (command === "servers") {
@@ -511,6 +493,20 @@ bot.on("message", async(message) => {
     }
     /*----------------------------------------------------------------------------------------------------------------------------------------------------------*/
     const serverQueue = songQueue.get(message.guild.id);
+
+    if (command === "purge" || command === "prune" || command === "delete" || command === "clear") {
+        let args2 = args.join("").substring(command.length);
+        if (!message.guild.member(bot.user).hasPermission("MANAGE_MESSAGES")) return message.channel.send(`I don't have permission to do that give me manage message permission`);
+        if (!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send("Incorrect permissions (You need the manage messages permissions to do this)");
+        if (!args2 || args2 < 2 || args2 > 100 || isNaN(args2)) return message.reply(`Please provide a number after command between 2 and 100 for delete the messages like ${prefix}purge 5`);
+        const fetched = await message.channel.fetchMessages({count: args2});
+        message.channel.bulkDelete(fetched).catch (error)
+            if (error) {
+                return message.reply(`Couldn't delete messages because of: ${error}`);
+        } else {
+            message.channel.send(`${args2} messages deleted by ${message.author.tag}`);
+        }
+    }
 
     if (command === "prefix") {
         if (gprefix === null) {
