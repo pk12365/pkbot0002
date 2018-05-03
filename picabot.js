@@ -482,17 +482,17 @@ bot.on("message", async(message) => {
         let args2 = args.join("").substring(command.length);
         if (!message.guild.member(bot.user).hasPermission("MANAGE_MESSAGES")) return message.channel.send(`I don't have permission to do that give me manage message permission`);
         if (!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send("Incorrect permissions (You need the manage messages permissions to do this)");
-        if (!args2 || args2 < 2 || args2 > 100 || isNaN(args2)) return message.reply(`Please provide a number after command between 2 and 100 for delete the messages like \`\`${prefix}purge 5\`\``);
-        const fetched = await message.channel.fetchMessages({limit: args2});
+        if (!args2 || args2 < 2 || args2 > 99 || isNaN(args2)) return message.reply(`Please provide a number after command between 2 and 99 for delete the messages like \`\`${prefix}purge 5\`\``);
+        const fetched = await message.channel.fetchMessages({limit: args2 + 1});
         message.channel.bulkDelete(fetched).catch(function(error) { message.reply(`Couldn't delete messages because of: ${error}`); });
-        message.channel.send(`${args2} messages deleted by ${message.author.tag}`)
+        message.channel.send(`***${args2} messages deleted successfully by ${message.author.tag} with purge command***`).then(msg => msg.delete(2000));;
     }
 
     if (command === "prefix") {
         if (gprefix === null) {
             return message.channel.send(`Any custom prefix not found for this server plz take a command \`\`${prefix}setprefix\`\` for set the server custom prefix`)
         } else {
-            message.channel.send(`The current prefix is ${gprefix} of ${message.guild.name}`).then(msg => msg.delete(2000));;
+            message.channel.send(`The current prefix is ${gprefix} of ${message.guild.name}`);
         }
     }
 
