@@ -356,7 +356,7 @@ bot.on("message", async(message) => {
             .addField("help with donate", `[patreon](https://www.patreon.com/icw)`, inline = true)
             .setTimestamp();
         message.author.send({ embed: helpembed });
-        message.channel.send("check your dms", { replay: message }).then(sent => sent.delete({ timeout: 9999 }));
+        message.channel.send("check your dms", { replay: message }).then(sent => sent.delete(5000));
     }
 
     if (command === "say") {
@@ -485,7 +485,7 @@ bot.on("message", async(message) => {
         if (!args2 || args2 < 2 || args2 > 99 || isNaN(args2)) return message.reply(`Please provide a number after command between 2 and 99 for delete the messages like \`\`${prefix}purge 5\`\``);
         const fetched = await message.channel.fetchMessages({limit: args2 + 1});
         message.channel.bulkDelete(fetched).catch(function(error) { message.reply(`Couldn't delete messages because of: ${error}`); });
-        message.channel.send(`***${args2} messages deleted successfully by ${message.author.tag} with purge command***`).then(msg => msg.delete(2000));;
+        message.channel.send(`***${args2} messages deleted successfully by ${message.author.tag} with purge command***`).then(msg => msg.delete(3000));;
     }
 
     if (command === "prefix") {
